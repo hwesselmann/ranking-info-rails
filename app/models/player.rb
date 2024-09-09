@@ -24,9 +24,7 @@ class Player
     all_clubs_from_rankings.each do |item|
       next if last_club.eql?(item.club)
 
-      club = Club.new
-      club.name = item.club
-      club.federation = item.federation
+      club = Club.new(item.club, item.federation)
       clubs.push club
       last_club = item.club
     end
