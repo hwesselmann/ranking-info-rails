@@ -77,13 +77,15 @@ class ListingController < ApplicationController
   def gender_selected(gender)
     if gender.eql?('Junioren')
     then ' AND (dtb_id >= 10000000 AND dtb_id <= 19999999)'
-    else ' AND (dtb_id >= 20000000 AND dtb_id <= 29999999)'
+    else
+      ' AND (dtb_id >= 20000000 AND dtb_id <= 29999999)'
     end
   end
 
   def age_group_selected(age_group)
     if age_group.eql?('') then " AND age_group='overall'"
-    else " AND age_group='#{params[:age_group]}'"
+    else
+      " AND age_group='#{params[:age_group]}'"
     end
   end
 
@@ -101,20 +103,23 @@ class ListingController < ApplicationController
 
   def federation_selected(federation)
     if federation.eql?('') then ''
-    else " AND federation='#{federation}'"
+    else
+      " AND federation='#{federation}'"
     end
   end
 
   def club_selected(club)
     if club.eql?('') then ''
-    else " AND LOWER(club) LIKE LOWER('%#{club}%')"
+    else
+      " AND LOWER(club) LIKE LOWER('%#{club}%')"
     end
   end
 
   def year_end_rankings(year_end, quarter)
     if year_end.eql?('1') && first_quarter?(quarter)
     then ' AND year_end_ranking=true'
-    else ' AND year_end_ranking=false'
+    else
+      ' AND year_end_ranking=false'
     end
   end
 
