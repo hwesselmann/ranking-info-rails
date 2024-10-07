@@ -1,4 +1,4 @@
-FROM ruby:3.0.4-slim-bullseye AS assets
+FROM ruby:3.3.5-slim-bullseye AS assets
 LABEL maintainer="Hauke Wesselmann <hauke@h-dawg.de>"
 
 WORKDIR /app
@@ -40,7 +40,7 @@ CMD ["bash"]
 
 ###############################################################################
 
-FROM ruby:3.0.4-slim-bullseye AS app
+FROM ruby:3.3.5-slim-bullseye AS app
 LABEL maintainer="Hauke Wesselmann <hauke@h-dawg.de>"
 
 WORKDIR /app

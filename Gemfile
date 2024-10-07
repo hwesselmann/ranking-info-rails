@@ -1,16 +1,17 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.4'
+ruby '3.3.5'
 
 gem 'bcrypt', '3.1.13'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'chartkick'
-gem 'jbuilder', '~> 2.7'
-gem 'puma', '~> 4.3'
-gem 'rails', '~> 7.0.2.3', '>= 7.0.2.3'
+gem 'csv', '>= 3.3.0'
+gem 'jbuilder', '>= 2.7'
+gem 'puma', '~> 6.4.3'
+gem 'rails', '7.2.1'
 gem 'sass-rails', '>= 6'
-gem 'webpacker', '~> 4.0'
+gem 'webpacker', '>= 4.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -31,11 +32,11 @@ group :test do
   gem 'capybara', '>= 2.15'
   gem 'guard'
   gem 'guard-minitest'
-  gem 'minitest', '5.15.0'
+  gem 'minitest', '5.25.1'
   gem 'minitest-reporters'
   gem 'rails-controller-testing'
   gem 'selenium-webdriver'
-  gem 'simplecov', '0.17.1', require: false
+  gem 'simplecov', '0.21.2', require: false
   gem 'webdrivers'
 end
 

@@ -5,4 +5,9 @@
 #
 class Club
   attr_accessor :name, :federation
+
+  def initialize(club, federation)
+    @name = club
+    @federation = federation
+  end
 end
