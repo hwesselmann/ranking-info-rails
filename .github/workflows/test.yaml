@@ -28,7 +28,7 @@ jobs:
     
     - name: Install build dependencies
       run: |
-        gem install bundler:2.1.4
+        gem install bundler:2.5.21
         curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
         echo 'deb https://dl.yarnpkg.com/debian/ stable main' | sudo tee /etc/apt/sources.list.d/yarn.list 
         sudo apt-get update
@@ -45,7 +45,7 @@ jobs:
         yarn install --check-files
 
     - name: Test & publish code coverage
-      uses: paambaati/codeclimate-action@v2.5.7
+      uses: paambaati/codeclimate-action@v9.0.0
       env:
         CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
         RAILS_ENV: test
