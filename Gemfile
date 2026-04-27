@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.3.5'
+ruby '4.0.3'
 
 gem 'bcrypt', '3.1.13'
 gem 'bootsnap', '>= 1.4.2', require: false
@@ -9,20 +9,18 @@ gem 'chartkick'
 gem 'csv', '>= 3.3.0'
 gem 'jbuilder', '>= 2.7'
 gem 'puma', '~> 6.4.3'
-gem 'rails', '7.2.1'
-gem 'sass-rails', '>= 6'
-gem 'webpacker', '>= 4.0'
+gem 'rails', '~> 8.0'
+gem 'cssbundling-rails'
+gem 'jsbundling-rails'
+gem 'propshaft'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'sqlite3', '~> 1.4'
+  gem 'sqlite3', '~> 2.0'
 end
 
 group :development do
-  gem 'listen'
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'
   gem 'solargraph'
   gem 'rubocop'
@@ -32,12 +30,11 @@ group :test do
   gem 'capybara', '>= 2.15'
   gem 'guard'
   gem 'guard-minitest'
-  gem 'minitest', '5.25.1'
+  gem 'minitest'
   gem 'minitest-reporters'
   gem 'rails-controller-testing'
   gem 'selenium-webdriver'
   gem 'simplecov', '0.21.2', require: false
-  gem 'webdrivers'
 end
 
 group :production do

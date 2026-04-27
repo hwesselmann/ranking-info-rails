@@ -1,18 +1,19 @@
-FROM ruby:3.3.5-slim-bullseye AS assets
+FROM ruby:4.0.3-slim-bookworm AS assets
 LABEL maintainer="Hauke Wesselmann <hauke@h-dawg.de>"
 
 WORKDIR /app
 
 RUN bash -c "set -o pipefail && apt-get update \
+  && apt-get upgrade -y \
   && apt-get install -y --no-install-recommends build-essential curl git libpq-dev \
-  && curl -sSL https://deb.nodesource.com/setup_16.x | bash - \
+  && curl -sSL https://deb.nodesource.com/setup_22.x | bash - \
   && curl -sSL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
   && echo 'deb https://dl.yarnpkg.com/debian/ stable main' | tee /etc/apt/sources.list.d/yarn.list \
   && apt-get update && apt-get install -y --no-install-recommends nodejs yarn \
   && rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man \
   && apt-get clean \
   && useradd --create-home ruby \
-  && mkdir /node_modules && chown ruby:ruby -R /node_modules /app"
+  && chown ruby:ruby -R /app"
 
 USER ruby
 
@@ -21,14 +22,14 @@ RUN bundle config --global frozen true \
  && bundle config --local without development:test \
  && bundle install --jobs=4
 
-COPY --chown=ruby:ruby package.json *yarn* ./
+COPY --chown=ruby:ruby package.json yarn.lock ./
 RUN yarn install
 
 ARG RAILS_ENV="production"
 ARG NODE_ENV="production"
 ENV RAILS_ENV="${RAILS_ENV}" \
     NODE_ENV="${NODE_ENV}" \
-    PATH="${PATH}:/home/ruby/.local/bin:/node_modules/.bin" \
+    PATH="${PATH}:/home/ruby/.local/bin" \
     USER="ruby"
 
 COPY --chown=ruby:ruby . .
@@ -40,12 +41,13 @@ CMD ["bash"]
 
 ###############################################################################
 
-FROM ruby:3.3.5-slim-bullseye AS app
+FROM ruby:4.0.3-slim-bookworm AS app
 LABEL maintainer="Hauke Wesselmann <hauke@h-dawg.de>"
 
 WORKDIR /app
 
 RUN apt-get update \
+  && apt-get upgrade -y \
   && apt-get install -y --no-install-recommends build-essential curl libpq-dev \
   && rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man \
   && apt-get clean \
@@ -66,9 +68,7 @@ COPY --chown=ruby:ruby --from=assets /usr/local/bundle /usr/local/bundle
 COPY --chown=ruby:ruby --from=assets /app/public /app/public
 COPY --chown=ruby:ruby . .
 
-#ENTRYPOINT ["/app/docker-entrypoint-web"]
-
-RUN chmod 777 public/uploads
+RUN mkdir -p public/uploads && chmod 777 public/uploads
 
 ENV SECRET_KEY_BASE rankingInfo
 
