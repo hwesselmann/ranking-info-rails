@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(yarn info *)",
+      "Bash(RBENV_VERSION=4.0.3 bundle install)"
+    ]
+  }
+}

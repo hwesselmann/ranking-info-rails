@@ -1,2 +1,10 @@
-@import "~bulma";
-@import "./_custom";
+@use "@fortawesome/fontawesome-free/scss/fontawesome" with ($fa-font-path: "/assets");
+@use "@fortawesome/fontawesome-free/scss/solid";
+@use "@fortawesome/fontawesome-free/scss/regular";
+@use "@fortawesome/fontawesome-free/scss/brands";
+
+@use "bulma/bulma";
+
+@use "cookies-eu-banner";
+
+@use "custom";
