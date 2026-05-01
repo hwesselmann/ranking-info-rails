@@ -1,6 +1,6 @@
 # ranking-info  
 
-![Main](https://github.com/hwesselmann/ranking-info/workflows/Test/badge.svg) [![Test Coverage](https://api.codeclimate.com/v1/badges/bdc191d3fb1a692f0603/test_coverage)](https://codeclimate.com/github/hwesselmann/ranking-info/test_coverage) [![Maintainability](https://api.codeclimate.com/v1/badges/bdc191d3fb1a692f0603/maintainability)](https://codeclimate.com/github/hwesselmann/ranking-info/maintainability)
+![Main](https://github.com/hwesselmann/ranking-info/workflows/Test/badge.svg)
 
 This is a small web-application aiming at providing accessible information on the German national tennis youth rankings.
 
@@ -15,10 +15,6 @@ This application is developed using
 * PostgreSQL (for production)
 * Bundler (Ruby gem management)
 * Yarn (JavaScript package management)
-
-<a href="https://bulma.io">
-  <img src="https://bulma.io/images/made-with-bulma.png" alt="Made with Bulma" width="128" height="24">
-</a>
 
 ## Setup  
 
