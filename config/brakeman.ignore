@@ -1,0 +1,28 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "908c0cbdbbd5251489f78237ebc3f01d55d231e1c1ad3cc8b45f0bad28cb8938",
+      "check_name": "FileAccess",
+      "message": "Parameter value used in file name",
+      "file": "app/controllers/import_controller.rb",
+      "line": 31,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "File.open(Rails.root.join(\"public\", \"uploads\", File.basename(params[:file].original_filename)), \"wb\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ImportController",
+        "method": "import"
+      },
+      "user_input": "params[:file].original_filename",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": ""
+    }
+  ],
+  "brakeman_version": "8.0.4"
+}
