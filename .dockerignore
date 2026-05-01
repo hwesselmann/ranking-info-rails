@@ -1,32 +1,55 @@
-README.md
-db/*.sqlite3
-.byebug_history
-.codeclimate.yml
-.dockerignore
-.env.example
-.env*
-.eslintignore
-.eslintrc.js
-.foreman
+# Version control
 .git
 .github
 .gitignore
+
+# Environment and secrets
+.env*
+
+# Dependencies (installed during build)
+node_modules
+app/assets/builds/
+app/assets/webfonts/
+
+# Compiled output (built fresh during docker build)
+public/assets/*
+
+# Test and development tooling
+test/
+coverage/
+Guardfile
 .rspec
 .rubocop.yml
-.vscode
+.byebug_history
+.eslintignore
+.eslintrc.js
 .yarnclean
-coverage
-docker-compose.*
-Dockerfile
-Guardfile
+yarn-error.log
+
+# Editor and IDE
+.editorconfig
+.idea
+.vscode
+.ruby-lsp/
+.claude
+
+# Runtime directories (created by the app)
+storage/
 log/*
-node_modules
-Procfile*
-public/assets/*
-public/packs-test
-public/packs/*
 tmp/*
 !tmp/pids/
 !tmp/pids/.keep
-yarn-error.log
-.idea
+
+# Local databases
+db/*.sqlite3
+
+# Docker files themselves
+Dockerfile
+docker-compose.*
+
+# Docs and local config
+README.md
+LICENSE
+.foreman
+.nvmrc
+Procfile*
