@@ -51,3 +51,6 @@ coverage
 
 # folders from java rewrite project
 target/
+
+# claude config files
+.claude/
