@@ -2,7 +2,6 @@ import Rails from "@rails/ujs"
 import * as ActiveStorage from "@rails/activestorage"
 import Chartkick from "chartkick"
 import Highcharts from "highcharts"
-import "./custom/cookie-banner"
 
 Rails.start()
 ActiveStorage.start()
