@@ -82,3 +82,21 @@ jobs:
 
     - name: Run bundler-audit
       run: bundle audit check
+
+  yarn-audit:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+        cache: 'yarn'
+
+    - name: Install yarn dependencies
+      run: yarn install
+
+    - name: Run yarn audit
+      run: yarn audit
