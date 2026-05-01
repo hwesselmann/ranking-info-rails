@@ -14,11 +14,10 @@
     "@rails/ujs": "^6.1.5",
     "bulma": "^1.0.4",
     "chartkick": "^4.0.5",
-    "cookies-eu-banner": "^2.0.1",
     "highcharts": "^10.0.0"
   },
   "devDependencies": {
-    "esbuild": "^0.21.0",
+    "esbuild": "^0.25.0",
     "sass": "^1.77.0"
   }
 }
