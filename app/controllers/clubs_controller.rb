@@ -19,8 +19,7 @@ class ClubsController < ApplicationController
 
   def show
     quarter = current_quarter
-    players = Ranking.where("date='#{quarter}' AND age_group='overall'
-                          AND LOWER(club)=LOWER('#{params[:id]}')")
+    players = Ranking.where("date=? AND age_group='overall' AND LOWER(club)=LOWER(?)", quarter, params[:id])
                      .order(:lastname)
     player_ranking = fill_club_info(players, quarter)
     @players = player_ranking
@@ -38,15 +37,13 @@ class ClubsController < ApplicationController
 
   def find_all_clubs(quarter, club)
     Ranking.select(:club)
-           .where("date='#{quarter}' AND LOWER(club) LIKE LOWER('%#{club}%')")
+           .where("date=? AND LOWER(club) LIKE LOWER(?)", quarter, "%#{club}%")
            .order(:club)
            .distinct
   end
 
   def count_players_for_club(quarter, club)
-    Ranking.select(:dtb_id)
-           .where("date='#{quarter}' AND age_group='overall' AND club='#{club}'")
-           .count
+    Ranking.where(date: quarter, age_group: 'overall', club: club).count
   end
 
   def fill_club_info(players, quarter)

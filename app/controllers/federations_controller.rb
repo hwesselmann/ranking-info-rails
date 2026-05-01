@@ -46,12 +46,12 @@ class FederationsController < ApplicationController
     dtb_id = if gender.eql?('m') then 10_000_000
              else 20_000_000
              end
-    sql = "SELECT COUNT(dtb_id) AS count, federation, age_group FROM rankings
-           WHERE date='#{quarter}' AND dtb_id >= #{dtb_id}
-           AND dtb_id < #{dtb_id + 10_000_000}
-           AND yob_ranking=false AND age_group_ranking=true
-           AND year_end_ranking=false
-           GROUP BY federation, age_group;"
-    Ranking.find_by_sql(sql)
+    Ranking.find_by_sql([
+      "SELECT COUNT(dtb_id) AS count, federation, age_group FROM rankings
+       WHERE date=? AND dtb_id >= ? AND dtb_id < ?
+       AND yob_ranking=false AND age_group_ranking=true AND year_end_ranking=false
+       GROUP BY federation, age_group;",
+      quarter, dtb_id, dtb_id + 10_000_000
+    ])
   end
 end
