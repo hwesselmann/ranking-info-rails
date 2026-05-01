@@ -8,8 +8,11 @@ on:
       - '**'
 
 jobs:
-  vm-job:
+  test:
     runs-on: ubuntu-latest
+
+    env:
+      RAILS_ENV: test
 
     steps:
     - uses: actions/checkout@v4
@@ -32,12 +35,50 @@ jobs:
     - name: Install yarn dependencies
       run: yarn install
 
-    - name: Test & publish code coverage
-      uses: paambaati/codeclimate-action@v9.0.0
-      env:
-        CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
-        RAILS_ENV: test
+    - name: Build assets
+      run: bundle exec rails assets:precompile
+
+    - name: Set up database
+      run: bundle exec rails db:schema:load
+
+    - name: Run tests
+      run: bundle exec rails test
+
+  brakeman:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
       with:
-        coverageCommand: bundle exec rails test
-        coverageLocations:
-          "${{github.workspace}}/coverage/.resultset.json"
+        ruby-version: .ruby-version
+        bundler-cache: true
+
+    - name: Install Brakeman
+      run: gem install brakeman
+
+    - name: Run Brakeman
+      run: brakeman --no-pager -q
+
+  bundler-audit:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: .ruby-version
+        bundler-cache: true
+
+    - name: Install bundler-audit
+      run: gem install bundler-audit
+
+    - name: Update advisory database
+      run: bundle audit update
+
+    - name: Run bundler-audit
+      run: bundle audit check
