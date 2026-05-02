@@ -47,7 +47,7 @@ class PlayersController < ApplicationController
     @data_diagram_complete = data_diagram_complete(@player.dtb_id)[0]
     @score_diagram_complete = data_diagram_complete(@player.dtb_id)[1]
   rescue StandardError
-    redirect_to players_path, flash: { danger: 'Spieler nicht gefunden' } 
+    redirect_to players_path, flash: { danger: 'Spieler nicht gefunden' }
   end
 
   def fill_up_dtb_id(dtb_id_part)

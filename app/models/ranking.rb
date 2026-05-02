@@ -78,7 +78,7 @@ class Ranking < ApplicationRecord
 
   private_class_method def self.save_ranking(entry, period, age_group)
     Ranking.create(
-      dtb_id: entry[4].split(' ').first.to_i,
+      dtb_id: entry[4].split.first.to_i,
       age_group: age_group,
       date: period,
       ranking_position: entry[0].to_i,
@@ -90,7 +90,7 @@ class Ranking < ApplicationRecord
       yob_ranking: false,
       year_end_ranking: false,
       club: entry[5],
-      federation: entry[4].split(' ').last
+      federation: entry[4].split.last
     )
   end
 
@@ -131,10 +131,10 @@ class Ranking < ApplicationRecord
   end
 
   private_class_method def self.rankings_for_age_range_in_period(classes_to_retrieve, period, age_group,
-                                                                  is_yob_ranking, is_age_group_ranking,
-                                                                  year_end_ranking)
+                                                                 is_yob_ranking, is_age_group_ranking,
+                                                                 year_end_ranking)
     id_start = classes_to_retrieve.first * 100_000
-    id_end   = classes_to_retrieve.last  * 100_000 + 99_999
+    id_end   = (classes_to_retrieve.last * 100_000) + 99_999
     rankings_from_db = load_ranking_for_age_range(id_start, id_end, period)
 
     last_rank = 0
@@ -168,9 +168,7 @@ class Ranking < ApplicationRecord
       }
 
       # foreign players and players with PR/Einst. score do not advance the position counter
-      if curr.nationality == 'GER' && !%w[0,0 PR Einst.].include?(curr.score)
-        count_up += 1
-      end
+      count_up += 1 if curr.nationality == 'GER' && !%w[0,0 PR Einst.].include?(curr.score)
     end
 
     Ranking.insert_all(records) if records.any?

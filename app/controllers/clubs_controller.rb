@@ -37,7 +37,7 @@ class ClubsController < ApplicationController
 
   def find_all_clubs(quarter, club)
     Ranking.select(:club)
-           .where("date=? AND LOWER(club) LIKE LOWER(?)", quarter, "%#{club}%")
+           .where('date=? AND LOWER(club) LIKE LOWER(?)', quarter, "%#{club}%")
            .order(:club)
            .distinct
   end

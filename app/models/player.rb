@@ -47,7 +47,7 @@ class Player
 
   def self.find_players_by_lastname(lastname)
     players_to_filter = Ranking.select(:dtb_id, :lastname, :firstname, :club, :federation, :nationality, :date)
-                               .where("LOWER(lastname) LIKE LOWER(?)", "%#{lastname}%")
+                               .where('LOWER(lastname) LIKE LOWER(?)', "%#{lastname}%")
                                .order(:lastname, :dtb_id, date: :desc)
                                .distinct
     players = []
@@ -64,10 +64,10 @@ class Player
   def self.find_players_by_lastname_and_yob(lastname, yob_male, yob_female)
     players_to_filter = Ranking.select(:dtb_id, :lastname, :firstname, :federation, :club, :nationality)
                                .where(
-                                 "LOWER(lastname) LIKE LOWER(?) AND ((dtb_id >= ? AND dtb_id <= ?) OR (dtb_id >= ? AND dtb_id <= ?))",
+                                 'LOWER(lastname) LIKE LOWER(?) AND ((dtb_id >= ? AND dtb_id <= ?) OR (dtb_id >= ? AND dtb_id <= ?))',
                                  "%#{lastname}%",
-                                 yob_male * 100_000, yob_male * 100_000 + 99_999,
-                                 yob_female * 100_000, yob_female * 100_000 + 99_999
+                                 yob_male * 100_000, (yob_male * 100_000) + 99_999,
+                                 yob_female * 100_000, (yob_female * 100_000) + 99_999
                                )
                                .order(:lastname, :dtb_id, date: :desc)
                                .distinct
@@ -84,7 +84,7 @@ class Player
 
   def self.find_players_by_dtb_id(dtb_id_start, dtb_id_end)
     players_to_filter = Ranking.select(:dtb_id, :lastname, :firstname, :federation, :club, :nationality)
-                               .where("dtb_id >= ? AND dtb_id <= ?", dtb_id_start, dtb_id_end)
+                               .where('dtb_id >= ? AND dtb_id <= ?', dtb_id_start, dtb_id_end)
                                .order(:lastname, :dtb_id, date: :desc)
                                .distinct
     players = []
@@ -97,13 +97,13 @@ class Player
     end
     players
   end
-  
+
   def self.find_players_by_yob(yob_male, yob_female)
     players_to_filter = Ranking.select(:dtb_id, :lastname, :firstname, :federation, :club, :nationality)
                                .where(
-                                 "(dtb_id >= ? AND dtb_id <= ?) OR (dtb_id >= ? AND dtb_id <= ?)",
-                                 yob_male * 100_000, yob_male * 100_000 + 99_999,
-                                 yob_female * 100_000, yob_female * 100_000 + 99_999
+                                 '(dtb_id >= ? AND dtb_id <= ?) OR (dtb_id >= ? AND dtb_id <= ?)',
+                                 yob_male * 100_000, (yob_male * 100_000) + 99_999,
+                                 yob_female * 100_000, (yob_female * 100_000) + 99_999
                                )
                                .order(:lastname, :dtb_id, date: :desc)
                                .distinct
@@ -118,6 +118,6 @@ class Player
     players
   end
 
-  attr_accessor :dtb_id, :current_ranking, :current_score, :lastname, :firstname
-  attr_accessor :federation, :club, :nationality, :clubs, :rankings
+  attr_accessor :dtb_id, :current_ranking, :current_score, :lastname, :firstname, :federation, :club, :nationality,
+                :clubs, :rankings
 end

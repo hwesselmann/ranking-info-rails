@@ -72,7 +72,7 @@ class ListingController < ApplicationController
   end
 
   def age_group_selected(age_group)
-    ["age_group = ?", age_group.presence || 'overall']
+    ['age_group = ?', age_group.presence || 'overall']
   end
 
   def age_group_options(age_group, age_group_options)
@@ -90,13 +90,13 @@ class ListingController < ApplicationController
   def federation_selected(federation)
     return nil if federation.eql?('')
 
-    ["federation = ?", federation]
+    ['federation = ?', federation]
   end
 
   def club_selected(club)
     return nil if club.eql?('')
 
-    ["LOWER(club) LIKE LOWER(?)", "%#{club}%"]
+    ['LOWER(club) LIKE LOWER(?)', "%#{club}%"]
   end
 
   def year_end_rankings(year_end, quarter)

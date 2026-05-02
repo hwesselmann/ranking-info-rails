@@ -47,11 +47,11 @@ class FederationsController < ApplicationController
              else 20_000_000
              end
     Ranking.find_by_sql([
-      "SELECT COUNT(dtb_id) AS count, federation, age_group FROM rankings
+                          "SELECT COUNT(dtb_id) AS count, federation, age_group FROM rankings
        WHERE date=? AND dtb_id >= ? AND dtb_id < ?
        AND yob_ranking=false AND age_group_ranking=true AND year_end_ranking=false
        GROUP BY federation, age_group;",
-      quarter, dtb_id, dtb_id + 10_000_000
-    ])
+                          quarter, dtb_id, dtb_id + 10_000_000
+                        ])
   end
 end
