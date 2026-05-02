@@ -5,10 +5,15 @@ require 'test_helper'
 class RankingTest < ActiveSupport::TestCase
   test 'period extraction from filename' do
     sut = Ranking.extract_period_from_filename('Junioren_20180331.csv')
-    assert_equal(Time.new('2018', '3', '31'), sut)
+    assert_equal(Date.new(2018, 3, 31), sut)
 
     sut = Ranking.extract_period_from_filename('Junioren_20121231.csv')
-    assert_equal(Time.new('2012', '12', '31'), sut)
+    assert_equal(Date.new(2012, 12, 31), sut)
+  end
+
+  test 'period extraction works for Herren and Damen filenames' do
+    assert_equal(Date.new(2018, 4, 1), Ranking.extract_period_from_filename('Herren_20180401.csv'))
+    assert_equal(Date.new(2018, 4, 1), Ranking.extract_period_from_filename('Damen_20180401.csv'))
   end
 
   test 'throw exception for invalid period extraction' do
@@ -20,7 +25,7 @@ class RankingTest < ActiveSupport::TestCase
   end
 
   test 'calculation of yob to fetch from db' do
-    date = Time.new('2019', '03', '31')
+    date = Date.new(2019, 3, 31)
     sut = Ranking.yob_range_to_fetch('2008', 11, date, 100)
     assert_equal(108, sut.fetch(0))
     assert_equal(1, sut.size)
@@ -41,12 +46,50 @@ class RankingTest < ActiveSupport::TestCase
     assert_equal(6, sut.size)
   end
 
-  test 'full ranking_file_import' do
+  test 'full ranking_file_import for youth' do
     assert(File.exist?('./test/fixtures/files/Junioren_20180401.csv'))
     assert(File.exist?('./test/fixtures/files/Juniorinnen_20180401.csv'))
     assert_equal(4, Ranking.count)
     Ranking.import_rankings('./test/fixtures/files/Junioren_20180401.csv')
     Ranking.import_rankings('./test/fixtures/files/Juniorinnen_20180401.csv')
     assert_equal(292, Ranking.count)
+  end
+
+  test 'Herren import stores records with age_group m00 and correct positions' do
+    assert(File.exist?('./test/fixtures/files/Herren_20180401.csv'))
+    count_before = Ranking.count
+
+    Ranking.import_rankings('./test/fixtures/files/Herren_20180401.csv')
+
+    herren = Ranking.where(age_group: 'm00', date: Date.new(2018, 4, 1))
+    assert_equal(10, herren.count)
+    assert_equal(count_before + 10, Ranking.count)
+
+    # positions are taken directly from the file, no recalculation
+    assert_equal(1, herren.find_by(lastname: 'Mueller').ranking_position)
+    assert_equal(5, herren.find_by(lastname: 'Weber').ranking_position)
+    assert_equal(10, herren.find_by(lastname: 'Koch').ranking_position)
+
+    # no derived youth rankings must have been created
+    assert_equal(0, Ranking.where(age_group: 'U12', date: Date.new(2018, 4, 1)).count)
+  end
+
+  test 'Damen import stores records with age_group w00 and correct positions' do
+    assert(File.exist?('./test/fixtures/files/Damen_20180401.csv'))
+    count_before = Ranking.count
+
+    Ranking.import_rankings('./test/fixtures/files/Damen_20180401.csv')
+
+    damen = Ranking.where(age_group: 'w00', date: Date.new(2018, 4, 1))
+    assert_equal(10, damen.count)
+    assert_equal(count_before + 10, Ranking.count)
+
+    # positions are taken directly from the file, no recalculation
+    assert_equal(1, damen.find_by(lastname: 'Meyer').ranking_position)
+    assert_equal(5, damen.find_by(lastname: 'Klein').ranking_position)
+    assert_equal(10, damen.find_by(lastname: 'Braun').ranking_position)
+
+    # no derived youth rankings must have been created
+    assert_equal(0, Ranking.where(age_group: 'U12', date: Date.new(2018, 4, 1)).count)
   end
 end

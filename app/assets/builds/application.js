@@ -671,9 +671,9 @@
               delegate(document, Rails2.formSubmitSelector, "submit", handleConfirm);
               delegate(document, Rails2.formSubmitSelector, "submit", handleRemote);
               delegate(document, Rails2.formSubmitSelector, "submit", function(e) {
-                return setTimeout(function() {
+                return setTimeout((function() {
                   return disableElement(e);
-                }, 13);
+                }), 13);
               });
               delegate(document, Rails2.formSubmitSelector, "ajax:send", disableElement);
               delegate(document, Rails2.formSubmitSelector, "ajax:complete", enableElement);
@@ -1123,7 +1123,7 @@
             throw new TypeError("Cannot call a class as a function");
           }
         };
-        var createClass = /* @__PURE__ */ function() {
+        var createClass = /* @__PURE__ */ (function() {
           function defineProperties(target, props) {
             for (var i = 0; i < props.length; i++) {
               var descriptor = props[i];
@@ -1138,9 +1138,9 @@
             if (staticProps) defineProperties(Constructor, staticProps);
             return Constructor;
           };
-        }();
+        })();
         var fileSlice = File.prototype.slice || File.prototype.mozSlice || File.prototype.webkitSlice;
-        var FileChecksum = function() {
+        var FileChecksum = (function() {
           createClass(FileChecksum2, null, [{
             key: "create",
             value: function create(file, callback) {
@@ -1201,7 +1201,7 @@
             }
           }]);
           return FileChecksum2;
-        }();
+        })();
         function getMetaValue(name) {
           var element = findElement(document.head, 'meta[name="' + name + '"]');
           if (element) {
@@ -1247,7 +1247,7 @@
             return [].slice.call(value);
           }
         }
-        var BlobRecord = function() {
+        var BlobRecord = (function() {
           function BlobRecord2(file, checksum, url) {
             var _this = this;
             classCallCheck(this, BlobRecord2);
@@ -1328,8 +1328,8 @@
             }
           }]);
           return BlobRecord2;
-        }();
-        var BlobUpload = function() {
+        })();
+        var BlobUpload = (function() {
           function BlobUpload2(blob) {
             var _this = this;
             classCallCheck(this, BlobUpload2);
@@ -1372,9 +1372,9 @@
             }
           }]);
           return BlobUpload2;
-        }();
+        })();
         var id = 0;
-        var DirectUpload = function() {
+        var DirectUpload = (function() {
           function DirectUpload2(file, url, delegate) {
             classCallCheck(this, DirectUpload2);
             this.id = ++id;
@@ -1412,7 +1412,7 @@
             }
           }]);
           return DirectUpload2;
-        }();
+        })();
         function notify(object, methodName) {
           if (object && typeof object[methodName] == "function") {
             for (var _len = arguments.length, messages = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
@@ -1421,7 +1421,7 @@
             return object[methodName].apply(object, messages);
           }
         }
-        var DirectUploadController = function() {
+        var DirectUploadController = (function() {
           function DirectUploadController2(input, file) {
             classCallCheck(this, DirectUploadController2);
             this.input = input;
@@ -1504,9 +1504,9 @@
             }
           }]);
           return DirectUploadController2;
-        }();
+        })();
         var inputSelector = "input[type=file][data-direct-upload-url]:not([disabled])";
-        var DirectUploadsController = function() {
+        var DirectUploadsController = (function() {
           function DirectUploadsController2(form) {
             classCallCheck(this, DirectUploadsController2);
             this.form = form;
@@ -1560,7 +1560,7 @@
             }
           }]);
           return DirectUploadsController2;
-        }();
+        })();
         var processingAttribute = "data-direct-uploads-processing";
         var submitButtonsByForm = /* @__PURE__ */ new WeakMap();
         var started = false;
@@ -1652,7 +1652,7 @@
     "node_modules/chartkick/dist/chartkick.js"(exports, module) {
       (function(global, factory) {
         typeof exports === "object" && typeof module !== "undefined" ? module.exports = factory() : typeof define === "function" && define.amd ? define(factory) : (global = typeof globalThis !== "undefined" ? globalThis : global || self, global.Chartkick = factory());
-      })(exports, function() {
+      })(exports, (function() {
         "use strict";
         function isArray(variable) {
           return Object.prototype.toString.call(variable) === "[object Array]";
@@ -3544,7 +3544,7 @@
         Chart.prototype.__config = function __config() {
           return config;
         };
-        var LineChart = /* @__PURE__ */ function(Chart2) {
+        var LineChart = /* @__PURE__ */ (function(Chart2) {
           function LineChart2() {
             Chart2.apply(this, arguments);
           }
@@ -3558,8 +3558,8 @@
             return "LineChart";
           };
           return LineChart2;
-        }(Chart);
-        var PieChart = /* @__PURE__ */ function(Chart2) {
+        })(Chart);
+        var PieChart = /* @__PURE__ */ (function(Chart2) {
           function PieChart2() {
             Chart2.apply(this, arguments);
           }
@@ -3573,8 +3573,8 @@
             return "PieChart";
           };
           return PieChart2;
-        }(Chart);
-        var ColumnChart = /* @__PURE__ */ function(Chart2) {
+        })(Chart);
+        var ColumnChart = /* @__PURE__ */ (function(Chart2) {
           function ColumnChart2() {
             Chart2.apply(this, arguments);
           }
@@ -3588,8 +3588,8 @@
             return "ColumnChart";
           };
           return ColumnChart2;
-        }(Chart);
-        var BarChart = /* @__PURE__ */ function(Chart2) {
+        })(Chart);
+        var BarChart = /* @__PURE__ */ (function(Chart2) {
           function BarChart2() {
             Chart2.apply(this, arguments);
           }
@@ -3603,8 +3603,8 @@
             return "BarChart";
           };
           return BarChart2;
-        }(Chart);
-        var AreaChart = /* @__PURE__ */ function(Chart2) {
+        })(Chart);
+        var AreaChart = /* @__PURE__ */ (function(Chart2) {
           function AreaChart2() {
             Chart2.apply(this, arguments);
           }
@@ -3618,8 +3618,8 @@
             return "AreaChart";
           };
           return AreaChart2;
-        }(Chart);
-        var GeoChart = /* @__PURE__ */ function(Chart2) {
+        })(Chart);
+        var GeoChart = /* @__PURE__ */ (function(Chart2) {
           function GeoChart2() {
             Chart2.apply(this, arguments);
           }
@@ -3633,8 +3633,8 @@
             return "GeoChart";
           };
           return GeoChart2;
-        }(Chart);
-        var ScatterChart = /* @__PURE__ */ function(Chart2) {
+        })(Chart);
+        var ScatterChart = /* @__PURE__ */ (function(Chart2) {
           function ScatterChart2() {
             Chart2.apply(this, arguments);
           }
@@ -3648,8 +3648,8 @@
             return "ScatterChart";
           };
           return ScatterChart2;
-        }(Chart);
-        var BubbleChart = /* @__PURE__ */ function(Chart2) {
+        })(Chart);
+        var BubbleChart = /* @__PURE__ */ (function(Chart2) {
           function BubbleChart2() {
             Chart2.apply(this, arguments);
           }
@@ -3663,8 +3663,8 @@
             return "BubbleChart";
           };
           return BubbleChart2;
-        }(Chart);
-        var Timeline = /* @__PURE__ */ function(Chart2) {
+        })(Chart);
+        var Timeline = /* @__PURE__ */ (function(Chart2) {
           function Timeline2() {
             Chart2.apply(this, arguments);
           }
@@ -3683,7 +3683,7 @@
             return "Timeline";
           };
           return Timeline2;
-        }(Chart);
+        })(Chart);
         var Chartkick2 = {
           LineChart,
           PieChart,
@@ -3743,7 +3743,7 @@
         }
         Chartkick2.default = Chartkick2;
         return Chartkick2;
-      });
+      }));
     }
   });
 
@@ -3781,7 +3781,7 @@
             a2.marginNames = ["plotTop", "marginRight", "marginBottom", "plotLeft"];
             a2.noop = function() {
             };
-            a2.supportsPassiveEvents = function() {
+            a2.supportsPassiveEvents = (function() {
               var f2 = false;
               if (!a2.isMS) {
                 var F = Object.defineProperty({}, "passive", { get: function() {
@@ -3790,7 +3790,7 @@
                 a2.win.addEventListener && a2.win.removeEventListener && (a2.win.addEventListener("testPassive", a2.noop, F), a2.win.removeEventListener("testPassive", a2.noop, F));
               }
               return f2;
-            }();
+            })();
             a2.charts = [];
             a2.dateFormats = {};
             a2.seriesTypes = {};
@@ -3962,12 +3962,12 @@
               return Array.prototype[b2].apply(r, [].slice.call(arguments, 1));
             };
           });
-          var g, b = function() {
+          var g, b = (function() {
             var b2 = Math.random().toString(36).substring(2, 9) + "-", c2 = 0;
             return function() {
               return "highcharts-" + (g ? "" : b2) + c2++;
             };
-          }();
+          })();
           k.jQuery && (k.jQuery.fn.highcharts = function() {
             var b2 = [].slice.call(arguments);
             if (this[0]) return b2[0] ? (new a[u(b2[0]) ? b2.shift() : "Chart"](this[0], b2[0], b2[1]), this) : A[e(this[0], "data-highcharts-chart")];
@@ -4183,7 +4183,7 @@
         });
         M(f, "Core/Color/Color.js", [f["Core/Globals.js"], f["Core/Utilities.js"]], function(a, f2) {
           var F = f2.isNumber, G = f2.merge, u = f2.pInt;
-          f2 = function() {
+          f2 = (function() {
             function f3(F2) {
               this.rgba = [NaN, NaN, NaN, NaN];
               this.input = F2;
@@ -4252,7 +4252,7 @@
             } }];
             f3.None = new f3("");
             return f3;
-          }();
+          })();
           "";
           return f2;
         });
@@ -4261,7 +4261,7 @@
         });
         M(f, "Core/Time.js", [f["Core/Globals.js"], f["Core/Utilities.js"]], function(a, f2) {
           var F = a.win, G = f2.defined, u = f2.error, H = f2.extend, I = f2.isObject, B = f2.merge, z = f2.objectEach, p = f2.pad, m = f2.pick, e = f2.splat, d = f2.timeUnits, l = a.isSafari && F.Intl && F.Intl.DateTimeFormat.prototype.formatRange, h = a.isSafari && F.Intl && !F.Intl.DateTimeFormat.prototype.formatRange;
-          f2 = function() {
+          f2 = (function() {
             function t(d2) {
               this.options = {};
               this.variableTimezone = this.useUTC = false;
@@ -4415,7 +4415,7 @@
               return g;
             };
             return t;
-          }();
+          })();
           "";
           return f2;
         });
@@ -4484,7 +4484,7 @@
         });
         M(f, "Core/Animation/Fx.js", [f["Core/Color/Color.js"], f["Core/Globals.js"], f["Core/Utilities.js"]], function(a, f2, C) {
           var F = a.parse, u = f2.win, H = C.isNumber, I = C.objectEach;
-          return function() {
+          return (function() {
             function a2(a3, p, m) {
               this.pos = NaN;
               this.options = p;
@@ -4587,7 +4587,7 @@
             };
             a2.timers = [];
             return a2;
-          }();
+          })();
         });
         M(f, "Core/Animation/AnimationUtilities.js", [
           f["Core/Animation/Fx.js"],
@@ -4643,7 +4643,7 @@
           } catch (h) {
             l = false;
           }
-          B = function() {
+          B = (function() {
             function h(d2) {
               this.nodes = "string" === typeof d2 ? this.parseMarkup(d2) : d2;
             }
@@ -4741,7 +4741,7 @@
             h.emptyHTML = d;
             h.bypassHTMLFiltering = false;
             return h;
-          }();
+          })();
           "";
           return B;
         });
@@ -4844,7 +4844,7 @@
         );
         M(f, "Core/Renderer/SVG/SVGElement.js", [f["Core/Animation/AnimationUtilities.js"], f["Core/Renderer/HTML/AST.js"], f["Core/Color/Color.js"], f["Core/Globals.js"], f["Core/Utilities.js"]], function(a, f2, C, G, u) {
           var F = a.animate, I = a.animObject, B = a.stop, z = G.deg2rad, p = G.doc, m = G.noop, e = G.svg, d = G.SVG_NS, l = G.win, h = u.addEvent, t = u.attr, n = u.createElement, v = u.css, w = u.defined, y = u.erase, A = u.extend, q = u.fireEvent, k = u.isArray, c = u.isFunction, g = u.isNumber, b = u.isString, r = u.merge, x = u.objectEach, D = u.pick, K = u.pInt, P = u.syncTimeout, Q = u.uniqueKey;
-          a = function() {
+          a = (function() {
             function a2() {
               this.element = void 0;
               this.onEvents = {};
@@ -5341,7 +5341,7 @@
               return e2;
             };
             return a2;
-          }();
+          })();
           a.prototype["stroke-widthSetter"] = a.prototype.strokeSetter;
           a.prototype.yGetter = a.prototype.xGetter;
           a.prototype.matrixSetter = a.prototype.rotationOriginXSetter = a.prototype.rotationOriginYSetter = a.prototype.rotationSetter = a.prototype.scaleXSetter = a.prototype.scaleYSetter = a.prototype.translateXSetter = a.prototype.translateYSetter = a.prototype.verticalAlignSetter = function(b2, c2) {
@@ -5372,7 +5372,7 @@
           "Core/Renderer/SVG/SVGLabel.js",
           [f["Core/Renderer/SVG/SVGElement.js"], f["Core/Utilities.js"]],
           function(a, f2) {
-            var F = this && this.__extends || /* @__PURE__ */ function() {
+            var F = this && this.__extends || /* @__PURE__ */ (function() {
               var a2 = function(m, e) {
                 a2 = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d, e2) {
                   d.__proto__ = e2;
@@ -5388,8 +5388,8 @@
                 a2(m, e);
                 m.prototype = null === e ? Object.create(e) : (d.prototype = e.prototype, new d());
               };
-            }(), G = f2.defined, u = f2.extend, H = f2.isNumber, I = f2.merge, B = f2.pick, z = f2.removeEvent;
-            return function(p) {
+            })(), G = f2.defined, u = f2.extend, H = f2.isNumber, I = f2.merge, B = f2.pick, z = f2.removeEvent;
+            return (function(p) {
               function m(e, d, a2, h, t, n, v, w, y, A) {
                 var q = p.call(this) || this;
                 q.paddingLeftSetter = q.paddingSetter;
@@ -5541,7 +5541,7 @@
               m.emptyBBox = { width: 0, height: 0, x: 0, y: 0 };
               m.textProps = "color direction fontFamily fontSize fontStyle fontWeight lineHeight textAlign textDecoration textOutline textOverflow width".split(" ");
               return m;
-            }(a);
+            })(a);
           }
         );
         M(
@@ -5592,7 +5592,7 @@
         );
         M(f, "Core/Renderer/SVG/TextBuilder.js", [f["Core/Renderer/HTML/AST.js"], f["Core/Globals.js"], f["Core/Utilities.js"]], function(a, f2, C) {
           var F = f2.doc, u = f2.SVG_NS, H = f2.win, I = C.attr, B = C.extend, z = C.isString, p = C.objectEach, m = C.pick;
-          return function() {
+          return (function() {
             function e(d) {
               var a2 = d.styles;
               this.renderer = d.renderer;
@@ -5718,11 +5718,11 @@
               return d;
             };
             return e;
-          }();
+          })();
         });
         M(f, "Core/Renderer/SVG/SVGRenderer.js", [f["Core/Renderer/HTML/AST.js"], f["Core/Color/Color.js"], f["Core/Globals.js"], f["Core/Renderer/RendererRegistry.js"], f["Core/Renderer/SVG/SVGElement.js"], f["Core/Renderer/SVG/SVGLabel.js"], f["Core/Renderer/SVG/Symbols.js"], f["Core/Renderer/SVG/TextBuilder.js"], f["Core/Utilities.js"]], function(a, f2, C, G, u, H, I, B, z) {
           var p = C.charts, m = C.deg2rad, e = C.doc, d = C.isFirefox, l = C.isMS, h = C.isWebKit, t = C.noop, n = C.SVG_NS, v = C.symbolSizes, w = C.win, y = z.addEvent, A = z.attr, q = z.createElement, k = z.css, c = z.defined, g = z.destroyObjectProperties, b = z.extend, r = z.isArray, x = z.isNumber, D = z.isObject, K = z.isString, P = z.merge, Q = z.pick, O = z.pInt, F = z.uniqueKey, Z;
-          C = function() {
+          C = (function() {
             function L(b2, c2, g2, d2, a2, k2, e2) {
               this.width = this.url = this.style = this.isSVG = this.imgCount = this.height = this.gradients = this.globalAnimation = this.defs = this.chartIndex = this.cacheKeys = this.cache = this.boxWrapper = this.box = this.alignedObjects = void 0;
               this.init(b2, c2, g2, d2, a2, k2, e2);
@@ -6004,14 +6004,14 @@
               });
             };
             return L;
-          }();
+          })();
           b(C.prototype, { Element: u, SVG_NS: n, escapes: { "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }, symbols: I, draw: t });
           G.registerRendererType("svg", C, true);
           "";
           return C;
         });
         M(f, "Core/Renderer/HTML/HTMLElement.js", [f["Core/Globals.js"], f["Core/Renderer/SVG/SVGElement.js"], f["Core/Utilities.js"]], function(a, f2, C) {
-          var F = this && this.__extends || /* @__PURE__ */ function() {
+          var F = this && this.__extends || /* @__PURE__ */ (function() {
             var d2 = function(a2, e2) {
               d2 = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d3, a3) {
                 d3.__proto__ = a3;
@@ -6027,8 +6027,8 @@
               d2(a2, e2);
               a2.prototype = null === e2 ? Object.create(e2) : (n.prototype = e2.prototype, new n());
             };
-          }(), u = a.isFirefox, H = a.isMS, I = a.isWebKit, B = a.win, z = C.css, p = C.defined, m = C.extend, e = C.pick, d = C.pInt;
-          return function(a2) {
+          })(), u = a.isFirefox, H = a.isMS, I = a.isWebKit, B = a.win, z = C.css, p = C.defined, m = C.extend, e = C.pick, d = C.pInt;
+          return (function(a2) {
             function h() {
               return null !== a2 && a2.apply(this, arguments) || this;
             }
@@ -6100,14 +6100,14 @@
             };
             h.composedClasses = [];
             return h;
-          }(f2);
+          })(f2);
         });
         M(
           f,
           "Core/Renderer/HTML/HTMLRenderer.js",
           [f["Core/Renderer/HTML/AST.js"], f["Core/Renderer/SVG/SVGElement.js"], f["Core/Renderer/SVG/SVGRenderer.js"], f["Core/Utilities.js"]],
           function(a, f2, C, G) {
-            var F = this && this.__extends || /* @__PURE__ */ function() {
+            var F = this && this.__extends || /* @__PURE__ */ (function() {
               var a2 = function(f3, e) {
                 a2 = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d, a3) {
                   d.__proto__ = a3;
@@ -6123,8 +6123,8 @@
                 a2(f3, e);
                 f3.prototype = null === e ? Object.create(e) : (d.prototype = e.prototype, new d());
               };
-            }(), H = G.attr, I = G.createElement, B = G.extend, z = G.pick;
-            return function(p) {
+            })(), H = G.attr, I = G.createElement, B = G.extend, z = G.pick;
+            return (function(p) {
               function m() {
                 return null !== p && p.apply(this, arguments) || this;
               }
@@ -6183,12 +6183,12 @@
                           visibility: c.visibility
                         }, k || a2);
                         var q = k.style;
-                        B(c, { classSetter: /* @__PURE__ */ function(b2) {
+                        B(c, { classSetter: /* @__PURE__ */ (function(b2) {
                           return function(c2) {
                             this.element.setAttribute("class", c2);
                             b2.className = c2;
                           };
-                        }(k), on: function() {
+                        })(k), on: function() {
                           e2[0].div && h.on.apply({ element: e2[0].div, onEvents: c.onEvents }, arguments);
                           return c;
                         }, translateXSetter: g, translateYSetter: g });
@@ -6205,7 +6205,7 @@
               };
               m.composedClasses = [];
               return m;
-            }(C);
+            })(C);
           }
         );
         M(f, "Core/Axis/AxisDefaults.js", [], function() {
@@ -6272,7 +6272,7 @@
           [f["Core/FormatUtilities.js"], f["Core/Globals.js"], f["Core/Utilities.js"]],
           function(a, f2, C) {
             var F = f2.deg2rad, u = C.clamp, H = C.correctFloat, I = C.defined, B = C.destroyObjectProperties, z = C.extend, p = C.fireEvent, m = C.isNumber, e = C.merge, d = C.objectEach, l = C.pick;
-            f2 = function() {
+            f2 = (function() {
               function h(d2, a2, e2, h2, f3) {
                 this.isNewLabel = this.isNew = true;
                 this.axis = d2;
@@ -6436,7 +6436,7 @@
                 delete this.movedLabel;
               };
               return h;
-            }();
+            })();
             "";
             return f2;
           }
@@ -6452,7 +6452,7 @@
           f["Core/Utilities.js"]
         ], function(a, f2, C, G, u, H, I, B) {
           var z = a.animObject, p = G.defaultOptions, m = u.registerEventOptions, e = H.deg2rad, d = B.arrayMax, l = B.arrayMin, h = B.clamp, t = B.correctFloat, n = B.defined, v = B.destroyObjectProperties, w = B.erase, y = B.error, A = B.extend, q = B.fireEvent, k = B.getMagnitude, c = B.isArray, g = B.isNumber, b = B.isString, r = B.merge, x = B.normalizeTickInterval, D = B.objectEach, K = B.pick, P = B.relativeLength, Q = B.removeEvent, O = B.splat, W = B.syncTimeout;
-          a = function() {
+          a = (function() {
             function a2(b2, c2) {
               this.zoomEnabled = this.width = this.visible = this.userOptions = this.translationSlope = this.transB = this.transA = this.top = this.ticks = this.tickRotCorr = this.tickPositions = this.tickmarkOffset = this.tickInterval = this.tickAmount = this.side = this.series = this.right = this.positiveValuesOnly = this.pos = this.pointRangePadding = this.pointRange = this.plotLinesAndBandsGroups = this.plotLinesAndBands = this.paddedTicks = this.overlap = this.options = this.offset = this.names = this.minPixelPadding = this.minorTicks = this.minorTickInterval = this.min = this.maxLabelLength = this.max = this.len = this.left = this.labelFormatter = this.labelEdge = this.isLinked = this.height = this.hasVisibleSeries = this.hasNames = this.eventOptions = this.coll = this.closestPointRange = this.chart = this.bottom = this.alternateBands = void 0;
               this.init(b2, c2);
@@ -7225,7 +7225,7 @@
             a2.defaultOptions = f2.defaultXAxisOptions;
             a2.keepProps = "extKey hcEvents names series userMax userMin".split(" ");
             return a2;
-          }();
+          })();
           "";
           return a;
         });
@@ -7243,7 +7243,7 @@
               -1 === p.indexOf(a3) && (p.push(a3), a3.keepProps.push("dateTime"), a3.prototype.getTimeTicks = B, f2(a3, "init", z));
               return a3;
             };
-            var m = function() {
+            var m = (function() {
               function a3(a4) {
                 this.axis = a4;
               }
@@ -7270,7 +7270,7 @@
                 return d.closestPointRange ? d.chart.time.getDateFormat(d.closestPointRange, a4, d.options.startOfWeek, e) || e.year : e.day;
               };
               return a3;
-            }();
+            })();
             a2.Additions = m;
           })(H || (H = {}));
           return H;
@@ -7295,7 +7295,7 @@
               -1 === p.indexOf(a3) && (p.push(a3), a3.keepProps.push("logarithmic"), f2(a3, "init", B), f2(a3, "afterInit", z));
               return a3;
             };
-            var m = function() {
+            var m = (function() {
               function a3(a4) {
                 this.axis = a4;
               }
@@ -7325,7 +7325,7 @@
                 return Math.log(a4) / Math.LN10;
               };
               return a3;
-            }();
+            })();
             a2.Additions = m;
           })(H || (H = {}));
           return H;
@@ -7339,7 +7339,7 @@
               -1 === u2.indexOf(f3) && (u2.push(f3), C(f3.prototype, z.prototype));
               return f3;
             };
-            var z = function() {
+            var z = (function() {
               function a3() {
               }
               a3.prototype.getPlotBandPath = function(a4, e, d) {
@@ -7399,7 +7399,7 @@
                 this.removePlotBandOrLine(a4);
               };
               return a3;
-            }();
+            })();
           })(u || (u = {}));
           return u;
         });
@@ -7409,7 +7409,7 @@
           [f["Core/Axis/PlotLineOrBand/PlotLineOrBandAxis.js"], f["Core/Utilities.js"]],
           function(a, f2) {
             var F = f2.arrayMax, G = f2.arrayMin, u = f2.defined, H = f2.destroyObjectProperties, I = f2.erase, B = f2.fireEvent, z = f2.merge, p = f2.objectEach, m = f2.pick;
-            f2 = function() {
+            f2 = (function() {
               function e(a2, e2) {
                 this.axis = a2;
                 e2 && (this.options = e2, this.id = e2.id);
@@ -7463,7 +7463,7 @@
                 H(this);
               };
               return e;
-            }();
+            })();
             "";
             "";
             return f2;
@@ -7471,7 +7471,7 @@
         );
         M(f, "Core/Tooltip.js", [f["Core/FormatUtilities.js"], f["Core/Globals.js"], f["Core/Renderer/RendererUtilities.js"], f["Core/Renderer/RendererRegistry.js"], f["Core/Utilities.js"]], function(a, f2, C, G, u) {
           var F = a.format, I = f2.doc, B = C.distribute, z = u.addEvent, p = u.clamp, m = u.css, e = u.defined, d = u.discardElement, l = u.extend, h = u.fireEvent, t = u.isArray, n = u.isNumber, v = u.isString, w = u.merge, y = u.pick, A = u.splat, q = u.syncTimeout;
-          a = function() {
+          a = (function() {
             function a2(c, a3) {
               this.allowShared = true;
               this.container = void 0;
@@ -7815,13 +7815,13 @@
               this.move(Math.round(k.x), Math.round(k.y || 0), f3, c);
             };
             return a2;
-          }();
+          })();
           "";
           return a;
         });
         M(f, "Core/Series/Point.js", [f["Core/Renderer/HTML/AST.js"], f["Core/Animation/AnimationUtilities.js"], f["Core/DefaultOptions.js"], f["Core/FormatUtilities.js"], f["Core/Utilities.js"]], function(a, f2, C, G, u) {
           var F = f2.animObject, I = C.defaultOptions, B = G.format, z = u.addEvent, p = u.defined, m = u.erase, e = u.extend, d = u.fireEvent, l = u.getNestedProperty, h = u.isArray, t = u.isFunction, n = u.isNumber, v = u.isObject, w = u.merge, y = u.objectEach, A = u.pick, q = u.syncTimeout, k = u.removeEvent, c = u.uniqueKey;
-          f2 = function() {
+          f2 = (function() {
             function g() {
               this.colorIndex = this.category = void 0;
               this.formatPrefix = "point";
@@ -8090,13 +8090,13 @@
               return this.series.chart.renderer.symbols.circle(Math.floor(this.plotX) - b, this.plotY - b, 2 * b, 2 * b);
             };
             return g;
-          }();
+          })();
           "";
           return f2;
         });
         M(f, "Core/Pointer.js", [f["Core/Color/Color.js"], f["Core/Globals.js"], f["Core/Tooltip.js"], f["Core/Utilities.js"]], function(a, f2, C, G) {
           var u = a.parse, F = f2.charts, I = f2.noop, B = G.addEvent, z = G.attr, p = G.css, m = G.defined, e = G.extend, d = G.find, l = G.fireEvent, h = G.isNumber, t = G.isObject, n = G.objectEach, v = G.offset, w = G.pick, y = G.splat;
-          a = function() {
+          a = (function() {
             function a2(a3, d2) {
               this.lastValidTouch = {};
               this.pinchDown = [];
@@ -8493,7 +8493,7 @@
               this.hasZoom = a3 || c;
             };
             return a2;
-          }();
+          })();
           "";
           return a;
         });
@@ -8516,7 +8516,7 @@
               var l2 = I[f2.hoverChartIndex || NaN];
               "touch" !== a2.pointerType && a2.pointerType !== a2.MSPOINTER_TYPE_TOUCH || !l2 || (l2 = l2.pointer, h2(a2), l2[d2]({ type: e2, target: a2.currentTarget, preventDefault: z, touches: F() }));
             }
-            var H = this && this.__extends || /* @__PURE__ */ function() {
+            var H = this && this.__extends || /* @__PURE__ */ (function() {
               var a2 = function(d2, e2) {
                 a2 = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(a3, d3) {
                   a3.__proto__ = d3;
@@ -8532,8 +8532,8 @@
                 a2(d2, e2);
                 d2.prototype = null === e2 ? Object.create(e2) : (f3.prototype = e2.prototype, new f3());
               };
-            }(), I = a.charts, B = a.doc, z = a.noop, p = a.win, m = C.addEvent, e = C.css, d = C.objectEach, l = C.removeEvent, h = {}, t = !!p.PointerEvent;
-            return function(d2) {
+            })(), I = a.charts, B = a.doc, z = a.noop, p = a.win, m = C.addEvent, e = C.css, d = C.objectEach, l = C.removeEvent, h = {}, t = !!p.PointerEvent;
+            return (function(d2) {
               function f3() {
                 return null !== d2 && d2.apply(this, arguments) || this;
               }
@@ -8575,7 +8575,7 @@
                 (this.hasZoom || this.followTouchMove) && this.batchMSEvents(m);
               };
               return f3;
-            }(f2);
+            })(f2);
           }
         );
         M(f, "Core/Legend/Legend.js", [f["Core/Animation/AnimationUtilities.js"], f["Core/FormatUtilities.js"], f["Core/Globals.js"], f["Core/Series/Point.js"], f["Core/Renderer/RendererUtilities.js"], f["Core/Utilities.js"]], function(a, f2, C, G, u, H) {
@@ -8585,7 +8585,7 @@
           C = C.win;
           var m = u.distribute, e = H.addEvent, d = H.createElement, l = H.css, h = H.defined, t = H.discardElement, n = H.find, v = H.fireEvent, w = H.isNumber, y = H.merge, A = H.pick, q = H.relativeLength, k = H.stableSort, c = H.syncTimeout;
           u = H.wrap;
-          H = function() {
+          H = (function() {
             function a2(b, a3) {
               this.allItems = [];
               this.contentGroup = this.box = void 0;
@@ -8903,7 +8903,7 @@
               });
             };
             return a2;
-          }();
+          })();
           (/Trident\/7\.0/.test(C.navigator && C.navigator.userAgent) || a) && u(H.prototype, "positionItem", function(a2, b) {
             var c2 = this, d2 = function() {
               b._legendItemPos && a2.call(c2, b);
@@ -8967,7 +8967,7 @@
           f["Core/Renderer/HTML/AST.js"]
         ], function(a, f2, C, G, u, H, I, B, z, p, m, e, d, l, h) {
           var t = a.animate, n = a.animObject, v = a.setAnimation, w = C.numberFormat, y = G.registerEventOptions, A = u.charts, q = u.doc, k = u.marginNames, c = u.svg, g = u.win, b = B.defaultOptions, r = B.defaultTime, x = m.seriesTypes, D = l.addEvent, K = l.attr, F = l.cleanRecursively, Q = l.createElement, O = l.css, W = l.defined, Z = l.discardElement, L = l.erase, J = l.error, M2 = l.extend, da = l.find, R = l.fireEvent, ea = l.getStyle, E = l.isArray, T = l.isNumber, N = l.isObject, U = l.isString, V = l.merge, X = l.objectEach, S = l.pick, fa = l.pInt, aa = l.relativeLength, ia = l.removeEvent, ha = l.splat, ba = l.syncTimeout, ka = l.uniqueKey;
-          a = function() {
+          a = (function() {
             function a2(b2, a3, c2) {
               this.series = this.renderTo = this.renderer = this.pointer = this.pointCount = this.plotWidth = this.plotTop = this.plotLeft = this.plotHeight = this.plotBox = this.options = this.numberFormatter = this.margin = this.legend = this.labelCollectors = this.isResizing = this.index = this.eventOptions = this.container = this.colorCounter = this.clipBox = this.chartWidth = this.chartHeight = this.bounds = this.axisOffset = this.axes = void 0;
               this.sharedClips = {};
@@ -9707,7 +9707,7 @@
               });
             };
             return a2;
-          }();
+          })();
           M2(a.prototype, {
             callbacks: [],
             collectionsWithInit: { xAxis: [a.prototype.addAxis, [true]], yAxis: [a.prototype.addAxis, [false]], series: [a.prototype.addSeries] },
@@ -9765,7 +9765,7 @@
           f["Core/Utilities.js"]
         ], function(a, f2, C, G, u, H, I, B, z, p) {
           var m = a.animObject, e = a.setAnimation, d = f2.defaultOptions, l = C.registerEventOptions, h = G.hasTouch, t = G.svg, n = G.win, v = B.seriesTypes, w = p.addEvent, y = p.arrayMax, A = p.arrayMin, q = p.clamp, k = p.cleanRecursively, c = p.correctFloat, g = p.defined, b = p.erase, r = p.error, x = p.extend, D = p.find, K = p.fireEvent, F = p.getNestedProperty, Q = p.isArray, O = p.isNumber, W = p.isString, Z = p.merge, L = p.objectEach, J = p.pick, M2 = p.removeEvent, da = p.splat, R = p.syncTimeout;
-          a = function() {
+          a = (function() {
             function a2() {
               this.zones = this.yAxis = this.xAxis = this.userOptions = this.tooltipOptions = this.processedYData = this.processedXData = this.points = this.options = this.linkedSeries = this.index = this.eventsToUnbind = this.eventOptions = this.data = this.chart = this._i = void 0;
             }
@@ -10627,7 +10627,7 @@
             };
             a2.defaultOptions = I;
             return a2;
-          }();
+          })();
           x(a.prototype, { axisTypes: ["xAxis", "yAxis"], coll: "series", colorCounter: 0, cropShoulder: 1, directTouch: false, drawLegendSymbol: u.drawLineMarker, isCartesian: true, kdAxisArray: ["clientX", "plotY"], parallelArrays: ["x", "y"], pointClass: H, requireSorting: true, sorted: true });
           B.series = a;
           "";
@@ -10755,7 +10755,7 @@
               -1 === f3.indexOf(a3) && (f3.push(a3), u(a3, "init", d), u(a3, "destroy", e));
               return a3;
             };
-            var h = function() {
+            var h = (function() {
               function a3(a4) {
                 this.oldStacks = {};
                 this.stacks = {};
@@ -10812,13 +10812,13 @@
                 );
               };
               return a3;
-            }();
+            })();
             a2.Additions = h;
           })(p || (p = {}));
           return p;
         });
         M(f, "Extensions/Stacking.js", [f["Core/Axis/Axis.js"], f["Core/Chart/Chart.js"], f["Core/FormatUtilities.js"], f["Core/Globals.js"], f["Core/Series/Series.js"], f["Core/Axis/StackingAxis.js"], f["Core/Utilities.js"]], function(a, f2, C, G, u, H, I) {
-          var B = C.format, z = I.correctFloat, p = I.defined, m = I.destroyObjectProperties, e = I.isArray, d = I.isNumber, l = I.objectEach, h = I.pick, t = function() {
+          var B = C.format, z = I.correctFloat, p = I.defined, m = I.destroyObjectProperties, e = I.isArray, d = I.isNumber, l = I.objectEach, h = I.pick, t = (function() {
             function a2(a3, d2, e2, f3, h2) {
               var k = a3.chart.inverted;
               this.axis = a3;
@@ -10864,7 +10864,7 @@
               return { x: b ? d2 ? f3 - c.right : f3 - k + c.pos - a3.plotLeft : e2 + a3.xAxis[0].transB - a3.plotLeft, y: b ? c.height - e2 - h2 : d2 ? l2 - f3 - k : l2 - f3, width: b ? k : h2, height: b ? h2 : k };
             };
             return a2;
-          }();
+          })();
           f2.prototype.getStacks = function() {
             var a2 = this, d2 = a2.inverted;
             a2.yAxis.forEach(function(a3) {
@@ -10937,7 +10937,7 @@
           return G.StackItem;
         });
         M(f, "Series/Line/LineSeries.js", [f["Core/Series/Series.js"], f["Core/Series/SeriesRegistry.js"], f["Core/Utilities.js"]], function(a, f2, C) {
-          var F = this && this.__extends || /* @__PURE__ */ function() {
+          var F = this && this.__extends || /* @__PURE__ */ (function() {
             var a2 = function(f3, z) {
               a2 = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(a3, f4) {
                 a3.__proto__ = f4;
@@ -10953,8 +10953,8 @@
               a2(f3, z);
               f3.prototype = null === z ? Object.create(z) : (p.prototype = z.prototype, new p());
             };
-          }(), u = C.defined, H = C.merge;
-          C = function(f3) {
+          })(), u = C.defined, H = C.merge;
+          C = (function(f3) {
             function B() {
               var a2 = null !== f3 && f3.apply(this, arguments) || this;
               a2.data = void 0;
@@ -11003,7 +11003,7 @@
             };
             B.defaultOptions = H(a.defaultOptions, {});
             return B;
-          }(a);
+          })(a);
           f2.registerSeriesType("line", C);
           "";
           return C;
@@ -11013,7 +11013,7 @@
           "Series/Area/AreaSeries.js",
           [f["Core/Color/Color.js"], f["Core/Legend/LegendSymbol.js"], f["Core/Series/SeriesRegistry.js"], f["Core/Utilities.js"]],
           function(a, f2, C, G) {
-            var u = this && this.__extends || /* @__PURE__ */ function() {
+            var u = this && this.__extends || /* @__PURE__ */ (function() {
               var a2 = function(e, d) {
                 a2 = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(a3, d2) {
                   a3.__proto__ = d2;
@@ -11029,10 +11029,10 @@
                 a2(e, d);
                 e.prototype = null === d ? Object.create(d) : (f3.prototype = d.prototype, new f3());
               };
-            }(), F = a.parse, I = C.seriesTypes.line;
+            })(), F = a.parse, I = C.seriesTypes.line;
             a = G.extend;
             var B = G.merge, z = G.objectEach, p = G.pick;
-            G = function(a2) {
+            G = (function(a2) {
               function e() {
                 var d = null !== a2 && a2.apply(this, arguments) || this;
                 d.data = void 0;
@@ -11137,7 +11137,7 @@
               };
               e.defaultOptions = B(I.defaultOptions, { threshold: 0 });
               return e;
-            }(I);
+            })(I);
             a(G.prototype, { singleStacks: false, drawLegendSymbol: f2.drawRectangle });
             C.registerSeriesType("area", G);
             "";
@@ -11145,7 +11145,7 @@
           }
         );
         M(f, "Series/Spline/SplineSeries.js", [f["Core/Series/SeriesRegistry.js"], f["Core/Utilities.js"]], function(a, f2) {
-          var F = this && this.__extends || /* @__PURE__ */ function() {
+          var F = this && this.__extends || /* @__PURE__ */ (function() {
             var a2 = function(f3, z) {
               a2 = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(a3, f4) {
                 a3.__proto__ = f4;
@@ -11164,8 +11164,8 @@
               );
               f3.prototype = null === z ? Object.create(z) : (p.prototype = z.prototype, new p());
             };
-          }(), G = a.seriesTypes.line, u = f2.merge, H = f2.pick;
-          f2 = function(a2) {
+          })(), G = a.seriesTypes.line, u = f2.merge, H = f2.pick;
+          f2 = (function(a2) {
             function f3() {
               var f4 = null !== a2 && a2.apply(this, arguments) || this;
               f4.data = void 0;
@@ -11200,13 +11200,13 @@
             };
             f3.defaultOptions = u(G.defaultOptions);
             return f3;
-          }(G);
+          })(G);
           a.registerSeriesType("spline", f2);
           "";
           return f2;
         });
         M(f, "Series/AreaSpline/AreaSplineSeries.js", [f["Series/Area/AreaSeries.js"], f["Series/Spline/SplineSeries.js"], f["Core/Legend/LegendSymbol.js"], f["Core/Series/SeriesRegistry.js"], f["Core/Utilities.js"]], function(a, f2, C, G, u) {
-          var F = this && this.__extends || /* @__PURE__ */ function() {
+          var F = this && this.__extends || /* @__PURE__ */ (function() {
             var a2 = function(f3, e) {
               a2 = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(a3, e2) {
                 a3.__proto__ = e2;
@@ -11225,8 +11225,8 @@
               );
               f3.prototype = null === e ? Object.create(e) : (d.prototype = e.prototype, new d());
             };
-          }(), I = a.prototype, B = u.extend, z = u.merge;
-          u = function(p) {
+          })(), I = a.prototype, B = u.extend, z = u.merge;
+          u = (function(p) {
             function m() {
               var a2 = null !== p && p.apply(this, arguments) || this;
               a2.data = void 0;
@@ -11237,7 +11237,7 @@
             F(m, p);
             m.defaultOptions = z(f2.defaultOptions, a.defaultOptions);
             return m;
-          }(f2);
+          })(f2);
           B(u.prototype, { getGraphPath: I.getGraphPath, getStackPoints: I.getStackPoints, drawGraph: I.drawGraph, drawLegendSymbol: C.drawRectangle });
           G.registerSeriesType("areaspline", u);
           "";
@@ -11248,7 +11248,7 @@
           "Series/Column/ColumnSeries.js",
           [f["Core/Animation/AnimationUtilities.js"], f["Core/Color/Color.js"], f["Core/Globals.js"], f["Core/Legend/LegendSymbol.js"], f["Core/Series/Series.js"], f["Core/Series/SeriesRegistry.js"], f["Core/Utilities.js"]],
           function(a, f2, C, G, u, H, I) {
-            var B = this && this.__extends || /* @__PURE__ */ function() {
+            var B = this && this.__extends || /* @__PURE__ */ (function() {
               var a2 = function(d2, c) {
                 a2 = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(a3, b) {
                   a3.__proto__ = b;
@@ -11264,10 +11264,10 @@
                 a2(d2, c);
                 d2.prototype = null === c ? Object.create(c) : (e2.prototype = c.prototype, new e2());
               };
-            }(), z = a.animObject, p = f2.parse, m = C.hasTouch;
+            })(), z = a.animObject, p = f2.parse, m = C.hasTouch;
             a = C.noop;
             var e = I.clamp, d = I.css, l = I.defined, h = I.extend, t = I.fireEvent, n = I.isArray, v = I.isNumber, w = I.merge, y = I.pick, A = I.objectEach;
-            I = function(a2) {
+            I = (function(a2) {
               function f3() {
                 var c = null !== a2 && a2.apply(this, arguments) || this;
                 c.borderWidth = void 0;
@@ -11450,7 +11450,7 @@
                 borderColor: "#ffffff"
               });
               return f3;
-            }(u);
+            })(u);
             h(I.prototype, { cropShoulder: 0, directTouch: true, drawLegendSymbol: G.drawRectangle, getSymbol: a, negStacks: true, trackerGroups: ["group", "dataLabelsGroup"] });
             H.registerSeriesType("column", I);
             "";
@@ -11628,7 +11628,7 @@
           f["Core/Series/SeriesRegistry.js"],
           f["Core/Utilities.js"]
         ], function(a, f2, C) {
-          var F = this && this.__extends || /* @__PURE__ */ function() {
+          var F = this && this.__extends || /* @__PURE__ */ (function() {
             var a2 = function(f3, u2) {
               a2 = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(a3, f4) {
                 a3.__proto__ = f4;
@@ -11644,8 +11644,8 @@
               a2(f3, u2);
               f3.prototype = null === u2 ? Object.create(u2) : (p.prototype = u2.prototype, new p());
             };
-          }(), u = C.extend, H = C.merge;
-          C = function(f3) {
+          })(), u = C.extend, H = C.merge;
+          C = (function(f3) {
             function u2() {
               var a2 = null !== f3 && f3.apply(
                 this,
@@ -11659,14 +11659,14 @@
             F(u2, f3);
             u2.defaultOptions = H(a.defaultOptions, {});
             return u2;
-          }(a);
+          })(a);
           u(C.prototype, { inverted: true });
           f2.registerSeriesType("bar", C);
           "";
           return C;
         });
         M(f, "Series/Scatter/ScatterSeries.js", [f["Series/Column/ColumnSeries.js"], f["Series/Line/LineSeries.js"], f["Core/Series/SeriesRegistry.js"], f["Core/Utilities.js"]], function(a, f2, C, G) {
-          var u = this && this.__extends || /* @__PURE__ */ function() {
+          var u = this && this.__extends || /* @__PURE__ */ (function() {
             var a2 = function(f3, m) {
               a2 = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(a3, d) {
                 a3.__proto__ = d;
@@ -11682,8 +11682,8 @@
               a2(f3, m);
               f3.prototype = null === m ? Object.create(m) : (e.prototype = m.prototype, new e());
             };
-          }(), F = G.addEvent, I = G.extend, B = G.merge;
-          G = function(a2) {
+          })(), F = G.addEvent, I = G.extend, B = G.merge;
+          G = (function(a2) {
             function p() {
               var f3 = null !== a2 && a2.apply(this, arguments) || this;
               f3.data = void 0;
@@ -11722,7 +11722,7 @@
               tooltip: { headerFormat: '<span style="color:{point.color}">\u25CF</span> <span style="font-size: 10px"> {series.name}</span><br/>', pointFormat: "x: <b>{point.x}</b><br/>y: <b>{point.y}</b><br/>" }
             });
             return p;
-          }(f2);
+          })(f2);
           I(G.prototype, { drawTracker: a.prototype.drawTracker, sorted: false, requireSorting: false, noSharedTooltip: true, trackerGroups: ["group", "markerGroup", "dataLabelsGroup"], takeOrdinalPosition: false });
           F(G, "afterTranslate", function() {
             this.applyJitter();
@@ -11757,7 +11757,7 @@
           return B;
         });
         M(f, "Series/Pie/PiePoint.js", [f["Core/Animation/AnimationUtilities.js"], f["Core/Series/Point.js"], f["Core/Utilities.js"]], function(a, f2, C) {
-          var F = this && this.__extends || /* @__PURE__ */ function() {
+          var F = this && this.__extends || /* @__PURE__ */ (function() {
             var a2 = function(e, d) {
               a2 = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(a3, d2) {
                 a3.__proto__ = d2;
@@ -11773,10 +11773,10 @@
               a2(e, d);
               e.prototype = null === d ? Object.create(d) : (f3.prototype = d.prototype, new f3());
             };
-          }(), u = a.setAnimation, H = C.addEvent, I = C.defined;
+          })(), u = a.setAnimation, H = C.addEvent, I = C.defined;
           a = C.extend;
           var B = C.isNumber, z = C.pick, p = C.relativeLength;
-          f2 = function(a2) {
+          f2 = (function(a2) {
             function e() {
               var d = null !== a2 && a2.apply(this, arguments) || this;
               d.labelDistance = void 0;
@@ -11828,7 +11828,7 @@
               this.shadowGroup && this.shadowGroup.animate(this.getTranslate());
             };
             return e;
-          }(f2);
+          })(f2);
           a(f2.prototype, { connectorShapes: { fixedOffset: function(a2, e, d) {
             var f3 = e.breakAt;
             e = e.touchingSliceAt;
@@ -11864,7 +11864,7 @@
           f["Core/Renderer/SVG/Symbols.js"],
           f["Core/Utilities.js"]
         ], function(a, f2, C, G, u, H, I, B, z) {
-          var p = this && this.__extends || /* @__PURE__ */ function() {
+          var p = this && this.__extends || /* @__PURE__ */ (function() {
             var a2 = function(d2, e2) {
               a2 = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(a3, d3) {
                 a3.__proto__ = d3;
@@ -11880,10 +11880,10 @@
               a2(d2, e2);
               d2.prototype = null === e2 ? Object.create(e2) : (f3.prototype = e2.prototype, new f3());
             };
-          }(), m = a.getStartAndEndRadians;
+          })(), m = a.getStartAndEndRadians;
           C = C.noop;
           var e = z.clamp, d = z.extend, l = z.fireEvent, h = z.merge, t = z.pick, n = z.relativeLength;
-          z = function(a2) {
+          z = (function(a2) {
             function d2() {
               var d3 = null !== a2 && a2.apply(this, arguments) || this;
               d3.center = void 0;
@@ -12008,7 +12008,7 @@
               return this.point.isNull ? void 0 : this.point.name;
             }, softConnector: true, x: 0 }, fillColor: void 0, ignoreHiddenPoint: true, inactiveOtherPoints: true, legendType: "point", marker: null, size: null, showInLegend: false, slicedOffset: 10, stickyTracking: false, tooltip: { followPointer: true }, borderColor: "#ffffff", borderWidth: 1, lineWidth: void 0, states: { hover: { brightness: 0.1 } } });
             return d2;
-          }(H);
+          })(H);
           d(z.prototype, {
             axisTypes: [],
             directTouch: true,
@@ -12220,7 +12220,7 @@
               ));
               return a3;
             };
-            var e = function() {
+            var e = (function() {
               function a3() {
               }
               a3.prototype.currentOptions = function(a4) {
@@ -12262,7 +12262,7 @@
                 l !== (h && h.ruleIds) && (h && this.update(h.undoOptions, a4, true), l ? (h = this.currentOptions(d2), h.isResponsiveOptions = true, this.currentResponsive = { ruleIds: l, mergedOptions: d2, undoOptions: h }, this.update(d2, a4, true)) : this.currentResponsive = void 0);
               };
               return a3;
-            }();
+            })();
           })(m || (m = {}));
           "";
           "";
@@ -12396,157 +12396,11 @@
     }
   });
 
-  // node_modules/cookies-eu-banner/dist/cookies-eu-banner.js
-  var require_cookies_eu_banner = __commonJS({
-    "node_modules/cookies-eu-banner/dist/cookies-eu-banner.js"(exports, module) {
-      (function(root, factory, undefined2) {
-        "use strict";
-        if (typeof define === "function" && define.amd) {
-          define([], factory);
-        } else if (typeof exports === "object") {
-          module.exports = factory();
-        } else {
-          root.CookiesEuBanner = factory();
-        }
-      })(window, function() {
-        "use strict";
-        var CookiesEuBanner2, document2 = window.document;
-        CookiesEuBanner2 = function(launchFunction, waitAccept, useLocalStorage, undefined2) {
-          if (!(this instanceof CookiesEuBanner2)) {
-            return new CookiesEuBanner2(launchFunction);
-          }
-          this.cookieTimeout = 33696e6;
-          this.bots = /bot|crawler|spider|crawling/i;
-          this.cookieName = "hasConsent";
-          this.trackingCookiesNames = ["__utma", "__utmb", "__utmc", "__utmt", "__utmv", "__utmz", "_ga", "_gat", "_gid"];
-          this.launchFunction = launchFunction;
-          this.waitAccept = waitAccept || false;
-          this.useLocalStorage = useLocalStorage || false;
-          this.init();
-        };
-        CookiesEuBanner2.prototype = {
-          init: function() {
-            var isBot = this.bots.test(navigator.userAgent);
-            var dnt = navigator.doNotTrack || navigator.msDoNotTrack || window.doNotTrack;
-            var isToTrack = dnt !== null && dnt !== void 0 ? dnt && dnt !== "yes" && dnt !== 1 && dnt !== "1" : true;
-            if (isBot || !isToTrack || this.hasConsent() === false) {
-              this.removeBanner(0);
-              return false;
-            }
-            if (this.hasConsent() === true) {
-              this.launchFunction();
-              return true;
-            }
-            this.showBanner();
-            if (!this.waitAccept) {
-              this.setConsent(true);
-            }
-          },
-          /*
-           * Show banner at the top of the page
-           */
-          showBanner: function() {
-            var _this = this, getElementById = document2.getElementById.bind(document2), banner = getElementById("cookies-eu-banner"), rejectButton = getElementById("cookies-eu-reject"), acceptButton = getElementById("cookies-eu-accept"), moreLink = getElementById("cookies-eu-more"), waitRemove = banner.dataset.waitRemove === void 0 ? 0 : parseInt(banner.dataset.waitRemove), addClickListener = this.addClickListener, removeBanner = _this.removeBanner.bind(_this, waitRemove);
-            banner.style.display = "block";
-            if (moreLink) {
-              addClickListener(moreLink, function() {
-                _this.deleteCookie(_this.cookieName);
-              });
-            }
-            if (acceptButton) {
-              addClickListener(acceptButton, function() {
-                removeBanner();
-                _this.setConsent(true);
-                _this.launchFunction();
-              });
-            }
-            if (rejectButton) {
-              addClickListener(rejectButton, function() {
-                removeBanner();
-                _this.setConsent(false);
-                _this.trackingCookiesNames.map(_this.deleteCookie);
-              });
-            }
-          },
-          /*
-           * Set consent cookie or localStorage
-           */
-          setConsent: function(consent) {
-            if (this.useLocalStorage) {
-              return localStorage.setItem(this.cookieName, consent);
-            }
-            this.setCookie(this.cookieName, consent);
-          },
-          /*
-           * Check if user already consent
-           */
-          hasConsent: function() {
-            var cookieName = this.cookieName;
-            var isCookieSetTo = function(value) {
-              return document2.cookie.indexOf(cookieName + "=" + value) > -1 || localStorage.getItem(cookieName) === value;
-            };
-            if (isCookieSetTo("true")) {
-              return true;
-            } else if (isCookieSetTo("false")) {
-              return false;
-            }
-            return null;
-          },
-          /*
-           * Create/update cookie
-           */
-          setCookie: function(name, value) {
-            var date = /* @__PURE__ */ new Date();
-            date.setTime(date.getTime() + this.cookieTimeout);
-            document2.cookie = name + "=" + value + ";expires=" + date.toGMTString() + ";path=/";
-          },
-          /*
-           * Delete cookie by changing expire
-           */
-          deleteCookie: function(name) {
-            var hostname = document2.location.hostname.replace(/^www\./, ""), commonSuffix = "; expires=Thu, 01-Jan-1970 00:00:01 GMT; path=/";
-            document2.cookie = name + "=; domain=." + hostname + commonSuffix;
-            document2.cookie = name + "=" + commonSuffix;
-          },
-          addClickListener: function(DOMElement, callback) {
-            if (DOMElement.attachEvent) {
-              return DOMElement.attachEvent("onclick", callback);
-            }
-            DOMElement.addEventListener("click", callback);
-          },
-          /*
-           * Delays removal of banner allowing developers
-           * to specify their own transition effects
-           */
-          removeBanner: function(wait) {
-            setTimeout(function() {
-              var banner = document2.getElementById("cookies-eu-banner");
-              if (banner && banner.parentNode) {
-                banner.parentNode.removeChild(banner);
-              }
-            }, wait);
-          }
-        };
-        return CookiesEuBanner2;
-      });
-    }
-  });
-
   // app/javascript/application.js
   var import_ujs = __toESM(require_rails_ujs());
   var ActiveStorage = __toESM(require_activestorage());
   var import_chartkick = __toESM(require_chartkick());
   var import_highcharts = __toESM(require_highcharts());
-
-  // app/javascript/custom/cookie-banner.js
-  var import_cookies_eu_banner = __toESM(require_cookies_eu_banner());
-  document.addEventListener("DOMContentLoaded", () => {
-    new import_cookies_eu_banner.default(() => {
-      console.log("Cookies EU Banner accepted");
-    }, true);
-  });
-
-  // app/javascript/application.js
   import_ujs.default.start();
   ActiveStorage.start();
   import_chartkick.default.use(import_highcharts.default);
@@ -12574,17 +12428,6 @@ chartkick/dist/chartkick.js:
    * https://github.com/ankane/chartkick.js
    * v4.1.1
    * MIT License
-   *)
-
-cookies-eu-banner/dist/cookies-eu-banner.js:
-  (**
-   * Cookies EU banner v2.0.1 - Manage display of banner to accept/reject cookies from tracking services like Google Analytics
-   * ------------------------
-   * @link http://alex-d.github.io/Cookies-EU-banner/
-   * @license MIT
-   * @author Alex-D
-   *         Twitter : @AlexandreDemode
-   *         Website : alex-d.fr
    *)
 */
 //# sourceMappingURL=/assets/application.js.map
