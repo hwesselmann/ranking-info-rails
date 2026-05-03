@@ -32089,6 +32089,29 @@ has-background-danger.is-hoverable:active {
   --bulma-navbar-item-color-l: 100%;
 }
 
+.button.is-info {
+  --bulma-button-h: 207deg;
+  --bulma-button-s: 61%;
+  --bulma-button-l: 53%;
+  --bulma-button-background-l: 53%;
+  --bulma-button-border-l: 53%;
+  --bulma-button-color-l: 100%;
+}
+
+.has-background-dark.has-text-light,
+.has-background-dark.has-text-light td,
+.has-background-dark.has-text-light th {
+  color: white !important;
+}
+
+.has-background-info {
+  background-color: #3e8ed0 !important;
+}
+
+.has-text-info {
+  color: #3e8ed0 !important;
+}
+
 /* universal */
 section {
   overflow: auto;
