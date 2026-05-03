@@ -11,12 +11,13 @@ class Ranking < ApplicationRecord
   AGE_GROUP_MAP = { herren: 'm00', damen: 'w00', junioren: 'overall', juniorinnen: 'overall' }.freeze
 
   def self.import_rankings(file)
+    start_ms = Process.clock_gettime(Process::CLOCK_MONOTONIC, :millisecond)
     period = extract_period_from_filename(file)
     category = file_category_from_filename(file)
     store_rankings_from_csv(file, period, AGE_GROUP_MAP[category])
-    return unless GENDER_FACTORS.key?(category)
-
-    calculate_rankings(period, GENDER_FACTORS[category])
+    calculate_rankings(period, GENDER_FACTORS[category]) if GENDER_FACTORS.key?(category)
+    elapsed_ms = Process.clock_gettime(Process::CLOCK_MONOTONIC, :millisecond) - start_ms
+    logger.info "import of '#{File.basename(file)}' completed in #{elapsed_ms}ms"
   end
 
   #
