@@ -34,12 +34,30 @@ class FederationsController < ApplicationController
       age_group = "#{entry['age_group']}w"
       federations[entry['federation']][age_group] = entry['count']
     end
+
+    # active (Herren/Damen) counts
+    active_count_by_federation(quarter, 'm00').each do |entry|
+      federations[entry['federation']]['m00'] = entry['count'] if federations[entry['federation']]
+    end
+    active_count_by_federation(quarter, 'w00').each do |entry|
+      federations[entry['federation']]['w00'] = entry['count'] if federations[entry['federation']]
+    end
+
     @federations = federations
   end
 
   def current_quarter
     Ranking.select(:date).order(date: :desc)
            .distinct.first
+  end
+
+  def active_count_by_federation(quarter, age_group)
+    Ranking.find_by_sql([
+                          'SELECT COUNT(dtb_id) AS count, federation FROM rankings
+       WHERE date=? AND age_group=?
+       GROUP BY federation;',
+                          quarter, age_group
+                        ])
   end
 
   def player_count_by_federation(quarter, gender)
