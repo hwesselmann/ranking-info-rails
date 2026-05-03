@@ -32080,6 +32080,15 @@ has-background-danger.is-hoverable:active {
   color: #fff;
 }
 
+.navbar.is-info {
+  --bulma-navbar-background-color: #3e8ed0;
+  --bulma-navbar-h: 207deg;
+  --bulma-navbar-s: 61%;
+  --bulma-navbar-l: 53%;
+  --bulma-navbar-item-background-l: 53%;
+  --bulma-navbar-item-color-l: 100%;
+}
+
 /* universal */
 section {
   overflow: auto;
