@@ -12,8 +12,8 @@ class ListingController < ApplicationController
 
     @rankings = Ranking.where(date: params[:quarter])
                        .where(gender_selected(params[:gender]))
-                       .where(age_group_selected(params[:age_group]))
-                       .where(age_group_options(params[:age_group][1, 2].to_i, params[:age_group_options]))
+                       .where(age_group_selected(params[:age_group], params[:gender]))
+                       .where(age_group_options(params[:age_group][1, 2].to_i, params[:age_group_options], params[:gender]))
                        .where(federation_selected(params[:federation]))
                        .where(club_selected(params[:club]))
                        .where(year_end_rankings(params[:year_end], params[:quarter]))
@@ -64,18 +64,23 @@ class ListingController < ApplicationController
   end
 
   def gender_selected(gender)
-    if gender.eql?('Junioren')
-    then '(dtb_id >= 10000000 AND dtb_id <= 19999999)'
-    else
-      '(dtb_id >= 20000000 AND dtb_id <= 29999999)'
+    case gender
+    when 'Junioren', 'Herren' then '(dtb_id >= 10000000 AND dtb_id <= 19999999)'
+    else '(dtb_id >= 20000000 AND dtb_id <= 29999999)'
     end
   end
 
-  def age_group_selected(age_group)
-    ['age_group = ?', age_group.presence || 'overall']
+  def age_group_selected(age_group, gender)
+    case gender
+    when 'Herren' then ['age_group = ?', 'm00']
+    when 'Damen'  then ['age_group = ?', 'w00']
+    else ['age_group = ?', age_group.presence || 'overall']
+    end
   end
 
-  def age_group_options(age_group, age_group_options)
+  def age_group_options(age_group, age_group_options, gender)
+    return 'yob_ranking=false AND age_group_ranking=false' if %w[Herren Damen].include?(gender)
+
     if age_group_options.eql?('') && age_group.even?
     then 'yob_ranking=false AND age_group_ranking=true'
     elsif age_group_options.eql?('') && age_group.odd?

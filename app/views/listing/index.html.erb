@@ -17,7 +17,7 @@
   <div class="control mr-2">
     <%= label_tag 'gender', 'Geschlecht', class: 'label is-small' %>
     <div class="select is-small">
-      <%= select_tag(:gender, options_for_select(['Junioren', 'Juniorinnen'], params[:gender] || 'Junioren' )) %>
+      <%= select_tag(:gender, options_for_select(['Herren', 'Damen', 'Junioren', 'Juniorinnen'], params[:gender] || 'Herren')) %>
     </div>
   </div>
   <div class="control mr-2">
