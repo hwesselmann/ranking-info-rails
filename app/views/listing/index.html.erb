@@ -1,5 +1,5 @@
 <% provide(:title, 'Ranglisten') %>
-<% provide(:meta_content, "Durchsuchbare und filterbare Version der Deutschen Tennis-Jugendrangliste.") %>
+<% provide(:meta_content, "Durchsuchbare und filterbare Version der Deutschen Tennis-Rangliste.") %>
 <h1 class="title is-3 has-text-left mb-3 mt-3">
   Ranglisten
 </h1>
@@ -52,7 +52,7 @@
   <%= render 'ranking_list' %>
 <% else %>
   <% if params[:commit] %>
-    <div>Es wurden leider keine Spieler für diese Suchkriterien gefunden.</div>
+    <div>Es wurden leider keine Daten für diese Suchkriterien gefunden.</div>
   <% else %>
     <%= render 'list_intro' %>
   <% end %>
