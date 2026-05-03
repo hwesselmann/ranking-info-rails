@@ -4,6 +4,11 @@
 # Controller covering all actions concerning the ranking list.
 #
 class ListingController < ApplicationController
+  AGE_GROUP_OPTION_FILTERS = {
+    'only_yob' => 'yob_ranking=true AND age_group_ranking=false',
+    'include_younger' => 'yob_ranking=false AND age_group_ranking=false'
+  }.freeze
+
   def index
     @quarters = fetch_available_quarters
     @federations = federations
@@ -81,15 +86,16 @@ class ListingController < ApplicationController
 
   def age_group_options(age_group, age_group_options, gender)
     return 'yob_ranking=false AND age_group_ranking=false' if %w[Herren Damen].include?(gender)
+    return default_age_group_filter(age_group) if age_group_options.eql?('')
 
-    if age_group_options.eql?('') && age_group.even?
-    then 'yob_ranking=false AND age_group_ranking=true'
-    elsif age_group_options.eql?('') && age_group.odd?
-    then 'yob_ranking=true AND age_group_ranking=false'
-    elsif age_group_options.eql?('only_yob')
-    then 'yob_ranking=true AND age_group_ranking=false'
-    elsif age_group_options.eql?('include_younger')
-    then 'yob_ranking=false AND age_group_ranking=false'
+    AGE_GROUP_OPTION_FILTERS[age_group_options]
+  end
+
+  def default_age_group_filter(age_group)
+    if age_group.even?
+      'yob_ranking=false AND age_group_ranking=true'
+    else
+      'yob_ranking=true AND age_group_ranking=false'
     end
   end
 

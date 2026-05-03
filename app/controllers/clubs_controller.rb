@@ -58,31 +58,14 @@ class ClubsController < ApplicationController
   end
 
   def fill_club_info(players, quarter)
-    player_ranking = {}
-    u12_players = []
-    u14_players = []
-    u16_players = []
-    u18_players = []
+    grouped = Hash.new { |h, k| h[k] = [] }
     players.each do |player|
-      player_data = fetch_basic_player_data(player, quarter)
-
-      case player_data[:age]
-      when 'U12'
-        u12_players.push(player_data)
-      when 'U14'
-        u14_players.push(player_data)
-      when 'U16'
-        u16_players.push(player_data)
-      when 'U18'
-        u18_players.push(player_data)
-      end
+      data = fetch_basic_player_data(player, quarter)
+      grouped[data[:age]] << data
     end
-    player_ranking['U12'] = u12_players.sort_by { |p| p[:rank] } unless u12_players.empty?
-    player_ranking['U14'] = u14_players.sort_by { |p| p[:rank] } unless u14_players.empty?
-    player_ranking['U16'] = u16_players.sort_by { |p| p[:rank] } unless u16_players.empty?
-    player_ranking['U18'] = u18_players.sort_by { |p| p[:rank] } unless u18_players.empty?
-
-    player_ranking
+    %w[U12 U14 U16 U18].each_with_object({}) do |age, result|
+      result[age] = grouped[age].sort_by { |p| p[:rank] } if grouped[age].any?
+    end
   end
 
   def adult_player_data(player)

@@ -10,40 +10,29 @@ class FederationsController < ApplicationController
     return @federations if quarter.nil?
 
     quarter = quarter.date
-    male_count = player_count_by_federation(quarter, 'm')
-    female_count = player_count_by_federation(quarter, 'w')
+    @federations = build_youth_federations(quarter)
+    add_active_counts(@federations, quarter)
+  end
 
+  def build_youth_federations(quarter)
     federations = {}
-    age_groups = {}
-    curr_fed = ''
-    # male counts
-    male_count.each do |entry|
-      unless entry['federation'].eql?(curr_fed)
-        federations[curr_fed] = age_groups unless curr_fed.eql?('')
-        age_groups = {}
-        curr_fed = entry['federation']
+    player_count_by_federation(quarter, 'm').each do |entry|
+      federations[entry['federation']] ||= {}
+      federations[entry['federation']]["#{entry['age_group']}m"] = entry['count']
+    end
+    player_count_by_federation(quarter, 'w').each do |entry|
+      federations[entry['federation']] ||= {}
+      federations[entry['federation']]["#{entry['age_group']}w"] = entry['count']
+    end
+    federations
+  end
+
+  def add_active_counts(federations, quarter)
+    %w[m00 w00].each do |ag|
+      active_count_by_federation(quarter, ag).each do |entry|
+        federations[entry['federation']][ag] = entry['count'] if federations[entry['federation']]
       end
-      age_group = "#{entry['age_group']}m"
-      age_groups[age_group] = entry['count']
     end
-    federations[curr_fed] = age_groups
-
-    # female counts
-    age_groups = {}
-    female_count.each do |entry|
-      age_group = "#{entry['age_group']}w"
-      federations[entry['federation']][age_group] = entry['count']
-    end
-
-    # active (Herren/Damen) counts
-    active_count_by_federation(quarter, 'm00').each do |entry|
-      federations[entry['federation']]['m00'] = entry['count'] if federations[entry['federation']]
-    end
-    active_count_by_federation(quarter, 'w00').each do |entry|
-      federations[entry['federation']]['w00'] = entry['count'] if federations[entry['federation']]
-    end
-
-    @federations = federations
   end
 
   def current_quarter
