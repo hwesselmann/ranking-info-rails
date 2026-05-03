@@ -13,7 +13,8 @@ class ListingController < ApplicationController
     @rankings = Ranking.where(date: params[:quarter])
                        .where(gender_selected(params[:gender]))
                        .where(age_group_selected(params[:age_group], params[:gender]))
-                       .where(age_group_options(params[:age_group][1, 2].to_i, params[:age_group_options], params[:gender]))
+                       .where(age_group_options(params[:age_group][1, 2].to_i, params[:age_group_options],
+                                                params[:gender]))
                        .where(federation_selected(params[:federation]))
                        .where(club_selected(params[:club]))
                        .where(year_end_rankings(params[:year_end], params[:quarter]))

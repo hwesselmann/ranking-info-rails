@@ -10,7 +10,7 @@ class ClubsController < ApplicationController
       quarter = current_quarter
       player_clubs = find_all_clubs(quarter, params[:club])
       player_clubs.each do |c|
-          youth_count = count_players_for_club(quarter, c.club, 'overall')
+        youth_count = count_players_for_club(quarter, c.club, 'overall')
         adult_count = count_players_for_club(quarter, c.club, %w[m00 w00])
         clubs.push({ name: c.club, youth_count: youth_count, adult_count: adult_count })
       end
