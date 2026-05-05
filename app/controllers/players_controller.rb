@@ -40,7 +40,6 @@ class PlayersController < ApplicationController
     @available_quarters = helpers.fetch_available_quarters(dtb_id: @player.dtb_id)
     @current_rankings = current_rankings(@player.dtb_id)
     @complete_rankings = complete_rankings(@player.dtb_id).reverse!
-    @has_adult_rankings = @complete_rankings.any? { |r| r.key?('m00') || r.key?('w00') }
     twelve_month = data_for_last_twelve_months(@player.dtb_id)
     @data_for_last_twelve_months = twelve_month[0]
     @score_for_last_twelve_months = twelve_month[1]
@@ -75,7 +74,7 @@ class PlayersController < ApplicationController
     older_quarters_available = Ranking.select(:date).where(dtb_id: dtb_id).order(date: :desc).distinct.size
     previous_quarter = Ranking.select(:date).order(date: :desc).distinct[1].date if older_quarters_available > 1
 
-    period_rankings.each_with_object([]) do |period_ranking, rankings|
+    result = period_rankings.each_with_object([]) do |period_ranking, rankings|
       next if period_ranking.age_group == 'overall'
 
       ranking = {
@@ -101,6 +100,7 @@ class PlayersController < ApplicationController
 
       rankings << ranking
     end
+    result.sort_by { |r| [%w[m00 w00].include?(r['age_group']) ? 0 : 1, r['age_group']] }
   end
 
   def complete_rankings(dtb_id)
@@ -136,17 +136,16 @@ class PlayersController < ApplicationController
   end
 
   def data_for_last_twelve_months(dtb_id)
-    rankings = Ranking.where(dtb_id: dtb_id, yob_ranking: false,
-                             age_group_ranking: true, year_end_ranking: false)
-                      .order(date: :desc, age_group: :asc)
-                      .limit(4)
-    if rankings.empty?
-      rankings = Ranking.where(dtb_id: dtb_id, yob_ranking: false,
-                               age_group_ranking: false, year_end_ranking: false,
-                               age_group: %w[m00 w00])
-                        .order(date: :desc)
-                        .limit(4)
-    end
+    youth_rankings = Ranking.where(dtb_id: dtb_id, yob_ranking: false,
+                                   age_group_ranking: true, year_end_ranking: false)
+                            .order(date: :desc, age_group: :asc)
+                            .limit(4)
+    adult_rankings = Ranking.where(dtb_id: dtb_id, yob_ranking: false,
+                                   age_group_ranking: false, year_end_ranking: false,
+                                   age_group: %w[m00 w00])
+                            .order(date: :desc)
+                            .limit(4)
+    rankings = (youth_rankings.to_a + adult_rankings.to_a).sort_by(&:date).reverse
     [collect_diagram_data(rankings), collect_score_data(rankings)]
   end
 
@@ -163,10 +162,11 @@ class PlayersController < ApplicationController
     rankings.reverse_each do |ranking|
       next unless age_groups.include?(ranking.age_group)
 
+      group_key = %w[m00 w00].include?(ranking.age_group) ? 'Aktive' : ranking.age_group
       period = (ranking.date - 1.day).strftime('%d.%m.%Y')
-      positions[ranking.age_group][period] = ranking.ranking_position
+      positions[group_key][period] = ranking.ranking_position
     end
-    age_groups.filter_map { |ag| { name: ag, data: positions[ag] } if positions[ag].any? }
+    %w[U12 U14 U16 U18 Aktive].filter_map { |ag| { name: ag, data: positions[ag] } if positions[ag].any? }
   end
 
   def collect_score_data(rankings)
