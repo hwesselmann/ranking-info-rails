@@ -59,7 +59,7 @@ class PlayersController < ApplicationController
 
   def fill_up_dtb_id_end(dtb_id_part)
     missing = 8 - dtb_id_part.digits.length
-    dtb_id_part * (10**missing) + (10**missing) - 1
+    (dtb_id_part * (10**missing)) + (10**missing) - 1
   end
 
   def current_rankings(dtb_id)

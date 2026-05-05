@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+#
+# This class represents a player and provides methods to load player profiles 
+#  and search for players based on various criteria.
+#
 class Player
   attr_accessor :dtb_id, :current_ranking, :current_score, :lastname, :firstname, :federation, :club, :nationality,
                 :clubs, :rankings
