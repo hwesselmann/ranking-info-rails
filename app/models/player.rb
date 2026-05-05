@@ -79,13 +79,9 @@ class Player
     private
 
     def fetch_clubs(rankings)
-      last_club = nil
-      rankings.each_with_object([]) do |item, clubs|
-        next if item.club == last_club
-
-        clubs << Club.new(item.club, item.federation)
-        last_club = item.club
-      end
+      rankings.map { |item| Club.new(item.club, item.federation) }
+              .uniq(&:name)
+              .sort_by(&:name)
     end
 
     def deduplicate_by_dtb_id(scope)

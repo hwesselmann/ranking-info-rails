@@ -40,6 +40,7 @@ class PlayersController < ApplicationController
     @available_quarters = helpers.fetch_available_quarters(dtb_id: @player.dtb_id)
     @current_rankings = current_rankings(@player.dtb_id)
     @complete_rankings = complete_rankings(@player.dtb_id).reverse!
+    @has_adult_rankings = @complete_rankings.any? { |r| r.key?('m00') || r.key?('w00') }
     twelve_month = data_for_last_twelve_months(@player.dtb_id)
     @data_for_last_twelve_months = twelve_month[0]
     @score_for_last_twelve_months = twelve_month[1]
@@ -139,6 +140,13 @@ class PlayersController < ApplicationController
                              age_group_ranking: true, year_end_ranking: false)
                       .order(date: :desc, age_group: :asc)
                       .limit(4)
+    if rankings.empty?
+      rankings = Ranking.where(dtb_id: dtb_id, yob_ranking: false,
+                               age_group_ranking: false, year_end_ranking: false,
+                               age_group: %w[m00 w00])
+                        .order(date: :desc)
+                        .limit(4)
+    end
     [collect_diagram_data(rankings), collect_score_data(rankings)]
   end
 
@@ -151,13 +159,14 @@ class PlayersController < ApplicationController
 
   def collect_diagram_data(rankings)
     positions = Hash.new { |h, k| h[k] = {} }
+    age_groups = %w[U12 U14 U16 U18 m00 w00]
     rankings.reverse_each do |ranking|
-      next unless %w[U12 U14 U16 U18].include?(ranking.age_group)
+      next unless age_groups.include?(ranking.age_group)
 
       period = (ranking.date - 1.day).strftime('%d.%m.%Y')
       positions[ranking.age_group][period] = ranking.ranking_position
     end
-    %w[U12 U14 U16 U18].filter_map { |ag| { name: ag, data: positions[ag] } if positions[ag].any? }
+    age_groups.filter_map { |ag| { name: ag, data: positions[ag] } if positions[ag].any? }
   end
 
   def collect_score_data(rankings)
