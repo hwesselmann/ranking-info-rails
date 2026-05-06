@@ -17,10 +17,13 @@
       <td colspan="2" class="center">U14</td>
       <td colspan="2" class="center">U16</td>
       <td colspan="2" class="center">U18</td>
+      <td colspan="2" class="center">Aktive</td>
     </tr>
     <tr class="table-info">
       <td></td>
       <td class="center border-left"><i class="fas fa-mars"></i></td>
+      <td class="center border-right"><i class="fas fa-venus"></i></td>
+      <td class="center"><i class="fas fa-mars"></i></td>
       <td class="center border-right"><i class="fas fa-venus"></i></td>
       <td class="center"><i class="fas fa-mars"></i></td>
       <td class="center border-right"><i class="fas fa-venus"></i></td>
@@ -40,6 +43,8 @@
         <td class="center border-right"><%= fed['U16w'] || 0 %></td>
         <td class="center"><%= fed['U18m'] || 0 %></td>
         <td class="center border-right"><%= fed['U18w'] || 0 %></td>
+        <td class="center"><%= fed['m00'] || 0 %></td>
+        <td class="center border-right"><%= fed['w00'] || 0 %></td>
       </tr>
     <% end %>
   </table>

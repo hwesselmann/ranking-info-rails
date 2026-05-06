@@ -3,14 +3,16 @@
     <thead>
       <tr>
         <th>Vereinsname</th>
-        <th class="center">Anzahl Spieler</th>
+        <th class="center">Jugend</th>
+        <th class="center">Herren/Damen</th>
       </tr>
     </thead>
     <tbody>
       <% @clubs.each do |club| %>
         <tr>
           <td><%= link_to club[:name], club_path(club[:name]), class: 'has-text-info' %></td>
-          <td class="center"><%= club[:player_count] %></td>
+          <td class="center"><%= club[:youth_count] %></td>
+          <td class="center"><%= club[:adult_count] %></td>
         </tr>
       <% end %>
     </tbody>

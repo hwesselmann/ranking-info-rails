@@ -14,7 +14,7 @@
   <% else %>
     <% @current_rankings.each_with_index do |cr, index| %>
       <tr <%= "class=has-background-info-light" if index.eql?(0) %>>
-        <td class="center"><%= cr['age_group'] %></td>
+        <td class="center"><%= %w[m00 w00].include?(cr['age_group']) ? 'Aktive' : cr['age_group'] %></td>
         <td><%= cr['position'] %></td>
         <td>
           <% if !cr['position_change'].nil? && cr['position_change'][0].eql?('+') %>

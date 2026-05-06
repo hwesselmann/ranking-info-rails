@@ -7,51 +7,48 @@ class FederationsController < ApplicationController
   def index
     @federations = {}
     quarter = current_quarter
-    return @federations if quarter.nil?
+    return unless quarter
 
-    quarter = quarter.date
-    male_count = player_count_by_federation(quarter, 'm')
-    female_count = player_count_by_federation(quarter, 'w')
-
-    federations = {}
-    age_groups = {}
-    curr_fed = ''
-    # male counts
-    male_count.each do |entry|
-      unless entry['federation'].eql?(curr_fed)
-        federations[curr_fed] = age_groups unless curr_fed.eql?('')
-        age_groups = {}
-        curr_fed = entry['federation']
-      end
-      age_group = "#{entry['age_group']}m"
-      age_groups[age_group] = entry['count']
-    end
-    federations[curr_fed] = age_groups
-
-    # female counts
-    age_groups = {}
-    female_count.each do |entry|
-      age_group = "#{entry['age_group']}w"
-      federations[entry['federation']][age_group] = entry['count']
-    end
-    @federations = federations
+    @federations = build_youth_federations(quarter)
+    add_active_counts(@federations, quarter)
   end
 
+  private
+
   def current_quarter
-    Ranking.select(:date).order(date: :desc)
-           .distinct.first
+    Ranking.select(:date).order(date: :desc).distinct.first&.date
+  end
+
+  def build_youth_federations(quarter)
+    federations = {}
+    %w[m w].each do |gender|
+      player_count_by_federation(quarter, gender).each do |(federation, age_group), count|
+        federations[federation] ||= {}
+        federations[federation]["#{age_group}#{gender}"] = count
+      end
+    end
+    federations
+  end
+
+  def add_active_counts(federations, quarter)
+    %w[m00 w00].each do |ag|
+      active_count_by_federation(quarter, ag).each do |federation, count|
+        federations[federation][ag] = count if federations.key?(federation)
+      end
+    end
+  end
+
+  def active_count_by_federation(quarter, age_group)
+    Ranking.where(date: quarter, age_group: age_group)
+           .group(:federation)
+           .count
   end
 
   def player_count_by_federation(quarter, gender)
-    dtb_id = if gender.eql?('m') then 10_000_000
-             else 20_000_000
-             end
-    Ranking.find_by_sql([
-      "SELECT COUNT(dtb_id) AS count, federation, age_group FROM rankings
-       WHERE date=? AND dtb_id >= ? AND dtb_id < ?
-       AND yob_ranking=false AND age_group_ranking=true AND year_end_ranking=false
-       GROUP BY federation, age_group;",
-      quarter, dtb_id, dtb_id + 10_000_000
-    ])
+    dtb_id_start = gender == 'm' ? 10_000_000 : 20_000_000
+    Ranking.where(date: quarter, yob_ranking: false, age_group_ranking: true, year_end_ranking: false)
+           .where('dtb_id >= ? AND dtb_id < ?', dtb_id_start, dtb_id_start + 10_000_000)
+           .group(:federation, :age_group)
+           .count
   end
 end

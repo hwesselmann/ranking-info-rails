@@ -1,8 +1,13 @@
+FROM node:24-alpine AS node_base
+
 FROM ruby:4.0.3-alpine AS build
 
 LABEL maintainer="Hauke Wesselmann <hauke@h-dawg.de>"
 
 WORKDIR /app
+
+COPY --from=node_base /usr/local/bin/node /usr/local/bin/node
+COPY --from=node_base /usr/local/lib/node_modules /usr/local/lib/node_modules
 
 RUN apk add --no-cache \
       build-base \
@@ -10,9 +15,9 @@ RUN apk add --no-cache \
       git \
       libpq-dev \
       tzdata \
-      yaml-dev \
-      nodejs \
-      npm && \
+      yaml-dev && \
+    ln -sf /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm && \
+    ln -sf /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx && \
     npm install -g yarn sass esbuild && \
     adduser -D -h /home/ruby -s /bin/sh ruby && \
     chown ruby:ruby /app

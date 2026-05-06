@@ -28,9 +28,7 @@ class ImportController < ApplicationController
     if params[:file]
       uploaded = params[:file]
       safe_filename = File.basename(uploaded.original_filename)
-      File.open(Rails.root.join('public', 'uploads', safe_filename), 'wb') do |f|
-        f.write(uploaded.read)
-      end
+      File.binwrite(Rails.root.join('public', 'uploads', safe_filename), uploaded.read)
       Ranking.import_rankings("public/uploads/#{safe_filename}")
       redirect_to status_url, flash: { info: "new rankings file #{safe_filename} imported!" }
     else

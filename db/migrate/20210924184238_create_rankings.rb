@@ -17,7 +17,7 @@ class CreateRankings < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
-    add_index :rankings, [:dtb_id, :date]
-    add_index :rankings, [:dtb_id, :date, :federation]
+    add_index :rankings, %i[dtb_id date]
+    add_index :rankings, %i[dtb_id date federation]
   end
 end

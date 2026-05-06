@@ -1,3 +1,37 @@
+$ri-blue: #3e8ed0;
+
+.navbar.is-info {
+  --bulma-navbar-background-color: #{$ri-blue};
+  --bulma-navbar-h: 207deg;
+  --bulma-navbar-s: 61%;
+  --bulma-navbar-l: 53%;
+  --bulma-navbar-item-background-l: 53%;
+  --bulma-navbar-item-color-l: 100%;
+}
+
+.button.is-info {
+  --bulma-button-h: 207deg;
+  --bulma-button-s: 61%;
+  --bulma-button-l: 53%;
+  --bulma-button-background-l: 53%;
+  --bulma-button-border-l: 53%;
+  --bulma-button-color-l: 100%;
+}
+
+.has-background-dark.has-text-light,
+.has-background-dark.has-text-light td,
+.has-background-dark.has-text-light th {
+  color: white !important;
+}
+
+.has-background-info {
+  background-color: $ri-blue !important;
+}
+
+.has-text-info {
+  color: $ri-blue !important;
+}
+
 /* universal */
 section {
   overflow: auto;
