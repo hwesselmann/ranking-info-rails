@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2022_07_20_150031) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_08_120000) do
+  create_table "import_histories", force: :cascade do |t|
+    t.string "category", null: false
+    t.datetime "created_at", null: false
+    t.string "filename", null: false
+    t.datetime "imported_at", null: false
+    t.date "period", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "rankings", force: :cascade do |t|
     t.string "age_group"
     t.boolean "age_group_ranking", default: false

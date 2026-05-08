@@ -16,6 +16,12 @@ class Ranking < ApplicationRecord
     category = file_category_from_filename(file)
     store_rankings_from_csv(file, period, AGE_GROUP_MAP[category])
     calculate_rankings(period, GENDER_FACTORS[category]) if GENDER_FACTORS.key?(category)
+    ImportHistory.create!(
+      filename: File.basename(file),
+      category: category.to_s.capitalize,
+      period: period,
+      imported_at: Time.current
+    )
     elapsed_ms = Process.clock_gettime(Process::CLOCK_MONOTONIC, :millisecond) - start_ms
     logger.info "import of '#{File.basename(file)}' completed in #{elapsed_ms}ms"
   end
