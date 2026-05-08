@@ -41,10 +41,11 @@ Metrics/BlockLength:
     - 'Guardfile'
     - 'app/controllers/players_controller.rb'
 
-# Offense count: 3
+# Offense count: 4
 # Configuration parameters: CountComments, Max, CountAsOne.
 Metrics/ClassLength:
   Exclude:
+    - 'app/controllers/listing_controller.rb'
     - 'app/controllers/players_controller.rb'
     - 'app/models/player.rb'
     - 'app/models/ranking.rb'

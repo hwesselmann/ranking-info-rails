@@ -18,12 +18,16 @@ class ListingController < ApplicationController
     @rankings = Ranking.where(date: params[:quarter])
                        .where(gender_selected(params[:gender]))
                        .where(age_group_selected(params[:age_group], params[:gender]))
-                       .where(age_group_options(params[:age_group][1, 2].to_i, params[:age_group_options],
+                       .where(age_group_options(age_group_as_int(params[:age_group]), params[:age_group_options],
                                                 params[:gender]))
                        .where(federation_selected(params[:federation]))
                        .where(club_selected(params[:club]))
                        .where(year_end_rankings(params[:year_end], params[:quarter]))
+                       .select(:dtb_id, :ranking_position, :lastname, :firstname, :nationality, :club, :federation,
+                               :score)
                        .order(:ranking_position, score: :desc)
+
+    @previous_positions = previous_positions(@rankings, params)
   end
 
   private
@@ -121,5 +125,26 @@ class ListingController < ApplicationController
 
   def first_quarter?(quarter)
     quarter.split('-')[1].eql?('01')
+  end
+
+  def previous_positions(current_rankings, params)
+    prev_date_subquery = Ranking.select(:date)
+                                .where('date < ?', params[:quarter])
+                                .order(date: :desc)
+                                .distinct
+                                .limit(1)
+
+    Ranking.where(date: prev_date_subquery)
+           .where(dtb_id: current_rankings.reselect(:dtb_id).reorder(nil))
+           .where(age_group_selected(params[:age_group], params[:gender]))
+           .where(age_group_options(age_group_as_int(params[:age_group]), params[:age_group_options], params[:gender]))
+           .where(year_end_rankings(params[:year_end], params[:quarter]))
+           .select(:dtb_id, :ranking_position)
+           .to_h { |r| [r.dtb_id, r.ranking_position] }
+           .presence
+  end
+
+  def age_group_as_int(age_group_param)
+    age_group_param[1, 2].to_i
   end
 end

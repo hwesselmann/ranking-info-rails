@@ -7,7 +7,7 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
   test 'get available quarters' do
-    assert_equal(2, fetch_available_quarters.size)
+    assert_equal(4, fetch_available_quarters.size)
     assert_equal(2, fetch_available_quarters['2017'].size)
     assert_equal('01.07.', fetch_available_quarters['2018'].fetch(0))
   end

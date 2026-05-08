@@ -32178,6 +32178,11 @@ p {
   color: red;
 }
 
+.ri-icon-yellow {
+  font-size: 1em;
+  color: #d4a017;
+}
+
 /* miscellaneous */
 .debug_dump {
   clear: both;
