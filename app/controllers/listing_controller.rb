@@ -135,7 +135,7 @@ class ListingController < ApplicationController
                                 .limit(1)
 
     Ranking.where(date: prev_date_subquery)
-           .where(dtb_id: current_rankings.select(:dtb_id))
+           .where(dtb_id: current_rankings.reselect(:dtb_id).reorder(nil))
            .where(age_group_selected(params[:age_group], params[:gender]))
            .where(age_group_options(age_group_as_int(params[:age_group]), params[:age_group_options], params[:gender]))
            .where(year_end_rankings(params[:year_end], params[:quarter]))
