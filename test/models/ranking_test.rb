@@ -46,6 +46,14 @@ class RankingTest < ActiveSupport::TestCase
     assert_equal(6, sut.size)
   end
 
+  test 'raises DuplicateImportError when importing the same file twice' do
+    Ranking.import_rankings('./test/fixtures/files/Herren_20180401.csv')
+    exception = assert_raises Ranking::DuplicateImportError do
+      Ranking.import_rankings('./test/fixtures/files/Herren_20180401.csv')
+    end
+    assert_match(/herren.*already been imported/, exception.message)
+  end
+
   test 'full ranking_file_import for youth' do
     assert(File.exist?('./test/fixtures/files/Junioren_20180401.csv'))
     assert(File.exist?('./test/fixtures/files/Juniorinnen_20180401.csv'))

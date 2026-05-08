@@ -34,6 +34,8 @@ class ImportController < ApplicationController
     else
       redirect_to status_url, flash: { info: 'please upload a ranking file' }
     end
+  rescue Ranking::DuplicateImportError => e
+    redirect_to status_url, flash: { danger: e.message }
   end
 
   private
