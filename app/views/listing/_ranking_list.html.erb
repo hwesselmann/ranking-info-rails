@@ -3,7 +3,7 @@
     <thead>
       <tr>
         <th class="center is-hidden-mobile">#</th>
-        <th class="center">Rang</th>
+        <th>Rang</th>
         <th>Nachname, Vorname</th>
         <th class="center">DTB-ID</th>
         <th class="center is-hidden-mobile">Nationalität</th>
@@ -16,7 +16,7 @@
       <% @rankings.each_with_index do |ranking, index| %>
         <tr>
           <td class="center is-hidden-mobile"><%= index + 1 %></td>
-          <td class="center"><%= ranking.ranking_position %></td>
+          <td><%= ranking.ranking_position %><%= position_indicator(ranking.dtb_id, ranking.ranking_position, @previous_positions) %></td>
           <td><%= ranking.lastname %>, <%= ranking.firstname %></td>
           <td class="center"><%= link_to ranking.dtb_id, player_path(ranking.dtb_id), class: 'has-text-info' %></td>
           <td class="center is-hidden-mobile"><%= image_tag("#{ranking.nationality.downcase}.svg", width: "30") %></td>
