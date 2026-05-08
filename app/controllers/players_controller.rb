@@ -136,17 +136,20 @@ class PlayersController < ApplicationController
   end
 
   def data_for_last_twelve_months(dtb_id)
-    youth_rankings = Ranking.where(dtb_id: dtb_id, yob_ranking: false,
-                                   age_group_ranking: true, year_end_ranking: false)
-                            .order(date: :desc, age_group: :asc)
-                            .limit(4)
-    adult_rankings = Ranking.where(dtb_id: dtb_id, yob_ranking: false,
-                                   age_group_ranking: false, year_end_ranking: false,
-                                   age_group: %w[m00 w00])
-                            .order(date: :desc)
-                            .limit(4)
-    rankings = (youth_rankings.to_a + adult_rankings.to_a).sort_by(&:date).reverse
+    dates = recent_ranking_dates(dtb_id)
+    youth = Ranking.where(dtb_id: dtb_id, date: dates, yob_ranking: false,
+                          age_group_ranking: true, year_end_ranking: false)
+    adult = Ranking.where(dtb_id: dtb_id, date: dates, yob_ranking: false,
+                          age_group_ranking: false, year_end_ranking: false,
+                          age_group: %w[m00 w00])
+    rankings = (youth.to_a + adult.to_a).sort_by(&:date).reverse
     [collect_diagram_data(rankings), collect_score_data(rankings)]
+  end
+
+  def recent_ranking_dates(dtb_id)
+    Ranking.where(dtb_id: dtb_id, yob_ranking: false, year_end_ranking: false)
+           .where('age_group_ranking = ? OR age_group IN (?)', true, %w[m00 w00])
+           .select(:date).distinct.order(date: :desc).limit(4).pluck(:date)
   end
 
   def data_diagram_complete(dtb_id)

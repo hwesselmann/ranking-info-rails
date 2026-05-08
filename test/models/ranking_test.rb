@@ -57,10 +57,10 @@ class RankingTest < ActiveSupport::TestCase
   test 'full ranking_file_import for youth' do
     assert(File.exist?('./test/fixtures/files/Junioren_20180401.csv'))
     assert(File.exist?('./test/fixtures/files/Juniorinnen_20180401.csv'))
-    assert_equal(4, Ranking.count)
+    count_before = Ranking.count
     Ranking.import_rankings('./test/fixtures/files/Junioren_20180401.csv')
     Ranking.import_rankings('./test/fixtures/files/Juniorinnen_20180401.csv')
-    assert_equal(292, Ranking.count)
+    assert_equal(count_before + 288, Ranking.count)
   end
 
   test 'Herren import stores records with age_group m00 and correct positions' do

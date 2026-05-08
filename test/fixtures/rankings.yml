@@ -61,3 +61,110 @@ ranking_four:
   age_group_ranking: false
   yob_ranking: false
   year_end_ranking: false
+
+# Fixtures for chart data tests — youth (U18) and adult (m00) covering
+# overlapping but different date ranges to verify the 4-date limit and ordering.
+# Youth spans Q3/25–Q2/26, adult spans Q1/25 + Q3/25–Q2/26 (one extra older quarter).
+chart_youth_q3_2025:
+  dtb_id: 10_888_888
+  age_group: 'U18'
+  date: '2025-07-01'
+  ranking_position: 6
+  score: '120'
+  nationality: GER
+  club: 'TC Test'
+  federation: 'TST'
+  age_group_ranking: true
+  yob_ranking: false
+  year_end_ranking: false
+
+chart_youth_q4_2025:
+  dtb_id: 10_888_888
+  age_group: 'U18'
+  date: '2025-10-01'
+  ranking_position: 7
+  score: '115'
+  nationality: GER
+  club: 'TC Test'
+  federation: 'TST'
+  age_group_ranking: true
+  yob_ranking: false
+  year_end_ranking: false
+
+chart_youth_q1_2026:
+  dtb_id: 10_888_888
+  age_group: 'U18'
+  date: '2026-01-01'
+  ranking_position: 4
+  score: '130'
+  nationality: GER
+  club: 'TC Test'
+  federation: 'TST'
+  age_group_ranking: true
+  yob_ranking: false
+  year_end_ranking: false
+
+chart_youth_q2_2026:
+  dtb_id: 10_888_888
+  age_group: 'U18'
+  date: '2026-04-01'
+  ranking_position: 4
+  score: '135'
+  nationality: GER
+  club: 'TC Test'
+  federation: 'TST'
+  age_group_ranking: true
+  yob_ranking: false
+  year_end_ranking: false
+
+chart_adult_q1_2025:
+  dtb_id: 10_888_888
+  age_group: 'm00'
+  date: '2025-04-01'
+  ranking_position: 48
+  score: '100'
+  nationality: GER
+  club: 'TC Test'
+  federation: 'TST'
+  age_group_ranking: false
+  yob_ranking: false
+  year_end_ranking: false
+
+chart_adult_q3_2025:
+  dtb_id: 10_888_888
+  age_group: 'm00'
+  date: '2025-07-01'
+  ranking_position: 40
+  score: '105'
+  nationality: GER
+  club: 'TC Test'
+  federation: 'TST'
+  age_group_ranking: false
+  yob_ranking: false
+  year_end_ranking: false
+
+chart_adult_q4_2025:
+  dtb_id: 10_888_888
+  age_group: 'm00'
+  date: '2025-10-01'
+  ranking_position: 54
+  score: '110'
+  nationality: GER
+  club: 'TC Test'
+  federation: 'TST'
+  age_group_ranking: false
+  yob_ranking: false
+  year_end_ranking: false
+
+chart_adult_q2_2026:
+  dtb_id: 10_888_888
+  age_group: 'm00'
+  date: '2026-04-01'
+  ranking_position: 39
+  score: '120'
+  nationality: GER
+  club: 'TC Test'
+  federation: 'TST'
+  age_group_ranking: false
+  yob_ranking: false
+  year_end_ranking: false
