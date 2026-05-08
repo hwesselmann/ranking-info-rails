@@ -10,10 +10,16 @@ class Ranking < ApplicationRecord
   GENDER_FACTORS = { junioren: 100, juniorinnen: 200 }.freeze
   AGE_GROUP_MAP = { herren: 'm00', damen: 'w00', junioren: 'overall', juniorinnen: 'overall' }.freeze
 
+  class DuplicateImportError < StandardError; end
+
   def self.import_rankings(file)
     start_ms = Process.clock_gettime(Process::CLOCK_MONOTONIC, :millisecond)
     period = extract_period_from_filename(file)
     category = file_category_from_filename(file)
+    if ImportHistory.exists?(category: category.to_s.capitalize, period: period)
+      raise DuplicateImportError, "rankings for '#{category}' / #{period} have already been imported"
+    end
+
     store_rankings_from_csv(file, period, AGE_GROUP_MAP[category])
     calculate_rankings(period, GENDER_FACTORS[category]) if GENDER_FACTORS.key?(category)
     ImportHistory.create!(

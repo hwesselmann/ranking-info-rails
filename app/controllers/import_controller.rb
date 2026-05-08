@@ -25,15 +25,15 @@ class ImportController < ApplicationController
   def upload; end
 
   def import
-    if params[:file]
-      uploaded = params[:file]
-      safe_filename = File.basename(uploaded.original_filename)
-      File.binwrite(Rails.root.join('public', 'uploads', safe_filename), uploaded.read)
-      Ranking.import_rankings("public/uploads/#{safe_filename}")
-      redirect_to status_url, flash: { info: "new rankings file #{safe_filename} imported!" }
-    else
-      redirect_to status_url, flash: { info: 'please upload a ranking file' }
-    end
+    return redirect_to status_url, flash: { info: 'please upload a ranking file' } unless params[:file]
+
+    uploaded = params[:file]
+    safe_filename = File.basename(uploaded.original_filename)
+    File.binwrite(Rails.root.join('public', 'uploads', safe_filename), uploaded.read)
+    Ranking.import_rankings("public/uploads/#{safe_filename}")
+    redirect_to status_url, flash: { info: "new rankings file #{safe_filename} imported!" }
+  rescue Ranking::DuplicateImportError => e
+    redirect_to status_url, flash: { danger: e.message }
   end
 
   private
