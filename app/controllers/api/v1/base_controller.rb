@@ -24,7 +24,8 @@ module Api
 
       def valid_tokens
         tokens = Array(Rails.application.credentials.dig(:api, :tokens))
-        tokens << ENV['API_BEARER_TOKEN'] if ENV['API_BEARER_TOKEN'].present?
+        bearer_token = ENV.fetch('API_BEARER_TOKEN', nil)
+        tokens << bearer_token if bearer_token.present?
         tokens
       end
     end
