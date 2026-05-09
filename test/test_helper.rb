@@ -1,6 +1,12 @@
 ENV['RAILS_ENV'] ||= 'test'
 require 'simplecov' # NOSONAR
-SimpleCov.start 'rails'
+require 'simplecov_json_formatter' # NOSONAR
+SimpleCov.start 'rails' do
+  formatter SimpleCov::Formatter::MultiFormatter.new([
+                                                       SimpleCov::Formatter::HTMLFormatter,
+                                                       SimpleCov::Formatter::JSONFormatter
+                                                     ])
+end
 
 require_relative '../config/environment' # NOSONAR
 require 'rails/test_help' # NOSONAR
