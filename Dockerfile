@@ -26,6 +26,8 @@ USER ruby
 
 COPY --chown=ruby:ruby Gemfile Gemfile.lock ./
 
+RUN gem install bundler -v $(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -1 | tr -d ' ')
+
 RUN bundle config set --local frozen true && \
     bundle config set --local without "development test" && \
     bundle install --jobs 4 --retry 3
