@@ -4,7 +4,6 @@
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=hwesselmann_ranking-info&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=hwesselmann_ranking-info)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=hwesselmann_ranking-info&metric=coverage)](https://sonarcloud.io/summary/new_code?id=hwesselmann_ranking-info)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=hwesselmann_ranking-info&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=hwesselmann_ranking-info)
-[![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-light.svg)](https://sonarcloud.io/summary/new_code?id=hwesselmann_ranking-info)
 
 This is a small web-application aiming at providing accessible information on the German national tennis youth rankings.
 
@@ -154,3 +153,6 @@ Set the following environment variables to populate the imprint on the about pag
 | `IMPRINT_CITY` | City for the imprint |
 | `IMPRINT_PHONE` | Phone number for the imprint |
 | `IMPRINT_MAIL` | Email address for the imprint |
+
+
+[![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-light.svg)](https://sonarcloud.io/summary/new_code?id=hwesselmann_ranking-info)
