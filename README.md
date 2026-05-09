@@ -1,6 +1,6 @@
 # ranking-info  
 
-![Main](https://github.com/hwesselmann/ranking-info/workflows/Test/badge.svg)
+[![test and sca](https://github.com/hwesselmann/ranking-info/actions/workflows/test.yaml/badge.svg)](https://github.com/hwesselmann/ranking-info/actions/workflows/test.yaml)
 
 This is a small web-application aiming at providing accessible information on the German national tennis youth rankings.
 
@@ -10,7 +10,7 @@ This application is developed using
 
 * Ruby 4.0.3
 * Rails 8.1.3
-* Node.js 22 (for asset compilation)
+* Node.js 24 (for asset compilation)
 * SQLite3 (for development and test)
 * PostgreSQL (for production)
 * Bundler (Ruby gem management)
@@ -61,6 +61,46 @@ The project also includes Guard for running tests automatically on code changes.
 ```bash
 guard
 ```
+
+## API Documentation (Swagger UI)
+
+The application exposes a REST API documented with Swagger UI, available at `/api-docs` when the server is running (e.g. `http://localhost:3000/api-docs`).
+
+All API endpoints require Bearer token authentication. Requests without a valid token receive a `401 Unauthorized` response.
+
+### Configuring Bearer Tokens
+
+Tokens can be provided in two ways:
+
+**Via environment variable** (single token, suitable for development or simple deployments):
+
+```bash
+API_BEARER_TOKEN=your_secret_token bin/rails server
+```
+
+**Via Rails credentials** (array of tokens, suitable for production):
+
+```bash
+bin/rails credentials:edit
+```
+
+Add the following structure:
+
+```yaml
+api:
+  tokens:
+    - your_first_token
+    - your_second_token
+```
+
+### Using Bearer Tokens in Swagger UI
+
+1. Open `/api-docs` in your browser.
+2. Click the **Authorize** button (lock icon) at the top right of the page.
+3. Enter your token in the **Value** field using the format `Bearer your_secret_token`.
+4. Click **Authorize**, then **Close**.
+
+Subsequent requests made through the Swagger UI will include the token automatically.
 
 ## Import file format  
 
