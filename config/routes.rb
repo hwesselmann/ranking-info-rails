@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
+
+  namespace :api do
+    namespace :v1 do
+      get 'listings/:quarter/:age_group_slug', to: 'listings#index', as: :listings
+    end
+  end
+
   root 'static_pages#home'
   get '/help', to: 'static_pages#help'
   get '/about', to: 'static_pages#about'

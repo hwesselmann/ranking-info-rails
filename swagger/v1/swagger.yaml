@@ -1,0 +1,272 @@
+openapi: 3.0.1
+info:
+  title: Ranking Info API
+  version: v1
+  description: |
+    API for retrieving German tennis ranking listings (DTB).
+
+    ## Authentication
+    All endpoints require a Bearer token in the `Authorization` header:
+    ```
+    Authorization: Bearer <your-token>
+    ```
+
+    ## Age Group Slugs
+    The `age_group_slug` path parameter encodes both gender and age group:
+
+    | Slug  | Description        |
+    |-------|--------------------|
+    | m00   | Herren (men)       |
+    | w00   | Damen (women)      |
+    | mu18  | Junioren U18       |
+    | mu16  | Junioren U16       |
+    | mu14  | Junioren U14       |
+    | mu12  | Junioren U12       |
+    | wu18  | Juniorinnen U18    |
+    | wu16  | Juniorinnen U16    |
+    | wu14  | Juniorinnen U14    |
+    | wu12  | Juniorinnen U12    |
+
+servers:
+  - url: /
+    description: Current server
+
+security:
+  - bearerAuth: []
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: API token configured via Rails credentials (api.tokens) or ENV[API_BEARER_TOKEN]
+
+  schemas:
+    RankingEntry:
+      type: object
+      properties:
+        dtb_id:
+          type: integer
+          description: Unique player identifier (DTB ID)
+          example: 10712345
+        ranking_position:
+          type: integer
+          description: Position in the ranking
+          example: 1
+        lastname:
+          type: string
+          example: Mustermann
+        firstname:
+          type: string
+          example: Max
+        nationality:
+          type: string
+          maxLength: 3
+          example: GER
+        club:
+          type: string
+          example: TC Musterclub
+        federation:
+          type: string
+          description: Federation short code
+          example: BAD
+        score:
+          type: string
+          description: Ranking score (points as string)
+          example: "1234"
+        position_change:
+          type: integer
+          nullable: true
+          description: >
+            Change in position compared to the previous quarter.
+            Positive = moved up, negative = moved down, null = no previous entry.
+          example: 2
+
+    RequestBlock:
+      type: object
+      description: Echo of the applied request parameters plus total result count
+      properties:
+        quarter:
+          type: string
+          format: date
+          example: "2026-04-01"
+        age_group:
+          type: string
+          example: m00
+        age_group_options:
+          type: string
+          nullable: true
+          enum: [only_yob, include_younger, null]
+        federation:
+          type: string
+          nullable: true
+          example: BAD
+        club:
+          type: string
+          nullable: true
+          example: TC Musterclub
+        year_end:
+          type: boolean
+          example: false
+        page:
+          type: integer
+          example: 1
+        per_page:
+          type: integer
+          example: 25
+        total_count:
+          type: integer
+          description: Total number of matching records (ignoring pagination)
+          example: 312
+
+    ListingsResponse:
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/RequestBlock'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/RankingEntry'
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Unauthorized
+
+paths:
+  /api/v1/listings/{quarter}/{age_group_slug}:
+    get:
+      summary: Retrieve ranking listings
+      description: >
+        Returns a paginated, filtered list of ranking entries for the given quarter
+        and age group. Results are ordered by ranking position ascending.
+      operationId: getListings
+      tags:
+        - Listings
+      parameters:
+        - name: quarter
+          in: path
+          required: true
+          description: >
+            First day of the ranking quarter (YYYY-MM-DD).
+            Use the date as stored in the database (e.g. 2026-04-01 for Q1 2026).
+          schema:
+            type: string
+            format: date
+          example: "2026-04-01"
+
+        - name: age_group_slug
+          in: path
+          required: true
+          description: >
+            Encodes gender and age group. Prefix `m` = male, `w` = female.
+            Suffix `00` = adult, `u{age}` = youth age group.
+          schema:
+            type: string
+            pattern: '^[mw](00|u\d{2})$'
+          example: m00
+
+        - name: federation
+          in: query
+          required: false
+          description: Filter by federation short code (exact match)
+          schema:
+            type: string
+          example: BAD
+
+        - name: club
+          in: query
+          required: false
+          description: Filter by club name (case-insensitive partial match)
+          schema:
+            type: string
+          example: TC Musterclub
+
+        - name: age_group_options
+          in: query
+          required: false
+          description: >
+            Sub-filter for youth age group entries.
+            `only_yob` returns only players ranked by year of birth.
+            `include_younger` includes players ranked despite being younger than the age group.
+          schema:
+            type: string
+            enum: [only_yob, include_younger]
+
+        - name: year_end
+          in: query
+          required: false
+          description: >
+            Set to `1` to retrieve year-end rankings instead of regular quarterly rankings.
+            Only effective when `quarter` is a Q1 date (YYYY-01-01).
+          schema:
+            type: string
+            enum: ["0", "1"]
+            default: "0"
+
+        - name: page
+          in: query
+          required: false
+          description: Page number (1-based)
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+
+        - name: per_page
+          in: query
+          required: false
+          description: Number of results per page. Capped at 100.
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 25
+
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListingsResponse'
+              example:
+                request:
+                  quarter: "2026-04-01"
+                  age_group: m00
+                  age_group_options: null
+                  federation: BAD
+                  club: null
+                  year_end: false
+                  page: 1
+                  per_page: 25
+                  total_count: 87
+                data:
+                  - dtb_id: 10712345
+                    ranking_position: 1
+                    lastname: Mustermann
+                    firstname: Max
+                    nationality: GER
+                    club: TC Musterclub
+                    federation: BAD
+                    score: "1234"
+                    position_change: 2
+                  - dtb_id: 10712346
+                    ranking_position: 2
+                    lastname: Beispiel
+                    firstname: Anna
+                    nationality: GER
+                    club: TC Beispiel
+                    federation: BAD
+                    score: "1180"
+                    position_change: null
+
+        "401":
+          description: Unauthorized — missing or invalid Bearer token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'

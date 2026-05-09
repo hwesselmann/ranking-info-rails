@@ -4,10 +4,7 @@
 # Controller covering all actions concerning the ranking list.
 #
 class ListingController < ApplicationController
-  AGE_GROUP_OPTION_FILTERS = {
-    'only_yob' => 'yob_ranking=true AND age_group_ranking=false',
-    'include_younger' => 'yob_ranking=false AND age_group_ranking=false'
-  }.freeze
+  include RankingFilters
 
   def index
     @quarters = fetch_available_quarters
@@ -15,11 +12,13 @@ class ListingController < ApplicationController
 
     return unless params[:commit]
 
+    gender = ui_gender_to_internal(params[:gender])
+    age_group = ui_age_group_to_internal(params[:age_group], params[:gender])
+
     @rankings = Ranking.where(date: params[:quarter])
-                       .where(gender_selected(params[:gender]))
-                       .where(age_group_selected(params[:age_group], params[:gender]))
-                       .where(age_group_options(age_group_as_int(params[:age_group]), params[:age_group_options],
-                                                params[:gender]))
+                       .where(gender_selected(gender))
+                       .where(age_group_selected(age_group))
+                       .where(age_group_options(age_group, params[:age_group_options], gender))
                        .where(federation_selected(params[:federation]))
                        .where(club_selected(params[:club]))
                        .where(year_end_rankings(params[:year_end], params[:quarter]))
@@ -27,7 +26,7 @@ class ListingController < ApplicationController
                                :score)
                        .order(:ranking_position, score: :desc)
 
-    @previous_positions = previous_positions(@rankings, params)
+    @previous_positions = previous_positions(@rankings, params, gender, age_group)
   end
 
   private
@@ -73,61 +72,22 @@ class ListingController < ApplicationController
     federations
   end
 
-  def gender_selected(gender)
+  def ui_gender_to_internal(gender)
     case gender
-    when 'Junioren', 'Herren' then '(dtb_id >= 10000000 AND dtb_id <= 19999999)'
-    else '(dtb_id >= 20000000 AND dtb_id <= 29999999)'
+    when 'Herren', 'Junioren' then 'male'
+    else 'female'
     end
   end
 
-  def age_group_selected(age_group, gender)
+  def ui_age_group_to_internal(age_group, gender)
     case gender
-    when 'Herren' then ['age_group = ?', 'm00']
-    when 'Damen'  then ['age_group = ?', 'w00']
-    else ['age_group = ?', age_group.presence || 'overall']
+    when 'Herren' then 'm00'
+    when 'Damen'  then 'w00'
+    else age_group.presence || 'overall'
     end
   end
 
-  def age_group_options(age_group, age_group_options, gender)
-    return 'yob_ranking=false AND age_group_ranking=false' if %w[Herren Damen].include?(gender)
-    return default_age_group_filter(age_group) if age_group_options.eql?('')
-
-    AGE_GROUP_OPTION_FILTERS[age_group_options]
-  end
-
-  def default_age_group_filter(age_group)
-    if age_group.even?
-      'yob_ranking=false AND age_group_ranking=true'
-    else
-      'yob_ranking=true AND age_group_ranking=false'
-    end
-  end
-
-  def federation_selected(federation)
-    return nil if federation.eql?('')
-
-    ['federation = ?', federation]
-  end
-
-  def club_selected(club)
-    return nil if club.eql?('')
-
-    ['LOWER(club) LIKE LOWER(?)', "%#{club}%"]
-  end
-
-  def year_end_rankings(year_end, quarter)
-    if year_end.eql?('1') && first_quarter?(quarter)
-    then 'year_end_ranking=true'
-    else
-      'year_end_ranking=false'
-    end
-  end
-
-  def first_quarter?(quarter)
-    quarter.split('-')[1].eql?('01')
-  end
-
-  def previous_positions(current_rankings, params)
+  def previous_positions(current_rankings, params, gender, age_group)
     prev_date_subquery = Ranking.select(:date)
                                 .where('date < ?', params[:quarter])
                                 .order(date: :desc)
@@ -136,15 +96,11 @@ class ListingController < ApplicationController
 
     Ranking.where(date: prev_date_subquery)
            .where(dtb_id: current_rankings.reselect(:dtb_id).reorder(nil))
-           .where(age_group_selected(params[:age_group], params[:gender]))
-           .where(age_group_options(age_group_as_int(params[:age_group]), params[:age_group_options], params[:gender]))
+           .where(age_group_selected(age_group))
+           .where(age_group_options(age_group, params[:age_group_options], gender))
            .where(year_end_rankings(params[:year_end], params[:quarter]))
            .select(:dtb_id, :ranking_position)
            .to_h { |r| [r.dtb_id, r.ranking_position] }
            .presence
-  end
-
-  def age_group_as_int(age_group_param)
-    age_group_param[1, 2].to_i
   end
 end

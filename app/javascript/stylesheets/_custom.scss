@@ -9,6 +9,10 @@ $ri-blue: #3e8ed0;
   --bulma-navbar-item-color-l: 100%;
 }
 
+.navbar.is-info .navbar-burger {
+  color: white;
+}
+
 .button.is-info {
   --bulma-button-h: 207deg;
   --bulma-button-s: 61%;

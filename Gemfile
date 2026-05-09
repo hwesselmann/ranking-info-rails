@@ -10,10 +10,13 @@ gem 'cssbundling-rails'
 gem 'csv', '>= 3.3.0'
 gem 'jbuilder', '>= 2.7'
 gem 'jsbundling-rails'
+gem 'kaminari'
 gem 'propshaft'
 gem 'puma', '~> 6.4.3'
 gem 'rails', '~> 8.0'
 gem 'rexml', '>= 3.4.2'
+gem 'rswag-api'
+gem 'rswag-ui'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
