@@ -17,7 +17,7 @@ class ListingController < ApplicationController
 
     @rankings = Ranking.where(date: params[:quarter])
                        .where(gender_selected(gender))
-                       .where(age_group_selected(age_group, gender))
+                       .where(age_group_selected(age_group))
                        .where(age_group_options(age_group, params[:age_group_options], gender))
                        .where(federation_selected(params[:federation]))
                        .where(club_selected(params[:club]))
@@ -96,7 +96,7 @@ class ListingController < ApplicationController
 
     Ranking.where(date: prev_date_subquery)
            .where(dtb_id: current_rankings.reselect(:dtb_id).reorder(nil))
-           .where(age_group_selected(age_group, gender))
+           .where(age_group_selected(age_group))
            .where(age_group_options(age_group, params[:age_group_options], gender))
            .where(year_end_rankings(params[:year_end], params[:quarter]))
            .select(:dtb_id, :ranking_position)

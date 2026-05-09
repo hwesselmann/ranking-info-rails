@@ -51,7 +51,7 @@ module Api
         Ranking
           .where(date: params[:quarter])
           .where(gender_selected(gender))
-          .where(age_group_selected(age_group, gender))
+          .where(age_group_selected(age_group))
           .where(age_group_options(age_group, params[:age_group_options], gender))
           .where(federation_selected(params[:federation]))
           .where(club_selected(params[:club]))
@@ -66,7 +66,7 @@ module Api
 
         Ranking.where(date: prev_date)
                .where(dtb_id: dtb_ids)
-               .where(age_group_selected(age_group, gender))
+               .where(age_group_selected(age_group))
                .where(age_group_options(age_group, params[:age_group_options], gender))
                .where(year_end_rankings(params[:year_end], quarter))
                .select(:dtb_id, :ranking_position)

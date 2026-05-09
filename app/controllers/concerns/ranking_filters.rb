@@ -18,7 +18,7 @@ module RankingFilters
     end
   end
 
-  def age_group_selected(age_group, _gender)
+  def age_group_selected(age_group)
     ['age_group = ?', age_group.presence || 'overall']
   end
 
