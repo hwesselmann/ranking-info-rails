@@ -168,3 +168,48 @@ chart_adult_q2_2026:
   age_group_ranking: false
   yob_ranking: false
   year_end_ranking: false
+
+api_herren_q2_2026_first:
+  firstname: Max
+  lastname: Mustermann
+  nationality: GER
+  club: 'TC Testclub'
+  federation: 'BAD'
+  age_group: 'm00'
+  date: '2026-04-01'
+  ranking_position: 1
+  score: '500'
+  dtb_id: 10_001_001
+  age_group_ranking: false
+  yob_ranking: false
+  year_end_ranking: false
+
+api_herren_q1_2026_first:
+  firstname: Max
+  lastname: Mustermann
+  nationality: GER
+  club: 'TC Testclub'
+  federation: 'BAD'
+  age_group: 'm00'
+  date: '2026-01-01'
+  ranking_position: 3
+  score: '480'
+  dtb_id: 10_001_001
+  age_group_ranking: false
+  yob_ranking: false
+  year_end_ranking: false
+
+api_herren_q2_2026_second:
+  firstname: Dieter
+  lastname: Muster
+  nationality: GER
+  club: 'TC Andere'
+  federation: 'WTB'
+  age_group: 'm00'
+  date: '2026-04-01'
+  ranking_position: 2
+  score: '490'
+  dtb_id: 10_002_002
+  age_group_ranking: false
+  yob_ranking: false
+  year_end_ranking: false

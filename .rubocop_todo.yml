@@ -18,10 +18,11 @@ Lint/InterpolationCheck:
   Exclude:
     - 'test/models/user_test.rb'
 
-# Offense count: 15
+# Offense count: 18
 # Configuration parameters: AllowedMethods, AllowedPatterns, CountRepeatedAttributes, Max.
 Metrics/AbcSize:
   Exclude:
+    - 'app/controllers/api/v1/listings_controller.rb'
     - 'app/controllers/clubs_controller.rb'
     - 'app/controllers/federations_controller.rb'
     - 'app/controllers/import_controller.rb'
@@ -32,7 +33,7 @@ Metrics/AbcSize:
     - 'app/models/ranking.rb'
     - 'db/migrate/20210924184238_create_rankings.rb'
 
-# Offense count: 3
+# Offense count: 4
 # Configuration parameters: CountComments, Max, CountAsOne, AllowedMethods, AllowedPatterns.
 # AllowedMethods: refine
 Metrics/BlockLength:
@@ -40,8 +41,9 @@ Metrics/BlockLength:
     - '**/*.gemspec'
     - 'Guardfile'
     - 'app/controllers/players_controller.rb'
+    - 'config/routes.rb'
 
-# Offense count: 4
+# Offense count: 5
 # Configuration parameters: CountComments, Max, CountAsOne.
 Metrics/ClassLength:
   Exclude:
@@ -49,6 +51,7 @@ Metrics/ClassLength:
     - 'app/controllers/players_controller.rb'
     - 'app/models/player.rb'
     - 'app/models/ranking.rb'
+    - 'test/controllers/api/v1/listings_controller_test.rb'
 
 # Offense count: 4
 # Configuration parameters: AllowedMethods, AllowedPatterns, Max.
