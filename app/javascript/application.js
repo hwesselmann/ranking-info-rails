@@ -6,7 +6,7 @@ import Highcharts from "highcharts"
 Rails.start()
 ActiveStorage.start()
 Chartkick.use(Highcharts)
-window.Chartkick = Chartkick
+globalThis.Chartkick = Chartkick
 
 document.addEventListener('DOMContentLoaded', () => {
   const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);

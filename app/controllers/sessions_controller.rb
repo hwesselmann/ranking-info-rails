@@ -4,7 +4,9 @@
 # Controller handling the session for admin login.
 #
 class SessionsController < ApplicationController
-  def new; end
+  def new
+    # rendered by Rails view without additional logic
+  end
 
   def create
     user = User.find_by(email: params[:session][:email].downcase)

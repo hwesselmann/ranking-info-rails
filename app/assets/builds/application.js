@@ -12404,7 +12404,7 @@
   import_ujs.default.start();
   ActiveStorage.start();
   import_chartkick.default.use(import_highcharts.default);
-  window.Chartkick = import_chartkick.default;
+  globalThis.Chartkick = import_chartkick.default;
   document.addEventListener("DOMContentLoaded", () => {
     const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll(".navbar-burger"), 0);
     if ($navbarBurgers.length > 0) {

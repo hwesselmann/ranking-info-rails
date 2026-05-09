@@ -1,10 +1,10 @@
 ENV['RAILS_ENV'] ||= 'test'
-require 'simplecov'
+require 'simplecov' # NOSONAR
 SimpleCov.start 'rails'
 
-require_relative '../config/environment'
-require 'rails/test_help'
-require 'minitest/reporters'
+require_relative '../config/environment' # NOSONAR
+require 'rails/test_help' # NOSONAR
+require 'minitest/reporters' # NOSONAR
 
 Minitest::Reporters.use!
 
@@ -18,7 +18,9 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
   include ApplicationHelper
 
-  def is_logged_in?
+  # rubocop:disable Style/CommentedKeyword
+  def is_logged_in? # NOSONAR - renaming conflicts with SessionsHelper#logged_in?
+    # rubocop:enable Style/CommentedKeyword
     !session[:user_id].nil?
   end
 end

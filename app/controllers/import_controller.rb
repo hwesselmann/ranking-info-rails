@@ -22,7 +22,9 @@ class ImportController < ApplicationController
     @date_last_updated = last_updated
   end
 
-  def upload; end
+  def upload
+    # rendered by Rails view without additional logic
+  end
 
   def import
     return redirect_to status_url, flash: { info: 'please upload a ranking file' } unless params[:file]

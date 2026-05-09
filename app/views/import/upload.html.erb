@@ -18,7 +18,7 @@
   <%= form_with(url: {action: :import}, multipart: true) do %>
     <div class="field is-horizontal mt-3 mb-3">
       <div id="file-upload" class="file has-name">
-        <label class="file-label">
+        <label for="file" class="file-label">
           <%= file_field_tag 'file', class: 'file-input' %>
           <span class="file-cta">
             <span class="file-icon">

@@ -1,11 +1,11 @@
 <span class="title is-6"><br/>Aktuelle Position</span>
 <table class="table is-striped is-fullwidth mt-1">
   <tr class="has-background-dark has-text-light has-text-weight-bold">
-    <td class="center">Altersklasse</td>
-    <td>Rang</td>
-    <td></td>
-    <td>Punkte</td>
-    <td></td>
+    <th scope="col" class="center">Altersklasse</th>
+    <th scope="col">Rang</th>
+    <th scope="col"></th>
+    <th scope="col">Punkte</th>
+    <th scope="col"></th>
   </tr>
   <% unless @current_rankings.size.positive? %>
     <tr>

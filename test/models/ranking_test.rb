@@ -3,6 +3,8 @@
 require 'test_helper'
 
 class RankingTest < ActiveSupport::TestCase
+  HERREN_FIXTURE = './test/fixtures/files/Herren_20180401.csv'
+
   test 'period extraction from filename' do
     sut = Ranking.extract_period_from_filename('Junioren_20180331.csv')
     assert_equal(Date.new(2018, 3, 31), sut)
@@ -17,7 +19,7 @@ class RankingTest < ActiveSupport::TestCase
   end
 
   test 'throw exception for invalid period extraction' do
-    exception = assert_raises RuntimeError do
+    exception = assert_raises ArgumentError do
       Ranking.extract_period_from_filename('Junioren-20180331.csv')
     end
     exp = "could not retrieve period part from filename 'Junioren-20180331.csv'"
@@ -47,9 +49,9 @@ class RankingTest < ActiveSupport::TestCase
   end
 
   test 'raises DuplicateImportError when importing the same file twice' do
-    Ranking.import_rankings('./test/fixtures/files/Herren_20180401.csv')
+    Ranking.import_rankings(HERREN_FIXTURE)
     exception = assert_raises Ranking::DuplicateImportError do
-      Ranking.import_rankings('./test/fixtures/files/Herren_20180401.csv')
+      Ranking.import_rankings(HERREN_FIXTURE)
     end
     assert_match(/herren.*already been imported/, exception.message)
   end
@@ -64,10 +66,10 @@ class RankingTest < ActiveSupport::TestCase
   end
 
   test 'Herren import stores records with age_group m00 and correct positions' do
-    assert(File.exist?('./test/fixtures/files/Herren_20180401.csv'))
+    assert(File.exist?(HERREN_FIXTURE))
     count_before = Ranking.count
 
-    Ranking.import_rankings('./test/fixtures/files/Herren_20180401.csv')
+    Ranking.import_rankings(HERREN_FIXTURE)
 
     herren = Ranking.where(age_group: 'm00', date: Date.new(2018, 4, 1))
     assert_equal(10, herren.count)

@@ -10,7 +10,7 @@
     <div class="select is-small">
       <%= select_tag(:quarter, grouped_options_for_select(@quarters, params[:quarter] || @quarters.first)) %>
     </div><br>
-    <label class="checkbox is-small">
+    <label for="year_end" class="checkbox is-small">
       <%= check_box_tag 'year_end', 1, params[:year_end].eql?('1') %> Abschlussrangliste
     </label>
   </div>

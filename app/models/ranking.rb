@@ -46,7 +46,7 @@ class Ranking < ApplicationRecord
       Date.strptime(parts.last, '%Y%m%d')
     else
       logger.error "could not retrieve period part from filename '#{filename}'"
-      raise "could not retrieve period part from filename '#{filename}'"
+      raise ArgumentError, "could not retrieve period part from filename '#{filename}'"
     end
   end
 
@@ -79,7 +79,7 @@ class Ranking < ApplicationRecord
     when 'Juniorinnen' then :juniorinnen
     when 'Herren'      then :herren
     when 'Damen'       then :damen
-    else raise "Unknown file category in filename '#{filename}'"
+    else raise ArgumentError, "Unknown file category in filename '#{filename}'"
     end
   end
 

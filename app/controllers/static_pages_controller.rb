@@ -14,9 +14,15 @@ class StaticPagesController < ApplicationController
              end
   end
 
-  def help; end
+  def help
+    # rendered by Rails view without additional logic
+  end
 
-  def about; end
+  def about
+    # rendered by Rails view without additional logic
+  end
 
-  def privacy; end
+  def privacy
+    # rendered by Rails view without additional logic
+  end
 end
