@@ -18,6 +18,7 @@ gem 'rails', '~> 8.0'
 gem 'rexml', '>= 3.4.2'
 gem 'rswag-api'
 gem 'rswag-ui'
+gem 'solid_queue'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
