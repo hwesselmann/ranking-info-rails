@@ -73,7 +73,7 @@ COPY --chown=ruby:ruby --from=build /usr/local/bundle /usr/local/bundle
 COPY --chown=ruby:ruby . .
 COPY --chown=ruby:ruby --from=build /app/public /app/public
 
-RUN mkdir -p public/uploads tmp/pids log && \
+RUN mkdir -p public/uploads tmp/pids log storage/import && \
     chmod 0755 bin/* && \
     chmod +x entrypoint.sh
 

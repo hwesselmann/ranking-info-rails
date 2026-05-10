@@ -113,9 +113,36 @@ To import data into the system, create a CSV file from the official ranking list
 
 This is the default column order Tabula produces. An example file can be found in `test/fixtures/files`.
 
-## Importing data / login credentials  
+## Scheduled filesystem import
 
-Access to the CSV upload functionality is restricted to registered users. To create an admin user:
+The application automatically scans an import folder for new CSV ranking files and imports them on a configurable schedule. The Solid Queue supervisor must be running for scheduled jobs to execute:
+
+```bash
+bin/jobs
+```
+
+**Import folder**
+
+Place ranking CSV files in the import folder. Files already recorded in the import history are skipped automatically. Files are never deleted after import.
+
+If an import fails, the error is appended to `error.log` in the import folder. Subsequent errors are separated from previous ones by a blank line.
+
+**Configuration**
+
+| Variable | Description | Default |
+|---|---|---|
+| `IMPORT_FOLDER` | Absolute path to the folder containing ranking CSV files | `storage/import/` inside the application root |
+| `IMPORT_SCHEDULE` | Cron expression for how often the folder is scanned | `0 12 * * *` (daily at 12:00) |
+
+Example with custom settings:
+
+```bash
+IMPORT_FOLDER=/data/rankings IMPORT_SCHEDULE="0 6 * * *" bin/jobs
+```
+
+## Web upload / login credentials  
+
+CSV files can also be imported manually through the web interface at `/import`. Access is restricted to registered users. To create an admin user:
 
 1. Ensure the database is up to date: `bin/rails db:migrate`
 2. Open a Rails console: `bin/rails console`

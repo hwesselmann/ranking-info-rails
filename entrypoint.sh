@@ -7,4 +7,7 @@ if [ -f tmp/pids/server.pid ]; then
 fi
 
 bundle exec rails db:migrate
+
+bin/jobs start &
+
 bundle exec rails s -b 0.0.0.0 -p 3000
