@@ -1,28 +1,28 @@
-<div class="table-container mb-2">
-  <table class="table is-striped is-fullwidth">
+<div class="overflow-x-auto mb-2">
+  <table class="w-full text-sm">
     <thead>
-      <tr>
-        <th class="center is-hidden-mobile">#</th>
-        <th>Rang</th>
-        <th>Nachname, Vorname</th>
-        <th class="center">DTB-ID</th>
-        <th class="center is-hidden-mobile">Nationalität</th>
-        <th class="is-hidden-mobile">Verein</th>
-        <th class="is-hidden-mobile">Verband</th>
-        <th>Punkte</th>
+      <tr class="bg-gray-100">
+        <th class="text-center py-2 px-2 hidden md:table-cell">#</th>
+        <th class="py-2 px-2">Rang</th>
+        <th class="py-2 px-2">Nachname, Vorname</th>
+        <th class="text-center py-2 px-2">DTB-ID</th>
+        <th class="text-center py-2 px-2 hidden md:table-cell">Nationalität</th>
+        <th class="py-2 px-2 hidden md:table-cell">Verein</th>
+        <th class="py-2 px-2 hidden md:table-cell">Verband</th>
+        <th class="py-2 px-2">Punkte</th>
       </tr>
     </thead>
     <tbody>
       <% @rankings.each_with_index do |ranking, index| %>
-        <tr>
-          <td class="center is-hidden-mobile"><%= index + 1 %></td>
-          <td><%= ranking.ranking_position %><%= position_indicator(ranking.dtb_id, ranking.ranking_position, @previous_positions) %></td>
-          <td><%= ranking.lastname %>, <%= ranking.firstname %></td>
-          <td class="center"><%= link_to ranking.dtb_id, player_path(ranking.dtb_id), class: 'has-text-info' %></td>
-          <td class="center is-hidden-mobile"><%= image_tag("#{ranking.nationality.downcase}.svg", width: "30") %></td>
-          <td class="is-hidden-mobile"><%= link_to ranking.club, club_path(ranking.club), class: 'has-text-info' %></td>
-          <td class="is-hidden-mobile"><%= ranking.federation %></td>
-          <td><%= ranking.score %></td>
+        <tr class="border-b border-gray-200 even:bg-gray-50">
+          <td class="text-center py-1 px-2 hidden md:table-cell"><%= index + 1 %></td>
+          <td class="py-1 px-2"><%= ranking.ranking_position %><%= position_indicator(ranking.dtb_id, ranking.ranking_position, @previous_positions) %></td>
+          <td class="py-1 px-2"><%= ranking.lastname %>, <%= ranking.firstname %></td>
+          <td class="text-center py-1 px-2"><%= link_to ranking.dtb_id, player_path(ranking.dtb_id), class: 'text-brand' %></td>
+          <td class="text-center py-1 px-2 hidden md:table-cell"><%= image_tag("#{ranking.nationality.downcase}.svg", width: "30") %></td>
+          <td class="py-1 px-2 hidden md:table-cell"><%= link_to ranking.club, club_path(ranking.club), class: 'text-brand' %></td>
+          <td class="py-1 px-2 hidden md:table-cell"><%= ranking.federation %></td>
+          <td class="py-1 px-2"><%= ranking.score %></td>
         </tr>
       <% end %>
     </tbody>

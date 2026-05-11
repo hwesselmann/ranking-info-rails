@@ -1,31 +1,31 @@
-<span class="title is-6">Gesamtverlauf</span>
-<div class="mt-3">
-  <div class="columns is-mobile has-text-white has-background-dark has-text-weight-bold">
-    <div class="column is-2"><i class="far fa-calendar-alt"></i></div>
-    <div class="column is-1"><i class="fas fa-poll"></i></div>
-    <div class="column is-1">U11</div>
-    <div class="column is-1">U12</div>
-    <div class="column is-1">U13</div>
-    <div class="column is-1">U14</div>
-    <div class="column is-1">U15</div>
-    <div class="column is-1">U16</div>
-    <div class="column is-1">U17</div>
-    <div class="column is-1">U18</div>
-    <div class="column is-1">Aktive</div>
+<span class="text-sm font-semibold">Gesamtverlauf</span>
+<div class="mt-3 overflow-x-auto">
+  <div class="grid grid-cols-12 bg-gray-800 text-white font-bold min-w-max">
+    <div class="col-span-2 py-2 px-1"><i class="far fa-calendar-alt"></i></div>
+    <div class="col-span-1 py-2 px-1"><i class="fas fa-poll"></i></div>
+    <div class="col-span-1 py-2 px-1">U11</div>
+    <div class="col-span-1 py-2 px-1">U12</div>
+    <div class="col-span-1 py-2 px-1">U13</div>
+    <div class="col-span-1 py-2 px-1">U14</div>
+    <div class="col-span-1 py-2 px-1">U15</div>
+    <div class="col-span-1 py-2 px-1">U16</div>
+    <div class="col-span-1 py-2 px-1">U17</div>
+    <div class="col-span-1 py-2 px-1">U18</div>
+    <div class="col-span-1 py-2 px-1">Aktive</div>
   </div>
   <% @complete_rankings.each_with_index do |ran, index| %>
-    <div class="columns is-mobile <%= 'striped' unless index.even? %>">
-      <div class="column is-2"><%= ran['year'] %>/<%= ran['quarter'] %></div>
-      <div class="column is-1"><%= ran['score'] %></div>
-      <div class="column is-1"><%= ran['U11'] %></div>
-      <div class="column is-1"><%= ran['U12'] %></div>
-      <div class="column is-1"><%= ran['U13'] %></div>
-      <div class="column is-1"><%= ran['U14'] %></div>
-      <div class="column is-1"><%= ran['U15'] %></div>
-      <div class="column is-1"><%= ran['U16'] %></div>
-      <div class="column is-1"><%= ran['U17'] %></div>
-      <div class="column is-1"><%= ran['U18'] %></div>
-      <div class="column is-1"><%= ran['m00'] || ran['w00'] %></div>
+    <div class="grid grid-cols-12 border-b border-gray-200 min-w-max <%= 'striped' unless index.even? %>">
+      <div class="col-span-2 py-1 px-1"><%= ran['year'] %>/<%= ran['quarter'] %></div>
+      <div class="col-span-1 py-1 px-1"><%= ran['score'] %></div>
+      <div class="col-span-1 py-1 px-1"><%= ran['U11'] %></div>
+      <div class="col-span-1 py-1 px-1"><%= ran['U12'] %></div>
+      <div class="col-span-1 py-1 px-1"><%= ran['U13'] %></div>
+      <div class="col-span-1 py-1 px-1"><%= ran['U14'] %></div>
+      <div class="col-span-1 py-1 px-1"><%= ran['U15'] %></div>
+      <div class="col-span-1 py-1 px-1"><%= ran['U16'] %></div>
+      <div class="col-span-1 py-1 px-1"><%= ran['U17'] %></div>
+      <div class="col-span-1 py-1 px-1"><%= ran['U18'] %></div>
+      <div class="col-span-1 py-1 px-1"><%= ran['m00'] || ran['w00'] %></div>
     </div>
   <% end %>
 </div>

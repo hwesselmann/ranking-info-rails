@@ -1,22 +1,14 @@
 <% provide(:title, 'Spielersuche') %>
 <% provide(:meta_content, "Suchen von Spielern, die im verfügbaren Datenbestand eine Platzierung auf der Deutschen Tennis-Jugendrangliste hatten.") %>
-<h1 class="title is-3 has-text-left mb-3 mt-3">
+<h1 class="text-2xl font-bold text-left mb-3 mt-3">
   Spielersuche
 </h1>
 <%= form_tag(players_path, method: 'get', class: 'mb-3') do %>
-  <div class="field is-horizontal">
-    <div class="control mr-2">
-      <%= search_field_tag 'dtb_id', params[:dtb_id], class: 'input is-small mb-2', placeholder: 'DTB-ID' %>
-    </div>
-    <div class="control mr-2">
-      <%= search_field_tag 'lastname', params[:lastname], class: 'input is-small mb-2', placeholder: 'Nachname' %>
-    </div>
-    <div class="control mr-2">
-      <%= search_field_tag 'yob', params[:yob], class: 'input is-small mb-2', placeholder: 'Geburtsjahr' %>
-    </div>
-    <div class="control mr-2">
-      <%= submit_tag 'suchen', class: 'button is-link is-small mb-2 is-info' %>
-    </div>
+  <div class="flex flex-wrap items-center gap-2">
+    <%= search_field_tag 'dtb_id', params[:dtb_id], class: 'border border-gray-300 rounded px-2 py-1 text-sm', placeholder: 'DTB-ID' %>
+    <%= search_field_tag 'lastname', params[:lastname], class: 'border border-gray-300 rounded px-2 py-1 text-sm', placeholder: 'Nachname' %>
+    <%= search_field_tag 'yob', params[:yob], class: 'border border-gray-300 rounded px-2 py-1 text-sm', placeholder: 'Geburtsjahr' %>
+    <%= submit_tag 'suchen', class: 'bg-brand text-white px-3 py-1 text-sm rounded hover:opacity-90 cursor-pointer' %>
   </div>
 <% end %>
 <% if @players.present? %>
@@ -28,4 +20,3 @@
     <%= render 'search_intro' %>
   <% end %>
 <% end %>
-

@@ -10,6 +10,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <%= stylesheet_link_tag 'fontawesome', media: 'all' %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application', defer: true %>
     <link rel="manifest" href="/manifest.json">
@@ -17,9 +18,10 @@
   </head>
   <body>
     <%= render 'layouts/header' %>
-    <div class="container is-fluid">
+    <div class="w-full px-4 mx-auto">
       <% flash.each do |message_type, message| %>
-        <div class="alert alert-<%= message_type %> mt-2"><%= message %></div>
+        <% css_class = message_type.to_s == 'alert' ? 'bg-red-100 border border-red-400 text-red-800' : 'bg-blue-100 border border-blue-400 text-blue-800' %>
+        <div class="<%= css_class %> px-4 py-2 rounded mt-2"><%= message %></div>
       <% end %>
       <%= yield %>
       <%= debug(params) if Rails.env.development? %>

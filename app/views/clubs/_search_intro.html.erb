@@ -1,15 +1,15 @@
-<div class="card" style="width: 100%;">
-  <header class="card-header">
-    <span class="card-header-title">Vereinssuche</span>
+<div class="rounded shadow">
+  <header class="bg-gray-100 px-4 py-3 rounded-t font-semibold border-b border-gray-200">
+    <span>Vereinssuche</span>
   </header>
-  <div class="card-content">
+  <div class="p-4">
     Finde alle Vereine, die Spieler auf der aktuellen Aktiven- oder Jugendrangliste haben, sowie die Anzahl der aktuellen Ranglistenspieler.
     <br/><br/>
     Filterbare Ranglisten, Spielerinfos und Informationen zu den im System verfügbaren Datenständen sind ebenfalls abrufbar:
   </div>
-  <footer class="card-footer">
-    <%= link_to "Spielersuche", players_path, class: 'card-footer-item has-text-info' %>
-    <%= link_to "Ranglisten", listings_path, class: 'card-footer-item has-text-info' %>
-    <%= link_to "Verbandsstatistik", federations_path, class: 'card-footer-item has-text-info' %>
+  <footer class="flex border-t border-gray-200 rounded-b">
+    <%= link_to "Spielersuche", players_path, class: 'flex-1 text-center px-4 py-3 text-brand hover:bg-gray-50' %>
+    <%= link_to "Ranglisten", listings_path, class: 'flex-1 text-center px-4 py-3 text-brand hover:bg-gray-50 border-l border-gray-200' %>
+    <%= link_to "Verbandsstatistik", federations_path, class: 'flex-1 text-center px-4 py-3 text-brand hover:bg-gray-50 border-l border-gray-200' %>
   </footer>
 </div>
