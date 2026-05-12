@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_10_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_12_142451) do
   create_table "import_histories", force: :cascade do |t|
     t.string "category", null: false
     t.datetime "created_at", null: false
@@ -165,15 +165,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_10_120000) do
     t.index ["expires_at"], name: "index_solid_queue_semaphores_on_expires_at"
     t.index ["key", "value"], name: "index_solid_queue_semaphores_on_key_and_value"
     t.index ["key"], name: "index_solid_queue_semaphores_on_key", unique: true
-  end
-
-  create_table "users", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.string "email"
-    t.string "name"
-    t.string "password_digest"
-    t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
