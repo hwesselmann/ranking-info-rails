@@ -18,7 +18,7 @@ RUN apk add --no-cache \
       yaml-dev && \
     ln -sf /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm && \
     ln -sf /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx && \
-    npm install -g yarn sass esbuild && \
+    npm install -g yarn sass esbuild @tailwindcss/cli && \
     adduser -D -h /home/ruby -s /bin/sh ruby && \
     chown ruby:ruby /app
 
