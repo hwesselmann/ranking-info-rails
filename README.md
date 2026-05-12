@@ -14,6 +14,7 @@ This application is developed using
 * Ruby 4.0.3
 * Rails 8.1.3
 * Node.js 24 (for asset compilation)
+* Tailwind CSS v4 (for styling, via yarn)
 * SQLite3 (for development and test)
 * PostgreSQL (for production)
 * Bundler (Ruby gem management)
