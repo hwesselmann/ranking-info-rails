@@ -4,36 +4,36 @@
   Ranglisten
 </h1>
 <%= form_tag(listings_path, method: 'get', class: 'mb-4') do %>
-<div class="flex flex-wrap items-end gap-3">
+<div class="flex flex-wrap items-start gap-3">
   <div>
-    <%= label_tag 'quarter', 'Stichtag', class: 'block text-sm font-medium text-gray-700' %>
-    <%= select_tag(:quarter, grouped_options_for_select(@quarters, params[:quarter] || @quarters.first), class: 'border border-gray-300 rounded px-2 py-1 text-sm') %>
-    <br>
-    <label for="year_end" class="text-sm">
+    <%= label_tag 'quarter', 'Stichtag', class: 'block text-xs text-gray-500' %>
+    <%= select_tag(:quarter, grouped_options_for_select(@quarters, params[:quarter] || @quarters.first), class: 'border border-gray-300 rounded px-2 py-1') %>
+    <label for="year_end" class="flex items-center gap-1 text-xs text-gray-500 mt-1">
       <%= check_box_tag 'year_end', 1, params[:year_end].eql?('1') %> Abschlussrangliste
     </label>
   </div>
   <div>
-    <%= label_tag 'gender', 'Geschlecht', class: 'block text-sm font-medium text-gray-700' %>
-    <%= select_tag(:gender, options_for_select(['Herren', 'Damen', 'Junioren', 'Juniorinnen'], params[:gender] || 'Herren'), class: 'border border-gray-300 rounded px-2 py-1 text-sm') %>
+    <%= label_tag 'gender', 'Geschlecht', class: 'block text-xs text-gray-500' %>
+    <%= select_tag(:gender, options_for_select(['Herren', 'Damen', 'Junioren', 'Juniorinnen'], params[:gender] || 'Herren'), class: 'border border-gray-300 rounded px-2 py-1') %>
   </div>
   <div>
-    <%= label_tag 'age-group', 'Altersklasse', class: 'block text-sm font-medium text-gray-700' %>
-    <%= select_tag(:age_group, options_for_select(['U11', 'U12', 'U13', 'U14', 'U15', 'U16', 'U17', 'U18'], params[:age_group] || ''), include_blank: true, class: 'border border-gray-300 rounded px-2 py-1 text-sm') %>
+    <%= label_tag 'age_group', 'Altersklasse', class: 'block text-xs text-gray-500' %>
+    <%= select_tag(:age_group, options_for_select(['U11', 'U12', 'U13', 'U14', 'U15', 'U16', 'U17', 'U18'], params[:age_group] || ''), include_blank: true, class: 'border border-gray-300 rounded px-2 py-1') %>
   </div>
   <div>
-    <%= label_tag 'age_group_options', 'Extras', class: 'block text-sm font-medium text-gray-700' %>
-    <%= select_tag(:age_group_options, options_for_select([['nur Geburtsjahrgang', 'only_yob'], ['auch Jüngere einbeziehen', 'include_younger']], params[:age_group_options] || ''), include_blank: true, class: 'border border-gray-300 rounded px-2 py-1 text-sm') %>
+    <%= label_tag 'age_group_options', 'Extras', class: 'block text-xs text-gray-500' %>
+    <%= select_tag(:age_group_options, options_for_select([['nur Geburtsjahrgang', 'only_yob'], ['auch Jüngere einbeziehen', 'include_younger']], params[:age_group_options] || ''), include_blank: true, class: 'border border-gray-300 rounded px-2 py-1') %>
   </div>
   <div>
-    <%= label_tag 'federation', 'Verband', class: 'block text-sm font-medium text-gray-700' %>
-    <%= select_tag(:federation, options_for_select(@federations, params[:federation] || ''), include_blank: true, class: 'border border-gray-300 rounded px-2 py-1 text-sm') %>
+    <%= label_tag 'federation', 'Verband', class: 'block text-xs text-gray-500' %>
+    <%= select_tag(:federation, options_for_select(@federations, params[:federation] || ''), include_blank: true, class: 'border border-gray-300 rounded px-2 py-1') %>
   </div>
   <div>
-    <%= label_tag 'club', 'Verein', class: 'block text-sm font-medium text-gray-700' %>
-    <%= search_field_tag 'club', params[:club], class: 'border border-gray-300 rounded px-2 py-1 text-sm', size: '10', placeholder: 'Verein' %>
+    <%= label_tag 'club', 'Verein', class: 'block text-xs text-gray-500' %>
+    <%= search_field_tag 'club', params[:club], class: 'border border-gray-300 rounded px-2 py-1', size: '10', placeholder: 'Verein' %>
   </div>
   <div>
+    <div class="block text-xs invisible">.</div>
     <%= submit_tag 'Liste abrufen', class: 'bg-brand text-white px-3 py-1 text-sm rounded hover:opacity-90 cursor-pointer' %>
   </div>
 </div>

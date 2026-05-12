@@ -1,9 +1,9 @@
 <header>
   <nav class="bg-brand" role="navigation" aria-label="main navigation">
-    <div class="flex items-center justify-between px-4 py-2">
+    <div class="flex flex-wrap items-center justify-between px-4 py-2">
       <div class="flex items-center">
         <%= link_to root_path, class: 'flex items-center' do %>
-          <%= image_tag("ri-logo.png") %>
+          <%= image_tag("ri-logo.png", class: 'max-h-7') %>
         <% end %>
       </div>
 
@@ -12,21 +12,21 @@
         <span class="block w-5 h-0.5 bg-white mb-1"></span>
         <span class="block w-5 h-0.5 bg-white"></span>
       </button>
-    </div>
 
-    <div id="nav-menu" class="hidden md:flex flex-col md:flex-row md:items-center md:gap-1 px-4 pb-3 md:pb-2 md:px-4">
-      <%= link_to "Spieler", players_path, class: 'text-white hover:bg-white/20 px-3 py-2 rounded text-sm block md:inline-block' %>
-      <%= link_to "Listen", listings_path, class: 'text-white hover:bg-white/20 px-3 py-2 rounded text-sm block md:inline-block' %>
-      <%= link_to "Vereine", clubs_path, class: 'text-white hover:bg-white/20 px-3 py-2 rounded text-sm block md:inline-block' %>
-      <%= link_to "Verbände", federations_path, class: 'text-white hover:bg-white/20 px-3 py-2 rounded text-sm block md:inline-block' %>
-      <%= link_to "Status", status_path, class: 'text-white hover:bg-white/20 px-3 py-2 rounded text-sm block md:inline-block' %>
-      <%= link_to "Hilfe", help_path, class: 'text-white hover:bg-white/20 px-3 py-2 rounded text-sm block md:inline-block' %>
-      <%= link_to "Datenschutz", privacy_path, class: 'text-white hover:bg-white/20 px-3 py-2 rounded text-sm block md:inline-block' %>
-      <%= link_to "Über", about_path, class: 'text-white hover:bg-white/20 px-3 py-2 rounded text-sm block md:inline-block' %>
-      <% if logged_in? %>
-        <%= link_to "Import", import_path, class: 'text-white hover:bg-white/20 px-3 py-2 rounded text-sm block md:inline-block' %>
-        <%= link_to "Log out", logout_path, method: :delete, class: 'text-white hover:bg-white/20 px-3 py-2 rounded text-sm block md:inline-block' %>
-      <% end %>
+      <div id="nav-menu" class="hidden w-full md:flex md:w-auto md:items-center md:gap-1 pb-2 md:pb-0">
+        <%= link_to "Spieler", players_path, class: 'text-white hover:bg-white/20 px-3 py-2 rounded text-sm block md:inline-block' %>
+        <%= link_to "Listen", listings_path, class: 'text-white hover:bg-white/20 px-3 py-2 rounded text-sm block md:inline-block' %>
+        <%= link_to "Vereine", clubs_path, class: 'text-white hover:bg-white/20 px-3 py-2 rounded text-sm block md:inline-block' %>
+        <%= link_to "Verbände", federations_path, class: 'text-white hover:bg-white/20 px-3 py-2 rounded text-sm block md:inline-block' %>
+        <%= link_to "Status", status_path, class: 'text-white hover:bg-white/20 px-3 py-2 rounded text-sm block md:inline-block' %>
+        <%= link_to "Hilfe", help_path, class: 'text-white hover:bg-white/20 px-3 py-2 rounded text-sm block md:inline-block' %>
+        <%= link_to "Datenschutz", privacy_path, class: 'text-white hover:bg-white/20 px-3 py-2 rounded text-sm block md:inline-block' %>
+        <%= link_to "Über", about_path, class: 'text-white hover:bg-white/20 px-3 py-2 rounded text-sm block md:inline-block' %>
+        <% if logged_in? %>
+          <%= link_to "Import", import_path, class: 'text-white hover:bg-white/20 px-3 py-2 rounded text-sm block md:inline-block' %>
+          <%= link_to "Log out", logout_path, method: :delete, class: 'text-white hover:bg-white/20 px-3 py-2 rounded text-sm block md:inline-block' %>
+        <% end %>
+      </div>
     </div>
   </nav>
 </header>

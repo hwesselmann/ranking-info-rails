@@ -7,6 +7,9 @@
 @source "../../../app/views/**/*.{erb,html}";
 @source "../../../app/helpers/**/*.rb";
 
+/* Unlayered: beats UA text-align: -internal-center; skips th with explicit alignment classes */
+th:not([class*="text-center"]):not([class*="text-right"]) { text-align: left; }
+
 /* ── Base ──────────────────────────────────────────────────────────── */
 @layer base {
   section {
@@ -40,6 +43,10 @@
   p {
     font-size: 1.1em;
     line-height: 1.7em;
+  }
+
+  td, th {
+    padding: 0.5em 0.75em;
   }
 }
 
