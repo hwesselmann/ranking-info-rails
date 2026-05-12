@@ -23,10 +23,4 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
   include ApplicationHelper
-
-  # rubocop:disable Style/CommentedKeyword
-  def is_logged_in? # NOSONAR - renaming conflicts with SessionsHelper#logged_in?
-    # rubocop:enable Style/CommentedKeyword
-    !session[:user_id].nil?
-  end
 end

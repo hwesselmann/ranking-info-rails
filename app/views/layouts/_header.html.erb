@@ -22,10 +22,6 @@
         <%= link_to "Hilfe", help_path, class: 'text-white hover:bg-white/20 px-3 py-2 rounded text-sm block md:inline-block' %>
         <%= link_to "Datenschutz", privacy_path, class: 'text-white hover:bg-white/20 px-3 py-2 rounded text-sm block md:inline-block' %>
         <%= link_to "Über", about_path, class: 'text-white hover:bg-white/20 px-3 py-2 rounded text-sm block md:inline-block' %>
-        <% if logged_in? %>
-          <%= link_to "Import", import_path, class: 'text-white hover:bg-white/20 px-3 py-2 rounded text-sm block md:inline-block' %>
-          <%= link_to "Log out", logout_path, method: :delete, class: 'text-white hover:bg-white/20 px-3 py-2 rounded text-sm block md:inline-block' %>
-        <% end %>
       </div>
     </div>
   </nav>

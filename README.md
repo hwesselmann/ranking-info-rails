@@ -141,19 +141,6 @@ Example with custom settings:
 IMPORT_FOLDER=/data/rankings IMPORT_SCHEDULE="0 6 * * *" bin/jobs
 ```
 
-## Web upload / login credentials  
-
-CSV files can also be imported manually through the web interface at `/import`. Access is restricted to registered users. To create an admin user:
-
-1. Ensure the database is up to date: `bin/rails db:migrate`
-2. Open a Rails console: `bin/rails console`
-3. Create a user:
-   ```ruby
-   User.create(name: 'Example User', email: 'user@example.com', password: 'password', password_confirmation: 'password')
-   ```
-
-The password must be at least 6 characters.
-
 ## Deploy  
 
 ### Docker
@@ -164,7 +151,7 @@ The project includes a Dockerfile and a docker-compose configuration for a produ
 DATABASE_PASSWORD=your_password docker-compose up
 ```
 
-After the stack is running, run database migrations and create an admin user (see above).
+After the stack is running, run database migrations:
 
 The application is then available at `http://127.0.0.1:3000`.
 
