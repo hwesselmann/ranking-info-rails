@@ -1,22 +1,22 @@
-<div class="table-container mb-3">
-  <table class="table is-striped is-fullwidth">
+<div class="overflow-x-auto mb-3">
+  <table class="w-full">
     <thead>
-      <tr>
-        <th>DTB-ID</th>
-        <th>Nachname, Vorname</th>
-        <th class="center is-hidden-mobile">Nationalität</th>
-        <th>Verein</th>
-        <th class="center is-hidden-mobile">Verband</th>
+      <tr class="bg-gray-100">
+        <th class="py-2 px-2">DTB-ID</th>
+        <th class="py-2 px-2">Nachname, Vorname</th>
+        <th class="text-center py-2 px-2 hidden md:table-cell">Nationalität</th>
+        <th class="py-2 px-2">Verein</th>
+        <th class="text-center py-2 px-2 hidden md:table-cell">Verband</th>
       </tr>
     </thead>
     <tbody>
       <% @players.each do |player| %>
-        <tr>
-          <td><%= link_to player.dtb_id, player_path(player.dtb_id), class: 'has-text-info' %></td>
-          <td><%= player.lastname %>, <%= player.firstname %></td>
-          <td class="center is-hidden-mobile"><%= image_tag("#{player.nationality.downcase}.svg", width: "30") %></td>
-          <td><%= link_to player.club, club_path(player.club), class: 'has-text-info' %></td>
-          <td class="center is-hidden-mobile"><%= player.federation %></td>
+        <tr class="border-b border-gray-200 even:bg-gray-50">
+          <td class="py-1 px-2"><%= link_to player.dtb_id, player_path(player.dtb_id), class: 'text-brand' %></td>
+          <td class="py-1 px-2"><%= player.lastname %>, <%= player.firstname %></td>
+          <td class="text-center py-1 px-2 hidden md:table-cell"><%= image_tag("#{player.nationality.downcase}.svg", width: "30", alt: player.nationality) %></td>
+          <td class="py-1 px-2"><%= link_to player.club, club_path(player.club), class: 'text-brand' %></td>
+          <td class="text-center py-1 px-2 hidden md:table-cell"><%= player.federation %></td>
         </tr>
       <% end %>
     </tbody>

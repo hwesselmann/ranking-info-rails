@@ -1,22 +1,22 @@
-<span class="title is-6"><br/>Aktuelle Position</span>
-<table class="table is-striped is-fullwidth mt-1">
-  <tr class="has-background-dark has-text-light has-text-weight-bold">
-    <th scope="col" class="center">Altersklasse</th>
-    <th scope="col">Rang</th>
-    <th scope="col"></th>
-    <th scope="col">Punkte</th>
-    <th scope="col"></th>
+<p class="text-sm font-semibold mt-2 mb-1">Aktuelle Position</p>
+<table class="w-full mt-1">
+  <tr class="bg-gray-800 text-white font-bold">
+    <th scope="col" class="text-center py-2 px-2">Altersklasse</th>
+    <th scope="col" class="py-2 px-2">Rang</th>
+    <th scope="col" class="py-2 px-2"></th>
+    <th scope="col" class="py-2 px-2">Punkte</th>
+    <th scope="col" class="py-2 px-2"></th>
   </tr>
   <% unless @current_rankings.size.positive? %>
     <tr>
-      <td colspan="5" class="center">Für das aktuelle Quartal existiert kein Eintrag auf der Rangliste.</td>
+      <td colspan="5" class="text-center py-2 px-2">Für das aktuelle Quartal existiert kein Eintrag auf der Rangliste.</td>
     </tr>
   <% else %>
     <% @current_rankings.each_with_index do |cr, index| %>
-      <tr <%= "class=has-background-info-light" if index.eql?(0) %>>
-        <td class="center"><%= %w[m00 w00].include?(cr['age_group']) ? 'Aktive' : cr['age_group'] %></td>
-        <td><%= cr['position'] %></td>
-        <td>
+      <tr class="border-b border-gray-200 <%= 'bg-blue-50' if index.eql?(0) %>">
+        <td class="text-center py-1 px-2"><%= %w[m00 w00].include?(cr['age_group']) ? 'Aktive' : cr['age_group'] %></td>
+        <td class="py-1 px-2"><%= cr['position'] %></td>
+        <td class="py-1 px-2">
           <% if !cr['position_change'].nil? && cr['position_change'][0].eql?('+') %>
             <span class="ri-icon-green"><i class="fas fa-caret-up"></i></span>
             <%= cr['position_change'][1, cr['position_change'].size - 1] %>
@@ -25,19 +25,19 @@
             <%= cr['position_change'][1, cr['position_change'].size - 1] %>
           <% else %>
             <span><i class="fas fa-minus"></i></span>
-          <% end%> 
+          <% end %>
         </td>
-        <td><%= cr['score'] if index.eql?(0) %></td>
-        <td>
-            <% if index.eql?(0) && !cr['score_change'].nil? && cr['score_change'][0].eql?('+') %>
-              <span class="ri-icon-green"><i class="fas fa-caret-up"></i></span>
-              <%= cr['score_change'][1, cr['score_change'].size - 1] %>
-            <% elsif index.eql?(0) && !cr['score_change'].nil? && cr['score_change'][0].eql?('-') %>
-              <span class="ri-icon-red"><i class="fas fa-caret-down"></i></span>
-              <%= cr['score_change'][1, cr['score_change'].size - 1] %>
-            <% elsif index.eql?(0) && !cr['score_change'].nil? %>
-              <span><i class="fas fa-minus"></i></span>
-            <% end%> 
+        <td class="py-1 px-2"><%= cr['score'] if index.eql?(0) %></td>
+        <td class="py-1 px-2">
+          <% if index.eql?(0) && !cr['score_change'].nil? && cr['score_change'][0].eql?('+') %>
+            <span class="ri-icon-green"><i class="fas fa-caret-up"></i></span>
+            <%= cr['score_change'][1, cr['score_change'].size - 1] %>
+          <% elsif index.eql?(0) && !cr['score_change'].nil? && cr['score_change'][0].eql?('-') %>
+            <span class="ri-icon-red"><i class="fas fa-caret-down"></i></span>
+            <%= cr['score_change'][1, cr['score_change'].size - 1] %>
+          <% elsif index.eql?(0) && !cr['score_change'].nil? %>
+            <span><i class="fas fa-minus"></i></span>
+          <% end %>
         </td>
       </tr>
     <% end %>

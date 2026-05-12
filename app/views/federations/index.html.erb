@@ -1,51 +1,55 @@
 <% provide(:title, 'Verbandsdaten') %>
 <% provide(:meta_content, "Statistik zu den Spielern und Spielerinnen auf der aktuellen Deutschen Tennis-Jugendrangliste nach Altersgruppe und Landesverband.") %>
-<h1 class="title is-3 has-text-left mb-3 mt-3">
+<h1 class="text-2xl font-bold text-left mb-3 mt-3">
   Daten zu den Landesverbänden
 </h1>
 <p>
-  Hier finden Sie Daten, wie viele Spielerinnen und Spieler 
+  Hier finden Sie Daten, wie viele Spielerinnen und Spieler
   der DTB Landesverbände nach Altersklasse in der aktuellen Periode
   auf der Rangliste geführt sind.
 </p>
 
-<div class="table-container mt-3 mb-3">
-  <table class="table is-striped is-fullwidth">
-    <tr class="has-background-dark has-text-light has-text-weight-bold">
-      <th scope="col">Verband</th>
-      <th scope="col" colspan="2" class="center">U12</th>
-      <th scope="col" colspan="2" class="center">U14</th>
-      <th scope="col" colspan="2" class="center">U16</th>
-      <th scope="col" colspan="2" class="center">U18</th>
-      <th scope="col" colspan="2" class="center">Aktive</th>
-    </tr>
-    <tr class="table-info">
-      <th scope="col"></th>
-      <th scope="col" class="center border-left"><i class="fas fa-mars"></i></th>
-      <th scope="col" class="center border-right"><i class="fas fa-venus"></i></th>
-      <th scope="col" class="center"><i class="fas fa-mars"></i></th>
-      <th scope="col" class="center border-right"><i class="fas fa-venus"></i></th>
-      <th scope="col" class="center"><i class="fas fa-mars"></i></th>
-      <th scope="col" class="center border-right"><i class="fas fa-venus"></i></th>
-      <th scope="col" class="center"><i class="fas fa-mars"></i></th>
-      <th scope="col" class="center border-right"><i class="fas fa-venus"></i></th>
-      <th scope="col" class="center"><i class="fas fa-mars"></i></th>
-      <th scope="col" class="center border-right"><i class="fas fa-venus"></i></th>
-    </tr>
-    <% @federations.each do |key, fed| %>
-      <tr class=border-bottom>
-        <td class="border-left"><%= federation_long_name(key) %></td>
-        <td class="center"><%= fed['U12m'] || 0 %></td>
-        <td class="center border-right"><%= fed['U12w'] || 0 %></td>
-        <td class="center"><%= fed['U14m'] || 0 %></td>
-        <td class="center border-right"><%= fed['U14w'] || 0 %></td>
-        <td class="center"><%= fed['U16m'] || 0 %></td>
-        <td class="center border-right"><%= fed['U16w'] || 0 %></td>
-        <td class="center"><%= fed['U18m'] || 0 %></td>
-        <td class="center border-right"><%= fed['U18w'] || 0 %></td>
-        <td class="center"><%= fed['m00'] || 0 %></td>
-        <td class="center border-right"><%= fed['w00'] || 0 %></td>
+<div class="overflow-x-auto mt-3 mb-3">
+  <table class="w-full">
+    <thead>
+      <tr class="bg-gray-800 text-white font-bold">
+        <th scope="col" class="py-2 px-2">Verband</th>
+        <th scope="col" colspan="2" class="text-center py-2 px-2">U12</th>
+        <th scope="col" colspan="2" class="text-center py-2 px-2">U14</th>
+        <th scope="col" colspan="2" class="text-center py-2 px-2">U16</th>
+        <th scope="col" colspan="2" class="text-center py-2 px-2">U18</th>
+        <th scope="col" colspan="2" class="text-center py-2 px-2">Aktive</th>
       </tr>
-    <% end %>
+      <tr class="bg-gray-100 text-gray-600">
+        <th scope="col"></th>
+        <th scope="col" class="text-center py-1 px-2 border-l border-gray-300"><i class="fas fa-mars"></i></th>
+        <th scope="col" class="text-center py-1 px-2 border-r border-gray-300"><i class="fas fa-venus"></i></th>
+        <th scope="col" class="text-center py-1 px-2"><i class="fas fa-mars"></i></th>
+        <th scope="col" class="text-center py-1 px-2 border-r border-gray-300"><i class="fas fa-venus"></i></th>
+        <th scope="col" class="text-center py-1 px-2"><i class="fas fa-mars"></i></th>
+        <th scope="col" class="text-center py-1 px-2 border-r border-gray-300"><i class="fas fa-venus"></i></th>
+        <th scope="col" class="text-center py-1 px-2"><i class="fas fa-mars"></i></th>
+        <th scope="col" class="text-center py-1 px-2 border-r border-gray-300"><i class="fas fa-venus"></i></th>
+        <th scope="col" class="text-center py-1 px-2"><i class="fas fa-mars"></i></th>
+        <th scope="col" class="text-center py-1 px-2 border-r border-gray-300"><i class="fas fa-venus"></i></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @federations.each do |key, fed| %>
+        <tr class="border-b border-gray-200 even:bg-gray-50">
+          <td class="py-1 px-2 border-l border-gray-300"><%= federation_long_name(key) %></td>
+          <td class="text-center py-1 px-2"><%= fed['U12m'] || 0 %></td>
+          <td class="text-center py-1 px-2 border-r border-gray-300"><%= fed['U12w'] || 0 %></td>
+          <td class="text-center py-1 px-2"><%= fed['U14m'] || 0 %></td>
+          <td class="text-center py-1 px-2 border-r border-gray-300"><%= fed['U14w'] || 0 %></td>
+          <td class="text-center py-1 px-2"><%= fed['U16m'] || 0 %></td>
+          <td class="text-center py-1 px-2 border-r border-gray-300"><%= fed['U16w'] || 0 %></td>
+          <td class="text-center py-1 px-2"><%= fed['U18m'] || 0 %></td>
+          <td class="text-center py-1 px-2 border-r border-gray-300"><%= fed['U18w'] || 0 %></td>
+          <td class="text-center py-1 px-2"><%= fed['m00'] || 0 %></td>
+          <td class="text-center py-1 px-2 border-r border-gray-300"><%= fed['w00'] || 0 %></td>
+        </tr>
+      <% end %>
+    </tbody>
   </table>
 </div>

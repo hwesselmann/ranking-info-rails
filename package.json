@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "scripts": {
     "build": "esbuild app/javascript/application.js --bundle --sourcemap --outdir=app/assets/builds --public-path=/assets",
-    "build:css": "sass ./app/javascript/stylesheets/application.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules",
+    "build:css": "sass ./app/javascript/stylesheets/application.scss ./app/assets/builds/fontawesome.css --no-source-map --load-path=node_modules && tailwindcss -i ./app/javascript/stylesheets/application.css -o ./app/assets/builds/application.css --minify",
     "postinstall": "cp -r node_modules/@fortawesome/fontawesome-free/webfonts app/assets/ && cp -r node_modules/@fortawesome/fontawesome-free/webfonts public/"
   },
   "dependencies": {
@@ -12,12 +12,13 @@
     "@rails/actioncable": "^6.1.5",
     "@rails/activestorage": "^6.1.5",
     "@rails/ujs": "^6.1.5",
-    "bulma": "^1.0.4",
     "chartkick": "^4.0.5",
     "highcharts": "^10.0.0"
   },
   "devDependencies": {
+    "@tailwindcss/cli": "^4.3.0",
     "esbuild": "^0.25.0",
-    "sass": "^1.77.0"
+    "sass": "^1.77.0",
+    "tailwindcss": "^4.3.0"
   }
 }

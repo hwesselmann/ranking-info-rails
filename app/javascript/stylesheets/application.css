@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #3e8ed0;
+}
+
+@source "../../../app/views/**/*.{erb,html}";
+@source "../../../app/helpers/**/*.rb";
+
+/* Unlayered: beats UA text-align: -internal-center; skips th with explicit alignment classes */
+th:not([class*="text-center"]):not([class*="text-right"]) { text-align: left; }
+
+/* ── Base ──────────────────────────────────────────────────────────── */
+@layer base {
+  section {
+    overflow: auto;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1;
+  }
+
+  h1 {
+    font-size: 3em;
+    letter-spacing: -2px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 1.2em;
+    letter-spacing: -1px;
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: normal;
+    color: #999999;
+  }
+
+  p {
+    font-size: 1.1em;
+    line-height: 1.7em;
+  }
+
+  td, th {
+    padding: 0.5em 0.75em;
+  }
+}
+
+/* ── Components ────────────────────────────────────────────────────── */
+@layer components {
+  .striped {
+    background-color: #efefef;
+  }
+
+  .table th.center,
+  .table td.center {
+    text-align: center;
+  }
+
+  /* FA icon color helpers */
+  .ri-icon-green {
+    font-size: 1em;
+    color: green;
+  }
+
+  .ri-icon-red {
+    font-size: 1em;
+    color: red;
+  }
+
+  .ri-icon-yellow {
+    font-size: 1em;
+    color: #d4a017;
+  }
+
+  /* Dev debug dump */
+  .debug_dump {
+    clear: both;
+    float: left;
+    width: 100%;
+    margin-top: 45px;
+    background-color: #ddd7d7;
+    padding: 10px;
+    border-radius: 6px;
+  }
+}
+
+/* ── Cookie banner ─────────────────────────────────────────────────── */
+#cookies-eu-banner {
+  background: #efefef;
+  color: #222;
+  padding: 8px 16px;
+  font-size: 0.9em;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+#cookies-eu-banner button {
+  cursor: pointer;
+  padding: 4px 12px;
+  border-radius: 4px;
+  border: 1px solid #999;
+  background: white;
+}
+
+#cookies-eu-banner button:hover {
+  background: #ddd;
+}
+
+#cookies-eu-ok {
+  background: var(--color-brand, #3e8ed0);
+  color: white;
+  border-color: var(--color-brand, #3e8ed0);
+}
+
+#cookies-eu-ok:hover {
+  opacity: 0.9;
+}

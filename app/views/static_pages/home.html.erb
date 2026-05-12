@@ -1,20 +1,18 @@
 <% provide(:meta_content, "Ranglisteninformationen - Der Anlaufpunkt zur Deutschen Tennis-Jugendrangliste") %>
-<section class="hero">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title">Willkommen bei Ranking-Info</h1>
-      <h2 class="subtitle">Der Anlaufpunkt zur Deutschen Tennis-Rangliste</h2>
-    </div>
+<section class="bg-gray-50 py-12">
+  <div class="px-4">
+    <h1>Willkommen bei Ranking-Info</h1>
+    <h2>Der Anlaufpunkt zur Deutschen Tennis-Rangliste</h2>
   </div>
 </section>
-<div class="card">
-  <header class="card-header">
-    <span class="card-header-title">Ranglisteninformationen</span>
+<div class="rounded shadow mt-4">
+  <header class="bg-gray-100 px-4 py-3 rounded-t font-semibold border-b border-gray-200">
+    Ranglisteninformationen
   </header>
-  <div class="card-content">
+  <div class="p-4">
     Hier findest Du eine filterbare Version der Deutschen Aktiven - und Jugendranglisten. Die Daten werden manuell auf
     Basis der offiziellen Listen vom Deutschen Tennis Bund eingepflegt.<br/>
-    Der Vorteil zu den offiziellen Listen? Es ist nicht nur das aktuelle Quartal und die Liste zum 
+    Der Vorteil zu den offiziellen Listen? Es ist nicht nur das aktuelle Quartal und die Liste zum
     Jahresabschluss verfügbar, es sind alle importierten Daten seit dem <%= @start %> enthalten!
     <br/><br/>
     Wie steht ein Spieler insgesamt da? Wie in seinem Geburtsjahrgang? Wie war die Entwicklung in den letzten Quartalen?
@@ -23,10 +21,10 @@
     <br/><br/>
     Viel Spaß beim Stöbern!
   </div>
-  <footer class="card-footer">
-    <%= link_to "Spielersuche", players_path, class: 'card-footer-item' %>
-    <%= link_to "Ranglisten", listings_path, class: 'card-footer-item' %>
-    <%= link_to "Vereinsuche", clubs_path, class: 'card-footer-item' %>
-    <%= link_to "Verbandsstatistik", federations_path, class: 'card-footer-item' %>
+  <footer class="flex border-t border-gray-200 rounded-b">
+    <%= link_to "Spielersuche", players_path, class: 'flex-1 text-center px-4 py-3 text-brand hover:bg-gray-50' %>
+    <%= link_to "Ranglisten", listings_path, class: 'flex-1 text-center px-4 py-3 text-brand hover:bg-gray-50 border-l border-gray-200' %>
+    <%= link_to "Vereinsuche", clubs_path, class: 'flex-1 text-center px-4 py-3 text-brand hover:bg-gray-50 border-l border-gray-200' %>
+    <%= link_to "Verbandsstatistik", federations_path, class: 'flex-1 text-center px-4 py-3 text-brand hover:bg-gray-50 border-l border-gray-200' %>
   </footer>
 </div>
