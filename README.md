@@ -11,7 +11,7 @@ This is a small web-application aiming at providing accessible information on th
 
 This application is developed using
 
-* Ruby 4.0.3
+* Ruby 4.0.4
 * Rails 8.1.3
 * Node.js 24 (for asset compilation)
 * SQLite3 (for development and test)
