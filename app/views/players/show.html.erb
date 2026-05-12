@@ -5,12 +5,12 @@
 </h1>
 <div class="grid grid-cols-2 mb-3">
   <div>
-    <%= image_tag("#{@player.nationality.downcase}.svg", width: "35") %>
+    <%= image_tag("#{@player.nationality.downcase}.svg", width: "35", alt: @player.nationality) %>
     <span class="text-xl font-bold"><%= @player.firstname %> <%= @player.lastname %></span>
-    <br/><small>DTB-ID <i><%= @player.dtb_id %></i></small>
+    <span class="text-sm text-gray-600">DTB-ID <%= @player.dtb_id %></span>
   </div>
   <div class="text-right">
-    <b><%= link_to @player.club, club_path(@player.club), class: 'text-brand' %></b> / <i><%= @player.federation %></i>
+    <%= link_to @player.club, club_path(@player.club), class: 'text-brand font-semibold' %> / <span class="italic"><%= @player.federation %></span>
   </div>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="de">
   <head>
+    <meta charset="utf-8">
     <title><%= full_title(yield(:title)) %></title>
     <meta name="description" content="<%= yield(:meta_content) %>">
-    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= render 'layouts/favicon' %>
 
@@ -13,8 +13,6 @@
     <%= stylesheet_link_tag 'fontawesome', media: 'all' %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application', defer: true %>
-    <link rel="manifest" href="/manifest.json">
-    <%= render 'layouts/shim' %>
   </head>
   <body>
     <%= render 'layouts/header' %>

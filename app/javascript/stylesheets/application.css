@@ -52,14 +52,6 @@ th:not([class*="text-center"]):not([class*="text-right"]) { text-align: left; }
 
 /* ── Components ────────────────────────────────────────────────────── */
 @layer components {
-  .center {
-    text-align: center;
-
-    h1 {
-      margin-bottom: 10px;
-    }
-  }
-
   .striped {
     background-color: #efefef;
   }
