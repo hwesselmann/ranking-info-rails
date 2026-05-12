@@ -1,6 +1,6 @@
 FROM node:24-alpine AS node_base
 
-FROM ruby:4.0.3-alpine AS build
+FROM ruby:4.0.4-alpine AS build
 
 LABEL maintainer="Hauke Wesselmann <hauke@h-dawg.de>"
 
@@ -50,7 +50,7 @@ RUN if [ "${RAILS_ENV}" != "development" ]; then \
 
 ###############################################################################
 
-FROM ruby:4.0.3-alpine AS production
+FROM ruby:4.0.4-alpine AS production
 
 LABEL maintainer="Hauke Wesselmann <hauke@h-dawg.de>"
 
