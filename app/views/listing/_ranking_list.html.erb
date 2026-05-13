@@ -18,9 +18,9 @@
           <td class="text-center py-1 px-2 hidden md:table-cell"><%= index + 1 %></td>
           <td class="py-1 px-2"><%= ranking.ranking_position %><%= position_indicator(ranking.dtb_id, ranking.ranking_position, @previous_positions) %></td>
           <td class="py-1 px-2"><%= ranking.lastname %>, <%= ranking.firstname %></td>
-          <td class="py-1 px-2"><%= link_to ranking.dtb_id, player_path(ranking.dtb_id), class: 'text-brand' %></td>
+          <td class="py-1 px-2"><%= link_to ranking.dtb_id, player_path(ranking.dtb_id), class: 'text-brand', data: { turbo_frame: '_top' } %></td>
           <td class="text-center py-1 px-2 hidden md:table-cell"><%= image_tag("#{ranking.nationality.downcase}.svg", width: "30", alt: ranking.nationality) %></td>
-          <td class="py-1 px-2 hidden md:table-cell"><%= link_to ranking.club, club_path(ranking.club), class: 'text-brand' %></td>
+          <td class="py-1 px-2 hidden md:table-cell"><%= link_to ranking.club, club_path(ranking.club), class: 'text-brand', data: { turbo_frame: '_top' } %></td>
           <td class="text-center py-1 px-2 hidden md:table-cell"><%= ranking.federation %></td>
           <td class="py-1 px-2"><%= ranking.score %></td>
         </tr>

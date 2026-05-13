@@ -3,18 +3,18 @@
 <h1 class="text-2xl font-bold text-left mb-3 mt-3">
   Vereinssuche
 </h1>
-<%= form_tag(clubs_path, method: 'get', class: 'mb-3') do %>
+<%= form_tag(clubs_path, method: 'get', class: 'mb-3', data: { turbo_frame: 'club-results' }) do %>
 <div class="flex flex-wrap items-center gap-2">
   <%= search_field_tag 'club', params[:club], class: 'border border-gray-300 rounded px-2 py-1 text-sm', placeholder: 'Vereinsname' %>
   <%= submit_tag 'suchen', class: 'bg-brand text-white px-3 py-1 text-sm rounded hover:opacity-90 cursor-pointer' %>
 </div>
 <% end %>
-<% if @clubs.present? %>
-   <%= render 'clubs_result_list' %>
-<% else %>
-  <% if params[:commit] %>
+<turbo-frame id="club-results" data-turbo-action="advance">
+  <% if @clubs.present? %>
+    <%= render 'clubs_result_list' %>
+  <% elsif params[:commit] %>
     <div>Es wurden keine Vereine gefunden.</div>
   <% else %>
     <%= render 'search_intro' %>
   <% end %>
-<% end %>
+</turbo-frame>

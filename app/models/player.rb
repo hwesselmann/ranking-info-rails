@@ -10,7 +10,7 @@ class Player
 
   def self.load_player_profile(dtb_id)
     player = Player.new
-    all_rankings = Ranking.where(dtb_id: dtb_id, age_group: 'overall').order(date: :desc)
+    all_rankings = Ranking.where(dtb_id: dtb_id, age_group: %w[overall m00 w00]).order(date: :desc)
     current_data = all_rankings.first
     player.dtb_id = dtb_id
     player.lastname = current_data.lastname

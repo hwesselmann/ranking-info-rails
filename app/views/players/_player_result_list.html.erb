@@ -12,10 +12,10 @@
     <tbody>
       <% @players.each do |player| %>
         <tr class="border-b border-gray-200 even:bg-gray-50">
-          <td class="py-1 px-2"><%= link_to player.dtb_id, player_path(player.dtb_id), class: 'text-brand' %></td>
+          <td class="py-1 px-2"><%= link_to player.dtb_id, player_path(player.dtb_id), class: 'text-brand', data: { turbo_frame: '_top' } %></td>
           <td class="py-1 px-2"><%= player.lastname %>, <%= player.firstname %></td>
           <td class="text-center py-1 px-2 hidden md:table-cell"><%= image_tag("#{player.nationality.downcase}.svg", width: "30", alt: player.nationality) %></td>
-          <td class="py-1 px-2"><%= link_to player.club, club_path(player.club), class: 'text-brand' %></td>
+          <td class="py-1 px-2"><%= link_to player.club, club_path(player.club), class: 'text-brand', data: { turbo_frame: '_top' } %></td>
           <td class="text-center py-1 px-2 hidden md:table-cell"><%= player.federation %></td>
         </tr>
       <% end %>
