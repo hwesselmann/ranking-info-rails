@@ -23,7 +23,7 @@ jobs:
         bundler-cache: true
 
     - name: Set up Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v6
       with:
         node-version: '24'
         cache: 'yarn'
@@ -47,7 +47,7 @@ jobs:
       run: sed -i "s|${GITHUB_WORKSPACE}|/github/workspace|g" coverage/coverage.json
 
     - name: Upload coverage report
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: coverage-report
         path: coverage/coverage.json
@@ -94,7 +94,7 @@ jobs:
       continue-on-error: true
 
     - name: Upload Brakeman results to GitHub Code Scanning
-      uses: github/codeql-action/upload-sarif@v3
+      uses: github/codeql-action/upload-sarif@v4
       with:
         sarif_file: brakeman.sarif
 
@@ -141,7 +141,7 @@ jobs:
     - uses: actions/checkout@v6
 
     - name: Set up Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v6
       with:
         node-version: '24'
         cache: 'yarn'
