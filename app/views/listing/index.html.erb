@@ -3,7 +3,7 @@
 <h1 class="text-2xl font-bold text-left mb-3 mt-3">
   Ranglisten
 </h1>
-<%= form_tag(listings_path, method: 'get', class: 'mb-4') do %>
+<%= form_tag(listings_path, method: 'get', class: 'mb-4', data: { turbo_frame: 'listing-results' }) do %>
 <div class="flex flex-wrap items-start gap-3">
   <div>
     <%= label_tag 'quarter', 'Stichtag', class: 'block text-xs text-gray-500' %>
@@ -38,12 +38,12 @@
   </div>
 </div>
 <% end %>
-<% if @rankings.present? %>
-  <%= render 'ranking_list' %>
-<% else %>
-  <% if params[:commit] %>
+<turbo-frame id="listing-results" data-turbo-action="advance">
+  <% if @rankings.present? %>
+    <%= render 'ranking_list' %>
+  <% elsif params[:commit] %>
     <div>Es wurden leider keine Daten für diese Suchkriterien gefunden.</div>
   <% else %>
     <%= render 'list_intro' %>
   <% end %>
-<% end %>
+</turbo-frame>

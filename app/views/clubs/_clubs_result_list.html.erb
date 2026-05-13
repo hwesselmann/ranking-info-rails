@@ -10,7 +10,7 @@
     <tbody>
       <% @clubs.each do |club| %>
         <tr class="border-b border-gray-200 even:bg-gray-50">
-          <td class="py-1 px-2"><%= link_to club[:name], club_path(club[:name]), class: 'text-brand' %></td>
+          <td class="py-1 px-2"><%= link_to club[:name], club_path(club[:name]), class: 'text-brand', data: { turbo_frame: '_top' } %></td>
           <td class="text-center py-1 px-2"><%= club[:youth_count] %></td>
           <td class="text-center py-1 px-2"><%= club[:adult_count] %></td>
         </tr>
