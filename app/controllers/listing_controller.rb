@@ -25,8 +25,9 @@ class ListingController < ApplicationController
                        .select(:dtb_id, :ranking_position, :lastname, :firstname, :nationality, :club, :federation,
                                :score)
                        .order(:ranking_position, score: :desc)
+                       .to_a
 
-    @previous_positions = previous_positions(@rankings, params, gender, age_group)
+    @previous_positions = previous_positions(@rankings.map(&:dtb_id), params, gender, age_group)
   end
 
   private
@@ -87,7 +88,9 @@ class ListingController < ApplicationController
     end
   end
 
-  def previous_positions(current_rankings, params, gender, age_group)
+  def previous_positions(dtb_ids, params, gender, age_group)
+    return nil if dtb_ids.empty?
+
     prev_date_subquery = Ranking.select(:date)
                                 .where('date < ?', params[:quarter])
                                 .order(date: :desc)
@@ -95,7 +98,7 @@ class ListingController < ApplicationController
                                 .limit(1)
 
     Ranking.where(date: prev_date_subquery)
-           .where(dtb_id: current_rankings.reselect(:dtb_id).reorder(nil))
+           .where(dtb_id: dtb_ids)
            .where(age_group_selected(age_group))
            .where(age_group_options(age_group, params[:age_group_options], gender))
            .where(year_end_rankings(params[:year_end], params[:quarter]))

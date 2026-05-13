@@ -1,4 +1,7 @@
 <% provide(:title, "Spielerprofil #{@player.firstname} #{@player.lastname}") %>
+<% content_for :head do %>
+  <%= javascript_include_tag 'charts', defer: true %>
+<% end %>
 <% provide(:meta_content, "Spielerprofil mit Ranglistenverlauf für #{@player.firstname} #{@player.lastname}") %>
 <h1 class="text-2xl font-bold text-left mb-3 mt-3">
   Spielerprofil
