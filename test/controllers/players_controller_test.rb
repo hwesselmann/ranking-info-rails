@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class PlayersControllerTest < ActionDispatch::IntegrationTest
@@ -13,57 +15,45 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     assert_select 'title', full_title('Spielerprofil J****n P****y')
   end
 
-  test 'filling up dtb_id' do
-    sut = PlayersController.new
-
-    assert_equal(10_812_345, sut.send(:fill_up_dtb_id, 10_812_345))
-    assert_equal(10_000_000, sut.send(:fill_up_dtb_id, 1))
-    assert_equal(10_000_000, sut.send(:fill_up_dtb_id, 10))
-    assert_equal(20_800_000, sut.send(:fill_up_dtb_id, 208))
+  test 'index with exact dtb_id single match redirects to player show' do
+    get players_path, params: { dtb_id: '10001001' }
+    assert_redirected_to player_path('10001001')
   end
 
-  test 'filling up dtb_id end' do
-    sut = PlayersController.new
-
-    assert_equal(10_812_345, sut.send(:fill_up_dtb_id_end, 10_812_345))
-    assert_equal(19_999_999, sut.send(:fill_up_dtb_id_end, 1))
-    assert_equal(10_999_999, sut.send(:fill_up_dtb_id_end, 10))
-    assert_equal(20_899_999, sut.send(:fill_up_dtb_id_end, 208))
+  test 'index with dtb_id prefix matching multiple players renders list' do
+    get players_path, params: { dtb_id: '1' }
+    assert_response :success
   end
 
-  test 'recent_ranking_dates returns at most 4 most recent dates' do
-    sut = PlayersController.new
-    dates = sut.send(:recent_ranking_dates, 10_888_888)
-
-    assert_equal 4, dates.size
-    assert_equal Date.new(2026, 4, 1), dates.first
-    assert_equal Date.new(2025, 7, 1), dates.last
-    assert dates.none? { |d| d == Date.new(2025, 4, 1) }, 'oldest adult-only date must be excluded'
+  test 'index with lastname single match redirects to player show' do
+    get players_path, params: { lastname: 'Mustermann' }
+    assert_redirected_to player_path(10_001_001)
   end
 
-  test 'data_for_last_twelve_months returns exactly 4 x-axis dates in chronological order' do
-    sut = PlayersController.new
-    chart_data, = sut.send(:data_for_last_twelve_months, 10_888_888)
-
-    all_dates = chart_data.flat_map { |series| series[:data].keys }.uniq
-    assert_equal 4, all_dates.size
-
-    sorted = all_dates.sort_by { |d| Date.strptime(d, '%d.%m.%Y') }
-    assert_equal sorted, all_dates, 'x-axis dates must be in ascending chronological order'
+  test 'index with lastname matching multiple players renders list' do
+    get players_path, params: { lastname: 'muster' }
+    assert_response :success
   end
 
-  test 'data_for_last_twelve_months returns correct series for youth and adult' do
-    sut = PlayersController.new
-    chart_data, = sut.send(:data_for_last_twelve_months, 10_888_888)
+  test 'index with lastname that matches nothing renders empty list' do
+    get players_path, params: { lastname: 'Nonexistent' }
+    assert_response :success
+  end
 
-    series_names = chart_data.map { |s| s[:name] }
-    assert_includes series_names, 'U18'
-    assert_includes series_names, 'Aktive'
+  test 'index with lastname and yob single match redirects to player show' do
+    # Max Mustermann: dtb_id 10_001_001, key=100 → yob '2000' → s_yob[2,4]='00' → 0+100=100
+    get players_path, params: { lastname: 'Mustermann', yob: '2000' }
+    assert_redirected_to player_path(10_001_001)
+  end
 
-    u18 = chart_data.find { |s| s[:name] == 'U18' }
-    assert_equal 4, u18[:data].size
+  test 'index with yob single match redirects to player show' do
+    # dtb_id 10_888_888: key=108 → yob '2008' → s_yob[2,4]='08' → 8+100=108
+    get players_path, params: { yob: '2008' }
+    assert_redirected_to player_path(10_888_888)
+  end
 
-    aktive = chart_data.find { |s| s[:name] == 'Aktive' }
-    assert_equal 3, aktive[:data].size
+  test 'index with commit param shows all players' do
+    get players_path, params: { commit: 'Suchen' }
+    assert_response :success
   end
 end

@@ -213,3 +213,51 @@ api_herren_q2_2026_second:
   age_group_ranking: false
   yob_ranking: false
   year_end_ranking: false
+
+# Youth age_group_ranking fixtures for FederationsController tests.
+# Two male U14 players in different federations, one female U16 in BAD.
+# The existing api_herren fixtures supply the m00 adult counts for BAD and WTB.
+fed_youth_m_u14_bad:
+  firstname: Thomas
+  lastname: Badner
+  nationality: GER
+  club: 'TC Baden'
+  federation: 'BAD'
+  age_group: 'U14'
+  date: '2026-04-01'
+  ranking_position: 1
+  score: '100'
+  dtb_id: 10_100_001
+  age_group_ranking: true
+  yob_ranking: false
+  year_end_ranking: false
+
+fed_youth_m_u14_wtb:
+  firstname: Marco
+  lastname: Schwaabe
+  nationality: GER
+  club: 'TC Stuttgart'
+  federation: 'WTB'
+  age_group: 'U14'
+  date: '2026-04-01'
+  ranking_position: 2
+  score: '90'
+  dtb_id: 10_200_001
+  age_group_ranking: true
+  yob_ranking: false
+  year_end_ranking: false
+
+fed_youth_w_u16_bad:
+  firstname: Anna
+  lastname: Badnerin
+  nationality: GER
+  club: 'TC Baden'
+  federation: 'BAD'
+  age_group: 'U16'
+  date: '2026-04-01'
+  ranking_position: 1
+  score: '80'
+  dtb_id: 20_100_001
+  age_group_ranking: true
+  yob_ranking: false
+  year_end_ranking: false
