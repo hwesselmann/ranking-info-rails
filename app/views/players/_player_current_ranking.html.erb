@@ -18,25 +18,25 @@
         <td class="py-1 px-2"><%= cr['position'] %></td>
         <td class="py-1 px-2">
           <% if !cr['position_change'].nil? && cr['position_change'][0].eql?('+') %>
-            <span class="ri-icon-green"><i class="fas fa-caret-up"></i></span>
+            <span class="ri-icon-green"><%= svg_icon(:caret_up) %></span>
             <%= cr['position_change'][1, cr['position_change'].size - 1] %>
           <% elsif !cr['position_change'].nil? && cr['position_change'][0].eql?('-') %>
-            <span class="ri-icon-red"><i class="fas fa-caret-down"></i></span>
+            <span class="ri-icon-red"><%= svg_icon(:caret_down) %></span>
             <%= cr['position_change'][1, cr['position_change'].size - 1] %>
           <% else %>
-            <span><i class="fas fa-minus"></i></span>
+            <span><%= svg_icon(:minus) %></span>
           <% end %>
         </td>
         <td class="py-1 px-2"><%= cr['score'] if index.eql?(0) %></td>
         <td class="py-1 px-2">
           <% if index.eql?(0) && !cr['score_change'].nil? && cr['score_change'][0].eql?('+') %>
-            <span class="ri-icon-green"><i class="fas fa-caret-up"></i></span>
+            <span class="ri-icon-green"><%= svg_icon(:caret_up) %></span>
             <%= cr['score_change'][1, cr['score_change'].size - 1] %>
           <% elsif index.eql?(0) && !cr['score_change'].nil? && cr['score_change'][0].eql?('-') %>
-            <span class="ri-icon-red"><i class="fas fa-caret-down"></i></span>
+            <span class="ri-icon-red"><%= svg_icon(:caret_down) %></span>
             <%= cr['score_change'][1, cr['score_change'].size - 1] %>
           <% elsif index.eql?(0) && !cr['score_change'].nil? %>
-            <span><i class="fas fa-minus"></i></span>
+            <span><%= svg_icon(:minus) %></span>
           <% end %>
         </td>
       </tr>

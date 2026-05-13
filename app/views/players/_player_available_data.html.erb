@@ -10,10 +10,10 @@
   <% @available_quarters.each do |y, q| %>
     <div class="grid grid-cols-12 border-b border-gray-200">
       <div class="col-span-4 py-1 px-2"><%= y.to_s %></div>
-      <div class="col-span-2 py-1 px-2"><% if q.include? '01.01.' %><span class="ri-icon-green"><i class="fas fa-check-circle"></i></span><% end %></div>
-      <div class="col-span-2 py-1 px-2"><% if q.include? '01.04.' %><span class="ri-icon-green"><i class="fas fa-check-circle"></i></span><% end %></div>
-      <div class="col-span-2 py-1 px-2"><% if q.include? '01.07.' %><span class="ri-icon-green"><i class="fas fa-check-circle"></i></span><% end %></div>
-      <div class="col-span-2 py-1 px-2"><% if q.include? '01.10.' %><span class="ri-icon-green"><i class="fas fa-check-circle"></i></span><% end %></div>
+      <div class="col-span-2 py-1 px-2"><% if q.include? '01.01.' %><span class="ri-icon-green"><%= svg_icon(:circle_check) %></span><% end %></div>
+      <div class="col-span-2 py-1 px-2"><% if q.include? '01.04.' %><span class="ri-icon-green"><%= svg_icon(:circle_check) %></span><% end %></div>
+      <div class="col-span-2 py-1 px-2"><% if q.include? '01.07.' %><span class="ri-icon-green"><%= svg_icon(:circle_check) %></span><% end %></div>
+      <div class="col-span-2 py-1 px-2"><% if q.include? '01.10.' %><span class="ri-icon-green"><%= svg_icon(:circle_check) %></span><% end %></div>
     </div>
   <% end %>
 </div>

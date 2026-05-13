@@ -41,10 +41,10 @@
   <% @available_quarters.each do |y, q| %>
     <div class="grid grid-cols-12 <%= 'striped' unless y.to_i.even? %>">
       <div class="col-span-4 text-center py-2 px-1"><%= y.to_s %></div>
-      <div class="col-span-2 text-center py-2 px-1"><% if q.include? '01.01.' %><span class="ri-icon-green"><i class="fas fa-check-circle"></i></span><% end %></div>
-      <div class="col-span-2 text-center py-2 px-1"><% if q.include? '01.04.' %><span class="ri-icon-green"><i class="fas fa-check-circle"></i></span><% end %></div>
-      <div class="col-span-2 text-center py-2 px-1"><% if q.include? '01.07.' %><span class="ri-icon-green"><i class="fas fa-check-circle"></i></span><% end %></div>
-      <div class="col-span-2 text-center py-2 px-1"><% if q.include? '01.10.' %><span class="ri-icon-green"><i class="fas fa-check-circle"></i></span><% end %></div>
+      <div class="col-span-2 text-center py-2 px-1"><% if q.include? '01.01.' %><span class="ri-icon-green"><%= svg_icon(:circle_check) %></span><% end %></div>
+      <div class="col-span-2 text-center py-2 px-1"><% if q.include? '01.04.' %><span class="ri-icon-green"><%= svg_icon(:circle_check) %></span><% end %></div>
+      <div class="col-span-2 text-center py-2 px-1"><% if q.include? '01.07.' %><span class="ri-icon-green"><%= svg_icon(:circle_check) %></span><% end %></div>
+      <div class="col-span-2 text-center py-2 px-1"><% if q.include? '01.10.' %><span class="ri-icon-green"><%= svg_icon(:circle_check) %></span><% end %></div>
     </div>
   <% end %>
 <% end %>

@@ -2,10 +2,10 @@
 
 module ListingHelper
   ARROW_ICONS = {
-    double: { up: 'fas fa-angle-double-up', down: 'fas fa-angle-double-down' },
-    single: { up: 'fas fa-caret-up',        down: 'fas fa-caret-down'        }
+    double: { up: :angles_up, down: :angles_down },
+    single: { up: :caret_up, down: :caret_down }
   }.freeze
-  NEW_ENTRANT_ICON = 'fas fa-asterisk'
+  NEW_ENTRANT_ICON = :asterisk
   COLOR_CLASSES    = { positive: 'ri-icon-green', negative: 'ri-icon-red', new: 'ri-icon-yellow' }.freeze
   INDICATOR_STYLE  = 'margin-left: 5px'
 
@@ -27,7 +27,7 @@ module ListingHelper
     indicator_icon(ARROW_ICONS[size][direction], color)
   end
 
-  def indicator_icon(icon_class, color_class)
-    content_tag(:span, content_tag(:i, '', class: icon_class), class: color_class, style: INDICATOR_STYLE)
+  def indicator_icon(icon_name, color_class)
+    content_tag(:span, svg_icon(icon_name), class: color_class, style: INDICATOR_STYLE)
   end
 end

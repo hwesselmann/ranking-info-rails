@@ -61,7 +61,15 @@ th:not([class*="text-center"]):not([class*="text-right"]) { text-align: left; }
     text-align: center;
   }
 
-  /* FA icon color helpers */
+  /* Inline SVG icon sizing */
+  .ri-icon {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    vertical-align: -0.125em;
+  }
+
+  /* Icon color helpers */
   .ri-icon-green {
     font-size: 1em;
     color: green;
