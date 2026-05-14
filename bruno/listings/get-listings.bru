@@ -1,0 +1,24 @@
+meta {
+  name: Get Listings
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/v1/listings/2026-04-01/m00
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{apiToken}}
+}
+
+params:query {
+  page: 1
+  per_page: 25
+  ~federation: BAD
+  ~club: TC Musterclub
+  ~age_group_options: only_yob
+  ~year_end: 0
+}

@@ -99,7 +99,10 @@ module Api
       def serialize_ranking(ranking, prev_positions)
         prev_position = prev_positions[ranking.dtb_id]
         position_change = prev_position ? prev_position - ranking.ranking_position : nil
-        ranking_attrs(ranking).merge(position_change: position_change)
+        ranking_attrs(ranking).merge(
+          position_change: position_change,
+          links: { self: api_v1_player_url(ranking.dtb_id) }
+        )
       end
 
       def ranking_attrs(ranking)
