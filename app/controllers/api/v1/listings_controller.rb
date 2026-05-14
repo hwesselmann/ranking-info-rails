@@ -18,6 +18,8 @@ module Api
       MAX_PER_PAGE = 100
 
       def index
+        return unless stale?(etag: listing_etag_key, public: false)
+
         gender = gender_from_slug(params[:age_group_slug])
         age_group = age_group_from_slug(params[:age_group_slug])
         per_page = capped_per_page
@@ -30,6 +32,15 @@ module Api
       end
 
       private
+
+      def listing_etag_key
+        [
+          ImportHistory.maximum(:imported_at),
+          params[:quarter], params[:age_group_slug], params[:age_group_options],
+          params[:federation], params[:club], params[:year_end],
+          params[:page], params[:per_page]
+        ]
+      end
 
       def gender_from_slug(slug)
         slug.to_s.start_with?('m') ? 'male' : 'female'

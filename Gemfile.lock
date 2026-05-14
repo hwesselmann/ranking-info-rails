@@ -357,6 +357,10 @@ GEM
       yard (~> 0.9, >= 0.9.24)
       yard-activesupport-concern (~> 0.0)
       yard-solargraph (~> 0.1)
+    solid_cache (1.0.10)
+      activejob (>= 7.2)
+      activerecord (>= 7.2)
+      railties (>= 7.2)
     solid_queue (1.4.0)
       activejob (>= 7.1)
       activerecord (>= 7.1)
@@ -427,6 +431,7 @@ DEPENDENCIES
   selenium-webdriver
   simplecov (= 0.21.2)
   solargraph
+  solid_cache
   solid_queue
   sqlite3 (~> 2.0)
   tzinfo-data

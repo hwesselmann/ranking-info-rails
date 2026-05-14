@@ -5,6 +5,11 @@ module Api
     # Base controller for all API v1 endpoints. Handles Bearer token authentication.
     class BaseController < ApplicationController
       skip_before_action :verify_authenticity_token
+
+      rate_limit to: 1000, within: 1.hour,
+                 by: -> { request.headers['Authorization'] || request.remote_ip },
+                 with: -> { render json: { error: 'Too Many Requests' }, status: :too_many_requests }
+
       before_action :authenticate_api_token!
 
       private

@@ -12,10 +12,12 @@ module Api
 
       setup do
         ENV['API_BEARER_TOKEN'] = TEST_TOKEN
+        Rails.cache.clear
       end
 
       teardown do
         ENV.delete('API_BEARER_TOKEN')
+        Rails.cache.clear
       end
 
       # --- Authentication ---
@@ -181,6 +183,53 @@ module Api
         record = response_json['data'].find { |r| r['dtb_id'] == 10_002_002 }
         assert_not_nil record
         assert_nil record['position_change']
+      end
+
+      # --- HTTP Caching ---
+
+      test 'response includes ETag header' do
+        get api_v1_listings_path(quarter: QUARTER, age_group_slug: 'm00'), headers: AUTH_HEADER
+        assert response.headers['ETag'].present?, 'response must include ETag header'
+      end
+
+      test 'returns 304 when ETag matches' do
+        get api_v1_listings_path(quarter: QUARTER, age_group_slug: 'm00'), headers: AUTH_HEADER
+        etag = response.headers['ETag']
+
+        get api_v1_listings_path(quarter: QUARTER, age_group_slug: 'm00'),
+            headers: AUTH_HEADER.merge('If-None-Match' => etag)
+        assert_response :not_modified
+      end
+
+      test 'returns 200 when ETag does not match' do
+        get api_v1_listings_path(quarter: QUARTER, age_group_slug: 'm00'),
+            headers: AUTH_HEADER.merge('If-None-Match' => '"stale-etag"')
+        assert_response :success
+      end
+
+      # --- Rate limiting ---
+
+      test 'returns 429 when rate limit counter is exhausted' do
+        with_incremented_cache(1001) do
+          get api_v1_listings_path(quarter: QUARTER, age_group_slug: 'm00'), headers: AUTH_HEADER
+          assert_response :too_many_requests
+          assert_equal 'Too Many Requests', response_json['error']
+        end
+      end
+
+      test 'rate limit allows requests below the limit' do
+        with_incremented_cache(999) do
+          get api_v1_listings_path(quarter: QUARTER, age_group_slug: 'm00'), headers: AUTH_HEADER
+          assert_response :success
+        end
+      end
+
+      def with_incremented_cache(count)
+        cache = ActionController::Base.cache_store
+        cache.define_singleton_method(:increment) { |*| count }
+        yield
+      ensure
+        cache.singleton_class.send(:remove_method, :increment)
       end
 
       private

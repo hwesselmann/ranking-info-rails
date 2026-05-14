@@ -106,6 +106,16 @@ api:
 
 Subsequent requests made through the Swagger UI will include the token automatically.
 
+### Rate Limiting
+
+All API endpoints are rate-limited to **1000 requests per hour**, keyed on the `Authorization` header value. Requests that exceed the limit receive a `429 Too Many Requests` response:
+
+```json
+{ "error": "Too Many Requests" }
+```
+
+The counter resets automatically after one hour. If no `Authorization` header is present, the limit is applied per IP address instead.
+
 ## Import file format  
 
 To import data into the system, create a CSV file from the official ranking list PDF using a tool like Tabula. The file must be in the format:
@@ -140,6 +150,14 @@ Example with custom settings:
 ```bash
 IMPORT_FOLDER=/data/rankings IMPORT_SCHEDULE="0 6 * * *" bin/jobs
 ```
+
+## Caching
+
+The application uses **Solid Cache** (database-backed) as the cache store in production. The cache table is part of the main database and is created automatically by `bin/rails db:migrate`.
+
+API responses include HTTP `ETag` headers. Clients that send a matching `If-None-Match` header receive a `304 Not Modified` response without a body, avoiding redundant data transfer. ETags are invalidated automatically whenever new ranking data is imported.
+
+The maximum cache size is configured to 256 MB in `config/cache.yml`.
 
 ## Deploy  
 
