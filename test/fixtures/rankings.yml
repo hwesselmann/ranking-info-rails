@@ -247,6 +247,22 @@ fed_youth_m_u14_wtb:
   yob_ranking: false
   year_end_ranking: false
 
+# Player API fixtures — Mustermann (10_001_001) with a youth entry for multi-age-group history test
+api_mustermann_u18_q1_2026:
+  firstname: Max
+  lastname: Mustermann
+  nationality: GER
+  club: 'TC Testclub'
+  federation: 'BAD'
+  age_group: 'U18'
+  date: '2026-01-01'
+  ranking_position: 5
+  score: '300'
+  dtb_id: 10_001_001
+  age_group_ranking: true
+  yob_ranking: false
+  year_end_ranking: false
+
 fed_youth_w_u16_bad:
   firstname: Anna
   lastname: Badnerin

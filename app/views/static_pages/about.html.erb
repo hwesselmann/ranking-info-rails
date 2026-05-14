@@ -10,6 +10,6 @@
   aktuellen Fassung unter<br/><a href="https://www.tennis.de/spielen/ranglisten-und-leistungsklasse.html" target="_blank">https://www.tennis.de/spielen/ranglisten-und-leistungsklasse.html</a><br/>abrufbar ist.
 </p>
 <p>
-  Die Adresse unserer Website ist: <%= ENV.fetch("DOMAIN") || CONFIG['domain'] %>.<br/><br/>
+  Die Adresse unserer Website ist: <%= ENV["DOMAIN"] %>.<br/><br/>
   <%= render 'impressum' %>
 </p>

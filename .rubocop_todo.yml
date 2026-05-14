@@ -52,6 +52,7 @@ Metrics/ClassLength:
     - 'app/models/player.rb'
     - 'app/models/ranking.rb'
     - 'test/controllers/api/v1/listings_controller_test.rb'
+    - 'test/controllers/api/v1/players_controller_test.rb'
 
 # Offense count: 4
 # Configuration parameters: AllowedMethods, AllowedPatterns, Max.

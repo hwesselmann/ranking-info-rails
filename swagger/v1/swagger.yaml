@@ -42,6 +42,16 @@ components:
       description: API token configured via Rails credentials (api.tokens) or ENV[API_BEARER_TOKEN]
 
   schemas:
+    PlayerLinks:
+      type: object
+      description: HAL-style hypermedia links
+      properties:
+        self:
+          type: string
+          format: uri
+          description: URL of the player detail resource
+          example: /api/v1/players/10712345
+
     RankingEntry:
       type: object
       properties:
@@ -81,6 +91,109 @@ components:
             Change in position compared to the previous quarter.
             Positive = moved up, negative = moved down, null = no previous entry.
           example: 2
+        links:
+          $ref: '#/components/schemas/PlayerLinks'
+
+    PlayerSummary:
+      type: object
+      description: Condensed player record returned by the search endpoint
+      properties:
+        dtb_id:
+          type: integer
+          example: 10712345
+        lastname:
+          type: string
+          example: Mustermann
+        firstname:
+          type: string
+          example: Max
+        club:
+          type: string
+          example: TC Musterclub
+        links:
+          $ref: '#/components/schemas/PlayerLinks'
+
+    RankingHistoryEntry:
+      type: object
+      description: One ranking entry in a player's history
+      properties:
+        quarter:
+          type: string
+          format: date
+          description: First day of the ranking quarter
+          example: "2026-04-01"
+        age_group:
+          type: string
+          description: Age group slug (e.g. m00, U18)
+          example: m00
+        ranking_position:
+          type: integer
+          example: 1
+        score:
+          type: string
+          example: "1234"
+
+    PlayerDetail:
+      type: object
+      description: Full player record including ranking history
+      properties:
+        dtb_id:
+          type: integer
+          example: 10712345
+        lastname:
+          type: string
+          example: Mustermann
+        firstname:
+          type: string
+          example: Max
+        nationality:
+          type: string
+          maxLength: 3
+          example: GER
+        club:
+          type: string
+          example: TC Musterclub
+        federation:
+          type: string
+          example: BAD
+        rankings:
+          type: array
+          items:
+            $ref: '#/components/schemas/RankingHistoryEntry'
+
+    SearchRequestBlock:
+      type: object
+      description: Echo of the applied search parameters plus total result count
+      properties:
+        lastname:
+          type: string
+          description: The lastname search term as submitted
+          example: Mustermann
+        yob:
+          type: string
+          nullable: true
+          description: Year of birth filter as submitted, null if not provided
+          example: "2008"
+        total_count:
+          type: integer
+          description: Total number of matching players
+          example: 3
+
+    PlayersSearchResponse:
+      type: object
+      properties:
+        request:
+          $ref: '#/components/schemas/SearchRequestBlock'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlayerSummary'
+
+    PlayerDetailResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/PlayerDetail'
 
     RequestBlock:
       type: object
@@ -266,6 +379,129 @@ paths:
 
         "401":
           description: Unauthorized — missing or invalid Bearer token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/players:
+    get:
+      summary: Search players by lastname
+      description: >
+        Returns players whose lastname matches the search term (case-insensitive, partial match).
+        An optional `yob` (year of birth, YYYY) further narrows the results.
+        Returns 404 when no matching player is found.
+      operationId: searchPlayers
+      tags:
+        - Players
+      parameters:
+        - name: lastname
+          in: query
+          required: true
+          description: Lastname to search for (partial, case-insensitive)
+          schema:
+            type: string
+          example: Mustermann
+
+        - name: yob
+          in: query
+          required: false
+          description: Year of birth (YYYY) to narrow results
+          schema:
+            type: string
+            pattern: '^\d{4}$'
+          example: "2008"
+
+      responses:
+        "200":
+          description: One or more matching players found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayersSearchResponse'
+              example:
+                data:
+                  - dtb_id: 10712345
+                    lastname: Mustermann
+                    firstname: Max
+                    club: TC Musterclub
+                    links:
+                      self: /api/v1/players/10712345
+
+        "400":
+          description: Bad request — lastname parameter missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+        "401":
+          description: Unauthorized — missing or invalid Bearer token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+        "404":
+          description: No player found for the given search criteria
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/players/{id}:
+    get:
+      summary: Retrieve player detail by DTB ID
+      description: >
+        Returns basic player data and the full ranking history across all age groups
+        (regular quarterly rankings only; year-end, YOB, and age-group-ranking entries are excluded).
+        Returns 404 when the DTB ID is unknown.
+      operationId: getPlayer
+      tags:
+        - Players
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: DTB ID of the player
+          schema:
+            type: integer
+          example: 10712345
+
+      responses:
+        "200":
+          description: Player found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerDetailResponse'
+              example:
+                data:
+                  dtb_id: 10712345
+                  lastname: Mustermann
+                  firstname: Max
+                  nationality: GER
+                  club: TC Musterclub
+                  federation: BAD
+                  rankings:
+                    - quarter: "2026-04-01"
+                      age_group: m00
+                      ranking_position: 1
+                      score: "1234"
+                    - quarter: "2025-10-01"
+                      age_group: m00
+                      ranking_position: 3
+                      score: "1100"
+
+        "401":
+          description: Unauthorized — missing or invalid Bearer token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+        "404":
+          description: Player not found
           content:
             application/json:
               schema:
