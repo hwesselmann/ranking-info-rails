@@ -12,6 +12,10 @@ th:not([class*="text-center"]):not([class*="text-right"]) { text-align: left; }
 
 /* ── Base ──────────────────────────────────────────────────────────── */
 @layer base {
+  html {
+    scrollbar-gutter: stable;
+  }
+
   section {
     overflow: auto;
   }
