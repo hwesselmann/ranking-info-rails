@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       get 'listings/:quarter/:age_group_slug', to: 'listings#index', as: :listings
+      resources :players, only: %i[index show]
     end
   end
 

@@ -116,6 +116,34 @@ All API endpoints are rate-limited to **1000 requests per hour**, keyed on the `
 
 The counter resets automatically after one hour. If no `Authorization` header is present, the limit is applied per IP address instead.
 
+### Bruno Collection
+
+A [Bruno](https://www.usebruno.com/) collection for manual API testing is located in the `bruno/` directory. Open the folder in Bruno, select the **local** environment, and set your `apiToken`. All three endpoints are pre-configured; optional query parameters are included but disabled and can be toggled per request.
+
+### Available Endpoints
+
+#### Listings
+
+```
+GET /api/v1/listings/:quarter/:age_group_slug
+```
+
+Returns a paginated ranking list for a given quarter and age group. Each entry includes a HAL-style `links.self` pointing to the player detail endpoint. See `/api-docs` for all query parameters (federation, club, pagination, etc.).
+
+#### Players
+
+```
+GET /api/v1/players?lastname=Mustermann&yob=2008
+```
+
+Searches for players by lastname (case-insensitive, partial match). The optional `yob` parameter (year of birth, YYYY) narrows results to players born in that year. Returns 400 if `lastname` is missing, 404 if no match is found.
+
+```
+GET /api/v1/players/:dtb_id
+```
+
+Returns basic player data and the full quarterly ranking history across all age groups. Returns 404 if the DTB ID is unknown.
+
 ## Import file format  
 
 To import data into the system, create a CSV file from the official ranking list PDF using a tool like Tabula. The file must be in the format:
