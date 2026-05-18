@@ -7,14 +7,15 @@ class ListingController < ApplicationController
   include RankingFilters
 
   def index
-    @quarters = fetch_available_quarters
-    @federations = federations
+    @quarters = Rails.cache.fetch("available_quarters", expires_in: 1.hour) { fetch_available_quarters }
+    @federations = Rails.cache.fetch("federations", expires_in: 1.hour) { federations }
 
     return unless params[:commit]
 
     gender = ui_gender_to_internal(params[:gender])
     age_group = ui_age_group_to_internal(params[:age_group], params[:gender])
 
+    # Build the base query with all filters
     @rankings = Ranking.where(date: params[:quarter])
                        .where(gender_selected(gender))
                        .where(age_group_selected(age_group))
@@ -25,52 +26,34 @@ class ListingController < ApplicationController
                        .select(:dtb_id, :ranking_position, :lastname, :firstname, :nationality, :club, :federation,
                                :score)
                        .order(:ranking_position, score: :desc)
-                       .to_a
 
-    @previous_positions = previous_positions(@rankings.map(&:dtb_id), params, gender, age_group)
+    # Single query for previous positions using a subquery
+    @previous_positions = fetch_previous_positions(@rankings, params, gender, age_group)
   end
 
   private
 
   def fetch_available_quarters
-    available_rankings = Ranking.select(:date).order(date: :desc).distinct
-    years = available_years(available_rankings)
-    quarters = {}
-    years.each do |y|
-      quarters[y] = available_quarters_for_year(y, available_rankings)
-    end
-    quarters
-  end
-
-  def available_years(rankings)
-    years = []
-    rankings.each do |r|
-      years.push((r.date - 1.day).year.to_s) unless r.date.month.eql?(12)
-    end
-    years
-  end
-
-  def available_quarters_for_year(year, rankings)
-    quarters = []
-    rankings.each do |r|
-      next unless year.eql?((r.date - 1.day).year.to_s)
-
+    # Optimized: Use direct SQL queries instead of loading all records
+    # Get distinct years from dates
+    all_dates = Ranking.select(:date).where("date < ?", Date.current).order(date: :desc).distinct
+    
+    years = {}
+    all_dates.each do |r|
+      year = (r.date - 1.day).year.to_s
+      years[year] ||= []
       # do not show year end ranking dates - they are triggered via checkbox
       unless r.date.month.eql?(12) && r.date.day.eql?(31)
-        quarters.push([(r.date - 1.day).strftime('%d.%m.%Y'),
-                       r.date.strftime('%Y-%m-%d')])
+        years[year].push([(r.date - 1.day).strftime('%d.%m.%Y'), r.date.strftime('%Y-%m-%d')])
       end
     end
-    quarters
+    
+    # Sort years in descending order
+    years.sort_by { |y, _| -y.to_i }.to_h
   end
 
   def federations
-    federations = []
-    rankings = Ranking.select(:federation).order(:federation).distinct
-    rankings.each do |ranking|
-      federations.push ranking.federation
-    end
-    federations
+    Ranking.select(:federation).order(:federation).distinct.pluck(:federation)
   end
 
   def ui_gender_to_internal(gender)
@@ -88,14 +71,16 @@ class ListingController < ApplicationController
     end
   end
 
-  def previous_positions(dtb_ids, params, gender, age_group)
-    return nil if dtb_ids.empty?
+  def fetch_previous_positions(rankings, params, gender, age_group)
+    return nil if rankings.empty?
 
     prev_date_subquery = Ranking.select(:date)
                                 .where('date < ?', params[:quarter])
                                 .order(date: :desc)
                                 .distinct
                                 .limit(1)
+
+    dtb_ids = rankings.reselect(:dtb_id)
 
     Ranking.where(date: prev_date_subquery)
            .where(dtb_id: dtb_ids)

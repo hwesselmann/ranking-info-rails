@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_14_120734) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_15_100000) do
   create_table "import_histories", force: :cascade do |t|
     t.string "category", null: false
     t.datetime "created_at", null: false
@@ -40,9 +40,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_14_120734) do
     t.index ["age_group", "date"], name: "index_rankings_on_age_group_and_date"
     t.index ["club"], name: "index_rankings_on_club"
     t.index ["date", "age_group", "age_group_ranking", "yob_ranking", "year_end_ranking"], name: "idx_rankings_date_age_group_options"
+    t.index ["date", "age_group", "yob_ranking", "age_group_ranking", "year_end_ranking"], name: "idx_rankings_full_filter_set"
+    t.index ["date", "dtb_id"], name: "idx_rankings_date_dtb_id"
     t.index ["dtb_id", "date", "federation"], name: "index_rankings_on_dtb_id_and_date_and_federation"
     t.index ["dtb_id", "date"], name: "index_rankings_on_dtb_id_and_date"
     t.index ["dtb_id"], name: "index_rankings_on_dtb_id"
+    t.index ["federation", "date"], name: "idx_rankings_federation_date"
     t.index ["federation"], name: "index_rankings_on_federation"
     t.index ["lastname"], name: "index_rankings_on_lastname"
   end

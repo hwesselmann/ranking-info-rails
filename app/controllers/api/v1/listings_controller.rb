@@ -73,7 +73,7 @@ module Api
 
       def previous_positions(base_rankings, quarter, age_group, gender)
         prev_date = Ranking.select(:date).where('date < ?', quarter).order(date: :desc).distinct.limit(1)
-        dtb_ids = base_rankings.reselect(:dtb_id).reorder(nil)
+        dtb_ids = base_rankings.reselect(:dtb_id)
 
         Ranking.where(date: prev_date)
                .where(dtb_id: dtb_ids)

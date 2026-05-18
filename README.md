@@ -5,7 +5,7 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=hwesselmann_ranking-info&metric=coverage)](https://sonarcloud.io/summary/new_code?id=hwesselmann_ranking-info)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=hwesselmann_ranking-info&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=hwesselmann_ranking-info)
 
-This is a small web-application aiming at providing accessible information on the German national tennis youth rankings.
+This is a small web-application aiming at providing accessible information on the German national tennis youth and adult rankings.
 
 ## Prerequisites  
 
