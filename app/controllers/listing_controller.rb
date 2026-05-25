@@ -7,8 +7,8 @@ class ListingController < ApplicationController
   include RankingFilters
 
   def index
-    @quarters = Rails.cache.fetch("available_quarters", expires_in: 1.hour) { fetch_available_quarters }
-    @federations = Rails.cache.fetch("federations", expires_in: 1.hour) { federations }
+    @quarters = Rails.cache.fetch('available_quarters', expires_in: 1.hour) { fetch_available_quarters }
+    @federations = Rails.cache.fetch('federations', expires_in: 1.hour) { federations }
 
     return unless params[:commit]
 
@@ -36,8 +36,8 @@ class ListingController < ApplicationController
   def fetch_available_quarters
     # Optimized: Use direct SQL queries instead of loading all records
     # Get distinct years from dates
-    all_dates = Ranking.select(:date).where("date < ?", Date.current).order(date: :desc).distinct
-    
+    all_dates = Ranking.select(:date).where('date < ?', Date.current).order(date: :desc).distinct
+
     years = {}
     all_dates.each do |r|
       year = (r.date - 1.day).year.to_s
@@ -47,7 +47,7 @@ class ListingController < ApplicationController
         years[year].push([(r.date - 1.day).strftime('%d.%m.%Y'), r.date.strftime('%Y-%m-%d')])
       end
     end
-    
+
     # Sort years in descending order
     years.sort_by { |y, _| -y.to_i }.to_h
   end
