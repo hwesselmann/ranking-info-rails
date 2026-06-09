@@ -194,7 +194,7 @@ GEM
       ruby-progressbar
     msgpack (1.7.3)
     nenv (0.3.0)
-    net-imap (0.6.4)
+    net-imap (0.6.4.1)
       date
       net-protocol
     net-pop (0.1.2)
