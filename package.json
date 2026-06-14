@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.3.0",
-    "esbuild": "^0.25.0",
+    "esbuild": "^0.28.1",
     "sass": "^1.77.0"
   }
 }
