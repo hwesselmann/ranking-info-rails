@@ -192,7 +192,7 @@ GEM
       builder
       minitest (>= 5.0)
       ruby-progressbar
-    msgpack (1.7.3)
+    msgpack (1.8.2)
     nenv (0.3.0)
     net-imap (0.6.4)
       date
